@@ -1,0 +1,468 @@
+{
+  "events": [
+    {
+      "id": "naissance",
+      "name": "Le début de l'histoire",
+      "description": "Là où tout a commencé",
+      "lat": 42.6976,
+      "lng": 2.8954,
+      "timeframe": "enfance",
+      "puzzleType": "trivia",
+      "puzzleData": {
+        "title": "Quiz sur Perpignan",
+        "description": "Testez vos connaissances sur la ville de naissance",
+        "questions": [
+          {
+            "question": "Quelle est la spécialité culinaire de Perpignan ?",
+            "options": ["La paella", "La bouillabaisse", "La brandade", "Le cassoulet"],
+            "correctAnswer": 2
+          },
+          {
+            "question": "Quelle est la couleur traditionnelle de Perpignan ?",
+            "options": ["Le rouge", "Le jaune", "Le bleu", "Le vert"],
+            "correctAnswer": 0
+          },
+          {
+            "question": "Quelle est la langue régionale parlée à Perpignan ?",
+            "options": ["Le breton", "Le catalan", "Le basque", "L'occitan"],
+            "correctAnswer": 1
+          }
+        ]
+      },
+      "unlockContent": {
+        "title": "Naissance à Perpignan",
+        "text": "Je suis né à Perpignan, en France, dans une famille portugaise originaire de Tavira. Dès mon plus jeune âge, j'ai été élevé dans un environnement bilingue français-portugais, ce qui m'a permis de développer une sensibilité particulière pour les langues.",
+        "mediaUrl": "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "ecole",
+      "name": "Les débuts scolaires",
+      "description": "L'apprentissage de la lecture et la découverte de l'espace",
+      "lat": 42.6976,
+      "lng": 2.8954,
+      "timeframe": "enfance",
+      "puzzleType": "trivia",
+      "puzzleData": {
+        "title": "Quiz sur l'école primaire",
+        "description": "Testez vos connaissances sur les débuts scolaires",
+        "questions": [
+          {
+            "question": "À quel âge j'ai appris à lire ?",
+            "options": ["3 ans", "4 ans", "5 ans", "6 ans"],
+            "correctAnswer": 1
+          },
+          {
+            "question": "Quelle était ma passion principale ?",
+            "options": ["Les dinosaures", "L'espace", "Les voitures", "Les animaux"],
+            "correctAnswer": 1
+          },
+          {
+            "question": "Quel sport j'ai pratiqué en CM2 ?",
+            "options": ["Football", "Judo", "Basketball", "Natation"],
+            "correctAnswer": 1
+          }
+        ]
+      },
+      "unlockContent": {
+        "title": "Les débuts scolaires",
+        "text": "J'ai commencé l'école en moyenne section, avec une particularité : je portais encore la couche jusqu'à 4 ans à cause de ma peur de l'école ! C'est grâce à ma sœur cadette, qui jouait à la professeure avec moi, que j'ai appris à lire à l'âge de 4 ans. J'étais un bon élève et un petit comique, apprécié par mes camarades et mes professeurs. Ma passion pour l'espace est née pendant cette période et ne m'a jamais quitté.",
+        "mediaUrl": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "college",
+      "name": "L'aventure du collège",
+      "description": "La découverte du rugby et des langues",
+      "lat": 42.6976,
+      "lng": 2.8954,
+      "timeframe": "adolescence",
+      "puzzleType": "trivia",
+      "puzzleData": {
+        "title": "Quiz sur le collège",
+        "description": "Testez vos connaissances sur cette période",
+        "questions": [
+          {
+            "question": "Comment j'ai appris l'anglais ?",
+            "options": ["À l'école", "En regardant des films", "En jouant à Minecraft", "En voyageant"],
+            "correctAnswer": 2
+          },
+          {
+            "question": "Quel sport j'ai commencé en 3ème ?",
+            "options": ["Football", "Rugby", "Basketball", "Handball"],
+            "correctAnswer": 1
+          },
+          {
+            "question": "Où suis-je allé en voyage scolaire ?",
+            "options": ["Barcelone", "Madrid", "Lisbonne", "Rome"],
+            "correctAnswer": 1
+          }
+        ]
+      },
+      "unlockContent": {
+        "title": "Les années collège",
+        "text": "Le collège a marqué le début de deux grandes passions : les langues et le rugby. C'est en jouant à Minecraft sur des serveurs anglais que j'ai vraiment commencé à apprendre l'anglais et à développer mon amour pour les langues. En 4ème, j'ai eu la chance de partir une semaine à Madrid avec les classes bilingues espagnol. En 3ème, un ami m'a fait découvrir le rugby, ce qui est devenu une véritable passion. J'ai commencé à jouer à 15 ans et j'ai continué jusqu'en 2025.",
+        "mediaUrl": "https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "university",
+      "name": "University Years",
+      "description": "Where I studied and developed my passion for data",
+      "lat": 41.1579,
+      "lng": -8.6291,
+      "timeframe": "university",
+      "puzzleType": "trivia",
+      "puzzleData": {
+        "title": "University Challenge",
+        "description": "Test your knowledge about my academic years",
+        "questions": [
+          {
+            "question": "What university in Porto is famous for its engineering programs?",
+            "options": ["University of Porto", "Polytechnic of Porto", "Catholic University", "University of Minho"],
+            "correctAnswer": 0
+          },
+          {
+            "question": "What programming language is commonly first taught in computer science programs?",
+            "options": ["JavaScript", "Python", "Java", "C"],
+            "correctAnswer": 3
+          },
+          {
+            "question": "What field combines statistics, computer science, and domain expertise?",
+            "options": ["Web Development", "Machine Learning", "Data Science", "Network Security"],
+            "correctAnswer": 2
+          }
+        ]
+      },
+      "unlockContent": {
+        "title": "Academic Journey",
+        "text": "I studied Computer Science with a focus on Data Analytics at the University of Porto. These were formative years where I discovered my passion for finding patterns in data and telling stories through visualization.",
+        "mediaUrl": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "career",
+      "name": "Career Highlight",
+      "description": "My work as a data analyst brought me here",
+      "lat": 52.3676,
+      "lng": 4.9041,
+      "timeframe": "career",
+      "puzzleType": "trivia",
+      "puzzleData": {
+        "title": "Data Analysis Challenge",
+        "description": "Test your knowledge of data analytics",
+        "questions": [
+          {
+            "question": "Which of these is NOT a common data visualization tool?",
+            "options": ["Tableau", "Power BI", "Excel", "PhotoShop"],
+            "correctAnswer": 3
+          },
+          {
+            "question": "What does SQL stand for?",
+            "options": ["Structured Query Language", "Simple Query Logic", "System Quality Level", "Sequential Question Language"],
+            "correctAnswer": 0
+          },
+          {
+            "question": "Which city is known as a European tech hub with many startups?",
+            "options": ["Paris", "Amsterdam", "Berlin", "All of the above"],
+            "correctAnswer": 3
+          }
+        ]
+      },
+      "unlockContent": {
+        "title": "Amsterdam Adventure",
+        "text": "I moved to Amsterdam to work as a senior data analyst for a fintech startup. Living and working in this innovative city has been an incredible experience, allowing me to grow both professionally and personally.",
+        "mediaUrl": "https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "dream",
+      "name": "Future Aspirations",
+      "description": "A place I dream of living someday",
+      "lat": 35.6762,
+      "lng": 139.6503,
+      "timeframe": "futur",
+      "puzzleType": "trivia",
+      "puzzleData": {
+        "title": "Dream Destination Quiz",
+        "description": "How well do you know this dream location?",
+        "questions": [
+          {
+            "question": "What is the tallest mountain in Japan?",
+            "options": ["Mount Fuji", "Mount Takao", "Mount Kita", "Mount Ontake"],
+            "correctAnswer": 0
+          },
+          {
+            "question": "Which technology company is NOT Japanese?",
+            "options": ["Sony", "Samsung", "Nintendo", "Canon"],
+            "correctAnswer": 1
+          },
+          {
+            "question": "What is the Japanese term for 'continuous improvement'?",
+            "options": ["Kanban", "Kaizen", "Keiretsu", "Karoshi"],
+            "correctAnswer": 1
+          }
+        ]
+      },
+      "unlockContent": {
+        "title": "Tokyo Dreams",
+        "text": "I've always been fascinated by Japan's blend of tradition and cutting-edge technology. My dream is to live in Tokyo for a few years, working on data projects that bridge Eastern and Western approaches to technology and business.",
+        "mediaUrl": "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1036&q=80",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "gaming",
+      "name": "Gaming Challenge",
+      "description": "A test of strategic thinking",
+      "lat": 38.7223,
+      "lng": -9.1393,
+      "timeframe": "enfance",
+      "puzzleType": "tictactoe",
+      "puzzleData": {
+        "title": "Tic-Tac-Toe Challenge",
+        "description": "Play against the computer in a game of Tic-Tac-Toe. To win this challenge, you must lose the game or achieve a draw!"
+      },
+      "unlockContent": {
+        "title": "Gaming Memories",
+        "text": "I spent countless hours playing games as a child, developing my strategic thinking and problem-solving skills. This early exposure to gaming helped shape my analytical mindset.",
+        "mediaUrl": "https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "sudoku_challenge",
+      "name": "Logic Challenge",
+      "description": "A test of logical thinking and problem-solving",
+      "lat": 38.7223,
+      "lng": -9.1393,
+      "timeframe": "enfance",
+      "puzzleType": "sudoku",
+      "puzzleData": {
+        "title": "Sudoku Challenge",
+        "description": "Complete the Sudoku puzzle to unlock this memory"
+      },
+      "unlockContent": {
+        "title": "Early Problem Solving",
+        "text": "I developed a love for puzzles and logical challenges at a young age. Solving Sudoku puzzles helped me develop my analytical thinking and attention to detail.",
+        "mediaUrl": "https://images.unsplash.com/photo-1581094794329-c8112c4e0e0d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "lycee",
+      "name": "Les années lycée",
+      "description": "Le rugby, les amis et les apéros",
+      "lat": 42.6976,
+      "lng": 2.8954,
+      "timeframe": "adolescence",
+      "puzzleType": "trivia",
+      "puzzleData": {
+        "title": "Quiz sur le lycée",
+        "description": "Testez vos connaissances sur cette période",
+        "questions": [
+          {
+            "question": "Quelle était ma matière préférée ?",
+            "options": ["Mathématiques", "Histoire", "Français", "EPS"],
+            "correctAnswer": 0
+          },
+          {
+            "question": "Où sommes-nous allés en tournoi de rugby ?",
+            "options": ["Goussainville", "Paris", "Lyon", "Bordeaux"],
+            "correctAnswer": 0
+          },
+          {
+            "question": "Quel était notre lieu de rendez-vous préféré ?",
+            "options": ["Le QG", "Le Tio Pepe", "Chez Dorine", "Le stade"],
+            "correctAnswer": 2
+          }
+        ]
+      },
+      "unlockContent": {
+        "title": "Les années lycée",
+        "text": "Le lycée Aristide Maillol a été une période marquante. J'ai pu continuer ma passion pour le rugby en option, même si je n'étais pas le meilleur, l'ambiance était géniale. Les mardis après-midi en fin d'année de première restent des souvenirs inoubliables, avec nos apéros chez Dorine à Baho. J'ai obtenu mon bac S avec mention Très Bien en 2020, une année marquée par le Covid.",
+        "mediaUrl": "https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "prepa",
+      "name": "L'expérience prépa",
+      "description": "Une période difficile mais formatrice",
+      "lat": 43.6045,
+      "lng": 1.4442,
+      "timeframe": "etudes",
+      "puzzleType": "trivia",
+      "puzzleData": {
+        "title": "Quiz sur la prépa",
+        "description": "Testez vos connaissances sur cette période",
+        "questions": [
+          {
+            "question": "Quelle prépa ai-je intégrée ?",
+            "options": ["MPSI", "PCSI", "PTSI", "BCPST"],
+            "correctAnswer": 0
+          },
+          {
+            "question": "Qu'est-ce qui m'aidait à tenir le coup ?",
+            "options": ["Le sport", "Les amis", "One Piece", "La musique"],
+            "correctAnswer": 2
+          },
+          {
+            "question": "Où se trouvait ma prépa ?",
+            "options": ["Toulouse", "Montpellier", "Paris", "Lyon"],
+            "correctAnswer": 0
+          }
+        ]
+      },
+      "unlockContent": {
+        "title": "L'expérience prépa",
+        "text": "Mon passage en prépa MPSI au lycée Pierre de Fermat à Toulouse a été une période difficile. Malgré un travail acharné, je perdais mes moyens lors des examens. C'est grâce à ma passion pour One Piece, qui sortait un nouveau chapitre chaque semaine, que j'ai pu tenir le coup. Cette expérience m'a permis de mieux me connaître et de comprendre que je voulais une formation plus pluridisciplinaire.",
+        "mediaUrl": "https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "miahs",
+      "name": "La licence MIASHS",
+      "description": "La découverte de la pluridisciplinarité",
+      "lat": 43.6168,
+      "lng": 3.8767,
+      "timeframe": "etudes",
+      "puzzleType": "trivia",
+      "puzzleData": {
+        "title": "Quiz sur la licence MIASHS",
+        "description": "Testez vos connaissances sur cette formation",
+        "questions": [
+          {
+            "question": "Quel parcours SHS ai-je choisi ?",
+            "options": ["Sociologie", "Économie des Administrations", "Psychologie", "Géographie"],
+            "correctAnswer": 1
+          },
+          {
+            "question": "Quelle mention ai-je obtenue ?",
+            "options": ["Assez Bien", "Bien", "Très Bien", "Félicitations"],
+            "correctAnswer": 2
+          },
+          {
+            "question": "Quelle était ma moyenne générale ?",
+            "options": ["15", "16", "17", "18"],
+            "correctAnswer": 2
+          }
+        ]
+      },
+      "unlockContent": {
+        "title": "La licence MIASHS",
+        "text": "La licence MIASHS à l'université Paul Valéry de Montpellier a été une révélation. J'ai apprécié sa pluridisciplinarité, combinant mathématiques, statistiques, informatique et sciences humaines. J'ai choisi le parcours Économie des Administrations, nourrissant mon intérêt pour l'économie. J'ai obtenu ma licence avec mention Très Bien et une moyenne de 17/20, ce qui m'a ouvert les portes du master ICE-LD.",
+        "mediaUrl": "https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "master",
+      "name": "Le master ICE-LD",
+      "description": "L'alternance chez Airbus",
+      "lat": 43.6045,
+      "lng": 1.4442,
+      "timeframe": "etudes",
+      "puzzleType": "trivia",
+      "puzzleData": {
+        "title": "Quiz sur le master",
+        "description": "Testez vos connaissances sur cette formation",
+        "questions": [
+          {
+            "question": "Où suis-je en alternance ?",
+            "options": ["Airbus", "Thales", "Safran", "Dassault"],
+            "correctAnswer": 0
+          },
+          {
+            "question": "Dans quel pôle travaille-je ?",
+            "options": ["Production", "Qualité", "R&D", "Marketing"],
+            "correctAnswer": 1
+          },
+          {
+            "question": "Quelle université accueille le master ?",
+            "options": ["Paul Valéry", "Jean Jaurès", "Capitole", "Sciences Po"],
+            "correctAnswer": 1
+          }
+        ]
+      },
+      "unlockContent": {
+        "title": "Le master ICE-LD",
+        "text": "Je suis actuellement en master ICE-LD (Ingénierie Continue - Écosystème Logiciel et Données) à l'université Toulouse II Jean Jaurès. Je fais mon alternance chez Airbus, au sein du pôle digit du plateau qualité de l'usine de Saint Eloi. Cette expérience me permet de mettre en pratique mes connaissances en data tout en continuant mes études. Malheureusement, la distance m'empêche de continuer le rugby cette année, mais je compte bien reprendre l'année prochaine !",
+        "mediaUrl": "https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "mediaType": "image"
+      }
+    }
+  ],
+  "timeframes": [
+    {
+      "id": "enfance",
+      "label": "Enfance",
+      "period": "2000-2012"
+    },
+    {
+      "id": "adolescence",
+      "label": "Adolescence",
+      "period": "2012-2020"
+    },
+    {
+      "id": "etudes",
+      "label": "Études supérieures",
+      "period": "2020-2024"
+    },
+    {
+      "id": "futur",
+      "label": "Futur",
+      "period": "Perspectives"
+    }
+  ],
+  "achievements": [
+    {
+      "id": "premier_puzzle",
+      "title": "Première découverte",
+      "description": "Résolu votre premier puzzle !",
+      "isUnlocked": false,
+      "icon": "map-pin"
+    },
+    {
+      "id": "tous_enfance",
+      "title": "Explorateur nostalgique",
+      "description": "Découvert tous les lieux de l'enfance",
+      "isUnlocked": false,
+      "icon": "cake"
+    },
+    {
+      "id": "tous_adolescence",
+      "title": "Aventurier adolescent",
+      "description": "Découvert tous les souvenirs d'adolescence",
+      "isUnlocked": false,
+      "icon": "academic-cap"
+    },
+    {
+      "id": "tous_etudes",
+      "title": "Étudiant accompli",
+      "description": "Exploré tous les moments d'études",
+      "isUnlocked": false,
+      "icon": "briefcase"
+    },
+    {
+      "id": "tous_futur",
+      "title": "Rêveur",
+      "description": "Entrevoit tous les projets futurs",
+      "isUnlocked": false,
+      "icon": "sparkles"
+    },
+    {
+      "id": "complet",
+      "title": "Maître de la biographie",
+      "description": "Complété l'ensemble du parcours de vie !",
+      "isUnlocked": false,
+      "icon": "trophy"
+    }
+  ]
+} 

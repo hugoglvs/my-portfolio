@@ -9,13 +9,21 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@amcharts/amcharts5": "^5.11.2",
+    "@amcharts/amcharts5-geodata": "^5.1.4",
+    "@heroicons/react": "^2.2.0",
+    "@supabase/supabase-js": "^2.49.4",
     "@types/react-modal": "^3.16.3",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.6.3",
     "leaflet": "^1.9.4",
-    "next": "15.2.2",
+    "lucide-react": "^0.487.0",
+    "next": "^15.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-leaflet": "^5.0.0",
-    "react-modal": "^3.16.3"
+    "react-modal": "^3.16.3",
+    "styled-components": "^6.1.17"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
