@@ -1,6 +1,5 @@
 import { EventLocation, Achievement, Timeframe } from '@/types';
 import eventsData from '@/data/events.json';
-import L from 'leaflet';
 
 // Get all events data from the mock JSON file (for development)
 export function getEvents(): EventLocation[] {
@@ -22,53 +21,42 @@ export function getEventById(id: string): EventLocation | undefined {
   return getEvents().find(event => event.id === id);
 }
 
-// Check if an achievement should be unlocked based on solved puzzles
-export function checkAchievements(solvedEvents: string[]): Achievement[] {
-  const achievements = getAchievements();
-  const events = getEvents();
-  const unlockedAchievements: Achievement[] = [];
-
-  // First puzzle solved
-  if (solvedEvents.length > 0) {
-    const firstPuzzleAchievement = achievements.find(a => a.id === 'first_puzzle');
-    if (firstPuzzleAchievement && !firstPuzzleAchievement.isUnlocked) {
-      unlockedAchievements.push({
-        ...firstPuzzleAchievement,
-        isUnlocked: true
-      });
-    }
-  }
-
-  // All puzzles in a timeframe
-  const timeframes = ['childhood', 'university', 'career', 'future'];
+// Check if an achievement is unlocked
+export function checkAchievements(
+  solvedEvents: string[],
+  unlockedAchievements: string[]
+): Achievement | null {
+  const achievements = eventsData.achievements as Achievement[];
   
-  timeframes.forEach(timeframe => {
-    const eventsInTimeframe = events.filter(e => e.timeframe === timeframe);
-    const solvedInTimeframe = eventsInTimeframe.filter(e => solvedEvents.includes(e.id));
+  // Check each achievement
+  for (const achievement of achievements) {
+    // Skip if already unlocked
+    if (unlockedAchievements.includes(achievement.id)) continue;
     
-    if (eventsInTimeframe.length > 0 && solvedInTimeframe.length === eventsInTimeframe.length) {
-      const timeframeAchievement = achievements.find(a => a.id === `all_${timeframe}`);
-      if (timeframeAchievement && !timeframeAchievement.isUnlocked) {
-        unlockedAchievements.push({
-          ...timeframeAchievement,
-          isUnlocked: true
-        });
-      }
-    }
-  });
-
-  // All puzzles completed
-  if (solvedEvents.length === events.length) {
-    const completeAchievement = achievements.find(a => a.id === 'complete');
-    if (completeAchievement && !completeAchievement.isUnlocked) {
-      unlockedAchievements.push({
-        ...completeAchievement,
-        isUnlocked: true
-      });
+    // Check achievement conditions
+    switch (achievement.id) {
+      case 'premier_puzzle':
+        if (solvedEvents.length >= 1) return achievement;
+        break;
+      case 'tous_enfance':
+        if (getEvents().filter(e => e.timeframe === 'enfance').every(e => solvedEvents.includes(e.id))) return achievement;
+        break;
+      case 'tous_adolescence':
+        if (getEvents().filter(e => e.timeframe === 'adolescence').every(e => solvedEvents.includes(e.id))) return achievement;
+        break;
+      case 'tous_etudes':
+        if (getEvents().filter(e => e.timeframe === 'etudes').every(e => solvedEvents.includes(e.id))) return achievement;
+        break;
+      case 'tous_futur':
+        if (getEvents().filter(e => e.timeframe === 'futur').every(e => solvedEvents.includes(e.id))) return achievement;
+        break;
+      case 'complet':
+        if (getEvents().every(e => solvedEvents.includes(e.id))) return achievement;
+        break;
     }
   }
-
-  return unlockedAchievements;
+  
+  return null;
 }
 
 // Format date for display
@@ -88,34 +76,26 @@ export function generateId(): string {
   return Math.random().toString(36).substring(2, 9);
 }
 
-// Save progress to localStorage (for development without Supabase)
-export function saveProgress(solvedEvents: string[], unlockedAchievements: string[]): void {
+// Save progress to localStorage
+export function saveProgress(solvedEvents: string[], unlockedAchievements: string[]) {
   if (typeof window !== 'undefined') {
     localStorage.setItem('solvedEvents', JSON.stringify(solvedEvents));
     localStorage.setItem('unlockedAchievements', JSON.stringify(unlockedAchievements));
   }
 }
 
-// Load progress from localStorage (for development without Supabase)
-export function loadProgress(): { solvedEvents: string[], unlockedAchievements: string[] } {
+// Load progress from localStorage
+export function loadProgress() {
   if (typeof window !== 'undefined') {
-    const solvedEvents = JSON.parse(localStorage.getItem('solvedEvents') || '[]');
-    const unlockedAchievements = JSON.parse(localStorage.getItem('unlockedAchievements') || '[]');
-    return { solvedEvents, unlockedAchievements };
+    const savedEvents = localStorage.getItem('solvedEvents');
+    const savedAchievements = localStorage.getItem('unlockedAchievements');
+    
+    if (savedEvents && savedAchievements) {
+      return {
+        solvedEvents: JSON.parse(savedEvents),
+        unlockedAchievements: JSON.parse(savedAchievements)
+      };
+    }
   }
   return { solvedEvents: [], unlockedAchievements: [] };
-}
-
-// Fix Leaflet default icon issue in Next.js
-export function fixLeafletIcon() {
-  // Only run on client
-  if (typeof window === 'undefined') return;
-
-  // @ts-expect-error - Leaflet's types are not perfect with this method
-  delete L.Icon.Default.prototype._getIconUrl;
-  L.Icon.Default.mergeOptions({
-    iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-    iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-    shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-  });
 } 

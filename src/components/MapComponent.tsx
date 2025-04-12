@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { fixLeafletIcon } from '@/lib/utils';
+import { fixLeafletIcon } from '@/lib/leaflet-utils';
 import 'leaflet/dist/leaflet.css';
 import { EventLocation } from '@/types';
 
