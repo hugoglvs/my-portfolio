@@ -398,6 +398,114 @@
         "mediaUrl": "https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
         "mediaType": "image"
       }
+    },
+    {
+      "id": "italy_interest",
+      "name": "Passion pour l'italien",
+      "description": "L'amour de la langue italienne",
+      "lat": 41.9028,
+      "lng": 12.4964,
+      "timeframe": "intemporal",
+      "puzzleType": "trivia",
+      "puzzleData": {
+        "title": "Quiz sur l'Italie",
+        "description": "Testez vos connaissances sur la culture italienne",
+        "questions": [
+          {
+            "question": "Quelle est la capitale de l'Italie ?",
+            "options": ["Milan", "Rome", "Venise", "Florence"],
+            "correctAnswer": 1
+          },
+          {
+            "question": "Quel est le plat italien le plus célèbre ?",
+            "options": ["La pizza", "Les pâtes", "Le risotto", "La polenta"],
+            "correctAnswer": 0
+          },
+          {
+            "question": "Quelle est la devise de l'Italie ?",
+            "options": ["L'euro", "La lire", "Le franc", "La peseta"],
+            "correctAnswer": 0
+          }
+        ]
+      },
+      "unlockContent": {
+        "title": "L'amour de l'italien",
+        "text": "Je suis passionné par la langue et la culture italiennes. J'apprends l'italien sur Duolingo depuis plusieurs années, et j'ai atteint une série de 549 jours consécutifs d'apprentissage le 13 avril 2025. Cette passion m'a permis de découvrir la richesse de la culture italienne, de sa cuisine à son histoire.",
+        "mediaUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "japan_interest",
+      "name": "Passion pour la culture japonaise",
+      "description": "L'amour des jeux vidéo et des mangas",
+      "lat": 35.6762,
+      "lng": 139.6503,
+      "timeframe": "intemporal",
+      "puzzleType": "trivia",
+      "puzzleData": {
+        "title": "Quiz sur la culture japonaise",
+        "description": "Testez vos connaissances sur les jeux vidéo et les mangas",
+        "questions": [
+          {
+            "question": "Quel est le personnage principal de la série Zelda ?",
+            "options": ["Link", "Zelda", "Ganon", "Mario"],
+            "correctAnswer": 0
+          },
+          {
+            "question": "Quel est le manga le plus vendu au monde ?",
+            "options": ["One Piece", "Dragon Ball", "Naruto", "Death Note"],
+            "correctAnswer": 0
+          },
+          {
+            "question": "Quelle entreprise a créé Mario ?",
+            "options": ["Sega", "Nintendo", "Sony", "Microsoft"],
+            "correctAnswer": 1
+          }
+        ]
+      },
+      "unlockContent": {
+        "title": "Passion pour la culture japonaise",
+        "text": "Je suis un grand fan de la culture japonaise, particulièrement des jeux vidéo Nintendo comme Zelda et Mario. J'apprécie également les mangas, qui m'ont accompagné tout au long de ma vie. Cette passion m'a permis de découvrir une culture riche et fascinante, alliant tradition et modernité.",
+        "mediaUrl": "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1036&q=80",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "portugal_interest",
+      "name": "Racines portugaises",
+      "description": "Les liens familiaux avec le Portugal",
+      "lat": 38.7223,
+      "lng": -9.1393,
+      "timeframe": "intemporal",
+      "puzzleType": "trivia",
+      "puzzleData": {
+        "title": "Quiz sur le Portugal",
+        "description": "Testez vos connaissances sur le Portugal",
+        "questions": [
+          {
+            "question": "Quelle est la capitale du Portugal ?",
+            "options": ["Porto", "Lisbonne", "Faro", "Braga"],
+            "correctAnswer": 1
+          },
+          {
+            "question": "Quelle est la spécialité culinaire portugaise la plus connue ?",
+            "options": ["La paella", "La bacalhau", "Le couscous", "La pizza"],
+            "correctAnswer": 1
+          },
+          {
+            "question": "Quelle est la langue officielle du Portugal ?",
+            "options": ["L'espagnol", "Le portugais", "Le galicien", "Le catalan"],
+            "correctAnswer": 1
+          }
+        ]
+      },
+      "unlockContent": {
+        "title": "Racines portugaises",
+        "text": "Toute ma famille vit au Portugal, ce qui crée un lien fort avec ce pays. Bien que je sois né en France, mes racines portugaises sont une partie importante de mon identité. Cette connexion familiale me permet de maintenir un lien étroit avec la culture et les traditions portugaises.",
+        "mediaUrl": "https://images.unsplash.com/photo-1518998053901-5348d3961a04?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
+        "mediaType": "image"
+      }
     }
   ],
   "timeframes": [
@@ -407,7 +515,7 @@
       "description": "Période de découverte et d'apprentissage",
       "color": "#FFB6C1",
       "icon": "👶",
-      "period": "2000-2012"
+      "period": "2002-2014"
     },
     {
       "id": "adolescence",
@@ -415,7 +523,7 @@
       "description": "Période de croissance et de développement",
       "color": "#87CEEB",
       "icon": "👦",
-      "period": "2012-2020"
+      "period": "2014-2020"
     },
     {
       "id": "studies",
@@ -423,7 +531,7 @@
       "description": "Période de formation académique",
       "color": "#98FB98",
       "icon": "🎓",
-      "period": "2020-2024"
+      "period": "2020-2025"
     },
     {
       "id": "future",
@@ -431,7 +539,15 @@
       "description": "Projets et aspirations à venir",
       "color": "#DDA0DD",
       "icon": "🚀",
-      "period": "2024-..."
+      "period": "2025-..."
+    },
+    {
+      "id": "intemporal",
+      "name": "Intemporel",
+      "description": "Passions et intérêts qui traversent le temps",
+      "color": "#FFD700",
+      "icon": "⭐",
+      "period": "Toujours"
     }
   ],
   "achievements": [
@@ -504,6 +620,18 @@
         {
           "type": "events",
           "ids": ["naissance", "ecole", "college", "lycee", "prepa", "miahs", "master", "dream", "gaming", "sudoku_challenge"]
+        }
+      ]
+    },
+    {
+      "id": "tous_interets",
+      "name": "Explorateur de passions",
+      "description": "Découvert tous les lieux d'intérêt",
+      "icon": "star",
+      "requirements": [
+        {
+          "type": "events",
+          "ids": ["italy_interest", "japan_interest", "portugal_interest"]
         }
       ]
     }

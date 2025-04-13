@@ -41,6 +41,7 @@ export interface Timeframe {
   description: string;
   color: string;
   icon: string;
+  period: string;
 }
 
 export type PuzzleType = 'trivia' | 'sudoku' | 'crossword' | 'memory' | 'puzzle' | 'tictactoe'; 

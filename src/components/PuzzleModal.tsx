@@ -95,6 +95,12 @@ export default function PuzzleModal({
                   alt={location.unlockContent.title}
                   fill
                   className="object-cover rounded-lg shadow-md"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  priority
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = 'https://via.placeholder.com/400x300?text=Image+not+available';
+                  }}
                 />
               </div>
             )}

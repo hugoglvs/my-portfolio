@@ -37,7 +37,9 @@ export default function TimelineSlider({
         
         {/* Timeline markers */}
         <div className="flex justify-between relative">
-          {timeframes.map((timeframe, index) => (
+          {timeframes
+            .filter(timeframe => timeframe.id !== 'intemporal')
+            .map((timeframe, index) => (
             <div key={timeframe.id} className="relative z-10 flex flex-col items-center">
               <button
                 onClick={() => handleTimeframeClick(timeframe.id, index)}
@@ -57,6 +59,7 @@ export default function TimelineSlider({
                 index === activeIndex ? 'opacity-100' : 'opacity-60'
               }`}>
                 <p className="font-bold text-center">{timeframe.name}</p>
+                <p className="text-xs text-center text-gray-600">{timeframe.period}</p>
               </div>
             </div>
           ))}

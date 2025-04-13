@@ -43,9 +43,30 @@ export default function MapComponent({ locations, onMarkerClick, currentTimefram
     shadowSize: [41, 41]
   });
 
+  const goldIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png',
+    iconRetinaUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+  });
+
+  const goldGreenIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png',
+    iconRetinaUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+  });
+
   // Filter locations based on the current timeframe
   const visibleLocations = locations.filter(location => 
-    location.timeframe === currentTimeframe || location.timeframe === 'all'
+    location.timeframe === currentTimeframe || 
+    location.timeframe === 'intemporal'
   );
 
   // Group events by location
@@ -81,14 +102,24 @@ export default function MapComponent({ locations, onMarkerClick, currentTimefram
       {Object.entries(locationGroups).map(([key, events]) => {
         const location = events[0];
         const isSolved = events.every(event => solvedEvents.includes(event.id));
+        const isIntemporal = location.timeframe === 'intemporal';
+        
+        // Choose the appropriate icon based on the event type and solved status
+        let icon;
+        if (isIntemporal) {
+          icon = isSolved ? goldGreenIcon : goldIcon;
+        } else {
+          icon = isSolved ? greenIcon : blueIcon;
+        }
+
         return (
           <Marker 
             key={key}
             position={[location.lat, location.lng]}
-            icon={isSolved ? greenIcon : blueIcon}
+            icon={icon}
           >
             <Popup>
-              <div className="p-2">
+              <div className="min-w-[200px]">
                 {events.length > 1 ? (
                   <div>
                     <h3 className="font-bold text-lg mb-2">Multiple Events</h3>
@@ -118,7 +149,7 @@ export default function MapComponent({ locations, onMarkerClick, currentTimefram
                   </div>
                 ) : (
                   <div onClick={() => onMarkerClick(location.id)} className="cursor-pointer relative">
-                    <h3 className="font-bold text-lg">{location.name}</h3>
+                    <h3 className="font-bold text-lg mb-2">{location.name}</h3>
                     <p className="text-sm text-gray-600">{location.description}</p>
                     <div className="absolute top-2 right-2">
                       {solvedEvents.includes(location.id) ? (

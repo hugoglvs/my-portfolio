@@ -21,7 +21,7 @@ const Map = dynamic(() => import('@/components/Map'), {
 
 export default function Home() {
   // State management
-  const [currentTimeframe, setCurrentTimeframe] = useState<string>('childhood');
+  const [currentTimeframe, setCurrentTimeframe] = useState<string>('intemporal');
   const [selectedLocation, setSelectedLocation] = useState<EventLocation | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [solvedEvents, setSolvedEvents] = useState<string[]>([]);
