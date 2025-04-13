@@ -245,7 +245,8 @@
       "puzzleType": "sudoku",
       "puzzleData": {
         "title": "Sudoku Challenge",
-        "description": "Complete the Sudoku puzzle to unlock this memory"
+        "description": "Complete the Sudoku puzzle to unlock this memory",
+        "difficulty": "medium"
       },
       "unlockContent": {
         "title": "Early Problem Solving",

@@ -4,16 +4,22 @@ import { generateSudoku, checkBoard, getConflicts } from '@/lib/sudoku';
 type Difficulty = 'easy' | 'medium' | 'hard' | 'expert';
 
 interface SudokuBoardProps {
+  puzzleData?: {
+    title?: string;
+    description?: string;
+    difficulty?: Difficulty;
+    [key: string]: unknown;
+  };
   onSolved?: () => void;
 }
 
-export default function SudokuBoard({ onSolved }: SudokuBoardProps) {
+export default function SudokuBoard({ puzzleData, onSolved }: SudokuBoardProps) {
   const [board, setBoard] = useState<number[][]>([]);
   const [solution, setSolution] = useState<number[][]>([]);
   const [selectedCell, setSelectedCell] = useState<[number, number] | null>(null);
-  const [difficulty, setDifficulty] = useState<Difficulty>('easy');
   const [conflicts, setConflicts] = useState<number[][]>([]);
   const [initialCells, setInitialCells] = useState<Set<string>>(new Set());
+  const [initialBoard, setInitialBoard] = useState<number[][]>([]);
 
   const checkAndHandleSolved = useCallback((currentBoard: number[][]) => {
     if (checkBoard(currentBoard)) {
@@ -26,8 +32,11 @@ export default function SudokuBoard({ onSolved }: SudokuBoardProps) {
   }, [onSolved]);
 
   const generateNewGame = useCallback(() => {
-    const { puzzle, solution } = generateSudoku(difficulty);
+    const { puzzle, solution } = generateSudoku(puzzleData?.difficulty || 'medium');
+    // Create a deep copy of the puzzle for the initial board
+    const initialPuzzle = puzzle.map(row => [...row]);
     setBoard(puzzle);
+    setInitialBoard(initialPuzzle);
     setSolution(solution);
     setSelectedCell(null);
     setConflicts([]);
@@ -42,11 +51,19 @@ export default function SudokuBoard({ onSolved }: SudokuBoardProps) {
       });
     });
     setInitialCells(initial);
-  }, [difficulty]);
+  }, [puzzleData?.difficulty]);
 
   useEffect(() => {
     generateNewGame();
   }, [generateNewGame]);
+
+  const handleClear = useCallback(() => {
+    // Create a deep copy of the initial board
+    const newBoard = initialBoard.map(row => [...row]);
+    setBoard(newBoard);
+    setConflicts([]);
+    setSelectedCell(null);
+  }, [initialBoard]);
 
   const handleCellClick = (row: number, col: number) => {
     if (initialCells.has(`${row},${col}`)) return;
@@ -101,18 +118,31 @@ export default function SudokuBoard({ onSolved }: SudokuBoardProps) {
       newBoard[row][col] = parseInt(e.key);
       setBoard(newBoard);
       
-      // Check for conflicts
+      // Check for conflicts in real-time
       const newConflicts = getConflicts(newBoard, row, col);
       setConflicts(newConflicts);
 
-      // Check if the puzzle is solved
-      checkAndHandleSolved(newBoard);
+      // Check if the board is full and if it's solved
+      if (isBoardFull(newBoard)) {
+        if (checkAndHandleSolved(newBoard)) {
+          alert('Congratulations! You solved the puzzle!');
+        } else {
+          alert('Incorrect solution! Keep trying!');
+        }
+      }
     } else if (e.key === 'Backspace' || e.key === 'Delete') {
       const newBoard = [...board];
       newBoard[row][col] = 0;
       setBoard(newBoard);
-      setConflicts([]);
+      
+      // Recheck conflicts after clearing a cell
+      const newConflicts = getConflicts(newBoard, row, col);
+      setConflicts(newConflicts);
     }
+  };
+
+  const isBoardFull = (currentBoard: number[][]) => {
+    return currentBoard.every(row => row.every(cell => cell !== 0));
   };
 
   const findFirstEmptyCell = (): [number, number] | null => {
@@ -136,8 +166,14 @@ export default function SudokuBoard({ onSolved }: SudokuBoardProps) {
     newBoard[row][col] = solution[row][col];
     setBoard(newBoard);
 
+    // Recheck conflicts after using a hint
+    const newConflicts = getConflicts(newBoard, row, col);
+    setConflicts(newConflicts);
+
     // Check if the puzzle is solved after using a hint
-    checkAndHandleSolved(newBoard);
+    if (isBoardFull(newBoard)) {
+      checkAndHandleSolved(newBoard);
+    }
   };
 
   const isSelected = (row: number, col: number) => {
@@ -162,38 +198,21 @@ export default function SudokuBoard({ onSolved }: SudokuBoardProps) {
 
   return (
     <div className="flex flex-col items-center gap-4 p-4">
+      {puzzleData?.title && (
+        <h3 className="text-xl font-bold mb-2 text-[var(--foreground)]">{puzzleData.title}</h3>
+      )}
+      
+      {puzzleData?.description && (
+        <p className="mb-4 text-[var(--neutral-600)]">{puzzleData.description}</p>
+      )}
+
       <div className="flex gap-4">
-        <select
-          value={difficulty}
-          onChange={(e) => setDifficulty(e.target.value as Difficulty)}
-          className="px-4 py-2 border border-[var(--neutral-300)] rounded bg-[var(--background)] text-[var(--foreground)]"
-        >
-          <option value="easy">Easy</option>
-          <option value="medium">Medium</option>
-          <option value="hard">Hard</option>
-          <option value="expert">Expert</option>
-        </select>
-        
         <button
-          onClick={generateNewGame}
-          className="px-4 py-2 bg-[var(--primary)] text-[var(--secondary)] rounded hover:bg-[var(--primary-dark)]"
-        >
-          New Game
-        </button>
-        
-        <button
-          onClick={() => {
-            if (checkAndHandleSolved(board)) {
-              alert('Congratulations! You solved the puzzle!');
-            } else {
-              alert('Incorrect! Keep trying!');
-            }
-          }}
+          onClick={handleClear}
           className="px-4 py-2 bg-[var(--primary-light)] text-[var(--secondary)] rounded hover:bg-[var(--primary)]"
         >
-          Check
+          Clear
         </button>
-        
         <button
           onClick={handleHint}
           className="px-4 py-2 bg-[var(--primary-dark)] text-[var(--secondary)] rounded hover:bg-[var(--primary)]"
@@ -221,7 +240,7 @@ export default function SudokuBoard({ onSolved }: SudokuBoardProps) {
                 ${j % 3 === 0 ? 'border-l-2' : 'border-l'}
                 ${isSelected(i, j) ? 'bg-[var(--accent)]' : ''}
                 ${isInSelectedRegion(i, j) && !isSelected(i, j) ? 'bg-[var(--neutral-100)]' : ''}
-                ${isConflict(i, j) ? 'bg-[var(--accent)]' : ''}
+                ${isConflict(i, j) ? 'text-red-500' : ''}
                 ${initialCells.has(`${i},${j}`) ? 'font-bold text-[var(--foreground)]' : 'text-[var(--neutral-600)]'}
                 cursor-pointer
               `}
