@@ -110,10 +110,10 @@ export default function Home() {
   
   return (
     <div className="flex flex-col md:flex-row">
-    <aside className="flex-1 hidden md:block bg-gradient-to-b from-primary to-secondary text-white p-4 lg:p-6 lg:w-64 lg:flex-shrink-0">
+    <aside className="flex-1 hidden md:block bg-gradient-to-br from-cyan-700 to-cyan-900 text-white p-4 lg:p-6 lg:w-64 lg:flex-shrink-0">
         <div className="space-y-6">
           <div>
-            <h1 className="text-3xl font-bold">Mon Voyage Interactif</h1>
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-left">Mon Voyage Interactif</h1>
             <p className="mt-2 text-blue-100">Explorez les événements de ma vie, mes passions et mes rêves à travers une carte interactive</p>
           </div>
 
