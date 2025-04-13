@@ -219,25 +219,6 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* Map Legend */}
-              <div className="bg-[var(--neutral-200)] dark:bg-[var(--neutral-800)] p-3 rounded-lg">
-                <h3 className="text-xs font-semibold text-[var(--foreground)] mb-2">Légende de la Carte</h3>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
-                    <span className="text-xs text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">Lieux Visités</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                    <span className="text-xs text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">Énigmes Résolues</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
-                    <span className="text-xs text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">Période Actuelle</span>
-                  </div>
-                </div>
-              </div>
-
               {/* Achievements List */}
               <div className="bg-[var(--neutral-200)] dark:bg-[var(--neutral-800)] p-3 rounded-lg">
                 <h3 className="text-xs font-semibold text-[var(--foreground)] mb-2">Succès</h3>

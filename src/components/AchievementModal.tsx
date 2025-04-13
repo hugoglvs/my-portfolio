@@ -2,7 +2,6 @@
 
 import { Achievement } from '@/types';
 import Modal from 'react-modal';
-import { useEffect } from 'react';
 
 interface AchievementModalProps {
   isOpen: boolean;
