@@ -25,13 +25,15 @@ interface PuzzleModalProps {
   onClose: () => void;
   location: EventLocation | null;
   onPuzzleSolved: (locationId: string) => void;
+  isAlreadySolved?: boolean;
 }
 
 export default function PuzzleModal({ 
   isOpen, 
   onClose, 
   location, 
-  onPuzzleSolved 
+  onPuzzleSolved,
+  isAlreadySolved = false
 }: PuzzleModalProps) {
   const [solved, setSolved] = useState(false);
 
@@ -42,15 +44,19 @@ export default function PuzzleModal({
   useEffect(() => {
     // Reset solved state when a new location is selected
     if (location) {
-      setSolved(false);
+      setSolved(isAlreadySolved);
     }
-  }, [location]);
+  }, [location, isAlreadySolved]);
 
   if (!location) return null;
 
   const handleSolved = () => {
     setSolved(true);
     onPuzzleSolved(location.id);
+  };
+
+  const handlePlayAgain = () => {
+    setSolved(false);
   };
 
   const renderPuzzleComponent = () => {
@@ -105,12 +111,20 @@ export default function PuzzleModal({
           </div>
         )}
         
-        <button
-          onClick={onClose}
-          className="mt-4 px-6 py-2 bg-[var(--primary)] text-[var(--secondary)] rounded-lg hover:bg-[var(--primary-dark)] transition"
-        >
-          Close
-        </button>
+        <div className="flex gap-4 justify-center mt-6">
+          <button
+            onClick={handlePlayAgain}
+            className="px-6 py-2 bg-[var(--primary)] text-[var(--secondary)] rounded-lg hover:bg-[var(--primary-dark)] transition"
+          >
+            Play Again
+          </button>
+          <button
+            onClick={onClose}
+            className="px-6 py-2 bg-[var(--neutral-200)] text-[var(--neutral-800)] rounded-lg hover:bg-[var(--neutral-300)] transition"
+          >
+            Close
+          </button>
+        </div>
       </div>
     );
   };

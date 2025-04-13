@@ -210,6 +210,7 @@ export default function Home() {
         onClose={handleCloseModal}
         location={selectedLocation}
         onPuzzleSolved={handlePuzzleSolved}
+        isAlreadySolved={selectedLocation ? solvedEvents.includes(selectedLocation.id) : false}
       />
       
       {/* Achievement popup */}
