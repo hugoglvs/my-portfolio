@@ -177,6 +177,7 @@ export default function Home() {
               <div>
                 <h1 className="text-xl md:text-2xl font-bold text-[var(--foreground)]">Mon Voyage Interactif</h1>
                 <p className="mt-1 text-sm text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">Explorez les événements de ma vie, mes passions et mes rêves à travers une carte interactive</p>
+                <p className="mt-1 text-sm text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">Il vous suffit de participer à un mini-jeu jusqu&apos;à la fin pour le valider</p>
               </div>
 
               {/* How to Play Section */}
