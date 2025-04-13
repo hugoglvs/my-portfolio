@@ -23,8 +23,8 @@ export default function Home() {
         className="text-center mb-16"
       >
         <h1 className="text-5xl font-bold mb-4 text-[var(--foreground)]">Hugo Gonçalves</h1>
-        <p className="text-xl text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">
-          Data Analyst &amp; Développeur Full Stack
+        <p className="text-3xl text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">
+          Data Analyst
         </p>
       </motion.div>
 
