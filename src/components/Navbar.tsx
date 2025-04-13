@@ -10,7 +10,7 @@ const navItems = [
   { label: "Accueil", href: "/", icon: Home },
   { label: "Explorer", href: "/explore", icon: Map },
   { label: "A propos", href: "/about", icon: User },
-  { label: "Travaux", href: "/work", icon: LayoutGrid },
+  // { label: "Travaux", href: "/work", icon: LayoutGrid },
   { label: "Hobbies", href: "/hobbies", icon: BookOpen },
 ];
 
