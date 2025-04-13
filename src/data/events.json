@@ -425,45 +425,75 @@
   "achievements": [
     {
       "id": "premier_puzzle",
-      "title": "Première découverte",
+      "name": "Première découverte",
       "description": "Résolu votre premier puzzle !",
-      "isUnlocked": false,
-      "icon": "map-pin"
+      "icon": "map-pin",
+      "requirements": [
+        {
+          "type": "events",
+          "ids": ["naissance"]
+        }
+      ]
     },
     {
       "id": "tous_childhood",
-      "title": "Explorateur nostalgique",
+      "name": "Explorateur nostalgique",
       "description": "Découvert tous les lieux de l'enfance",
-      "isUnlocked": false,
-      "icon": "cake"
+      "icon": "cake",
+      "requirements": [
+        {
+          "type": "events",
+          "ids": ["naissance", "ecole", "gaming", "sudoku_challenge"]
+        }
+      ]
     },
     {
       "id": "tous_adolescence",
-      "title": "Aventurier adolescent",
+      "name": "Aventurier adolescent",
       "description": "Découvert tous les souvenirs d'adolescence",
-      "isUnlocked": false,
-      "icon": "academic-cap"
+      "icon": "academic-cap",
+      "requirements": [
+        {
+          "type": "events",
+          "ids": ["college", "lycee"]
+        }
+      ]
     },
     {
       "id": "tous_studies",
-      "title": "Étudiant accompli",
+      "name": "Étudiant accompli",
       "description": "Exploré tous les moments d'études",
-      "isUnlocked": false,
-      "icon": "briefcase"
+      "icon": "briefcase",
+      "requirements": [
+        {
+          "type": "events",
+          "ids": ["prepa", "miahs", "master"]
+        }
+      ]
     },
     {
       "id": "tous_future",
-      "title": "Rêveur",
+      "name": "Rêveur",
       "description": "Entrevoit tous les projets futurs",
-      "isUnlocked": false,
-      "icon": "sparkles"
+      "icon": "sparkles",
+      "requirements": [
+        {
+          "type": "events",
+          "ids": ["dream"]
+        }
+      ]
     },
     {
       "id": "complet",
-      "title": "Maître de la biographie",
+      "name": "Maître de la biographie",
       "description": "Complété l'ensemble du parcours de vie !",
-      "isUnlocked": false,
-      "icon": "trophy"
+      "icon": "trophy",
+      "requirements": [
+        {
+          "type": "events",
+          "ids": ["naissance", "ecole", "college", "lycee", "prepa", "miahs", "master", "dream", "gaming", "sudoku_challenge"]
+        }
+      ]
     }
   ]
 } 

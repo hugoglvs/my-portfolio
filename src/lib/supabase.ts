@@ -1,8 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
 
 // Initialize the Supabase client
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
 // Create a single supabase client for interacting with the database
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
@@ -81,47 +81,41 @@ export async function fetchAchievements() {
   return data;
 }
 
-export async function updateUserProgress(userId: string, eventId?: string, achievementId?: string) {
-  if (!userId) return { success: false, error: 'No user ID provided' };
-  
-  // Get current user progress
-  const { data: userProgress, error: fetchError } = await supabase
-    .from('user_progress')
-    .select('*')
-    .eq('user_id', userId)
-    .single();
-  
-  if (fetchError && fetchError.code !== 'PGRST116') { // PGRST116 is not found
-    console.error('Error fetching user progress:', fetchError);
-    return { success: false, error: fetchError };
-  }
-  
-  let solved_events = userProgress?.solved_events || [];
-  let unlocked_achievements = userProgress?.unlocked_achievements || [];
-  
-  // Add new event if provided
-  if (eventId && !solved_events.includes(eventId)) {
-    solved_events = [...solved_events, eventId];
-  }
-  
-  // Add new achievement if provided
-  if (achievementId && !unlocked_achievements.includes(achievementId)) {
-    unlocked_achievements = [...unlocked_achievements, achievementId];
-  }
-  
-  // Update or insert user progress
-  const { error: upsertError } = await supabase
+export interface UserProgress {
+  solvedEvents: string[];
+  unlockedAchievements: string[];
+}
+
+export async function saveProgress(userId: string, progress: UserProgress) {
+  const { error } = await supabase
     .from('user_progress')
     .upsert({
       user_id: userId,
-      solved_events,
-      unlocked_achievements,
+      solved_events: progress.solvedEvents,
+      unlocked_achievements: progress.unlockedAchievements,
+      updated_at: new Date().toISOString(),
     });
-  
-  if (upsertError) {
-    console.error('Error updating user progress:', upsertError);
-    return { success: false, error: upsertError };
+
+  if (error) {
+    console.error('Error saving progress:', error);
+    throw error;
   }
-  
-  return { success: true };
+}
+
+export async function loadProgress(userId: string): Promise<UserProgress> {
+  const { data, error } = await supabase
+    .from('user_progress')
+    .select('solved_events, unlocked_achievements')
+    .eq('user_id', userId)
+    .single();
+
+  if (error) {
+    console.error('Error loading progress:', error);
+    return { solvedEvents: [], unlockedAchievements: [] };
+  }
+
+  return {
+    solvedEvents: data?.solved_events || [],
+    unlockedAchievements: data?.unlocked_achievements || [],
+  };
 } 

@@ -34,9 +34,9 @@ export default function Home() {
   
   // Load saved progress on component mount
   useEffect(() => {
-    const { solvedEvents: savedEvents, unlockedAchievements: savedAchievements } = loadProgress();
-    setSolvedEvents(savedEvents);
-    setUnlockedAchievements(savedAchievements);
+    const progress = loadProgress();
+    setSolvedEvents(progress.solvedEvents);
+    setUnlockedAchievements(progress.unlockedAchievements);
   }, []);
   
   // Handle timeframe changes
@@ -61,39 +61,41 @@ export default function Home() {
   
   // Handle puzzle solved
   const handlePuzzleSolved = (locationId: string) => {
-    if (!solvedEvents.includes(locationId)) {
-      const updatedSolvedEvents = [...solvedEvents, locationId];
+    // Update local state first
+    const updatedSolvedEvents = [...solvedEvents];
+    if (!updatedSolvedEvents.includes(locationId)) {
+      updatedSolvedEvents.push(locationId);
       setSolvedEvents(updatedSolvedEvents);
       saveProgress(updatedSolvedEvents, unlockedAchievements);
+    }
+
+    // Check for new achievements
+    const newAchievements = checkAchievements(updatedSolvedEvents, unlockedAchievements);
+    
+    if (newAchievements.length > 0) {
+      // Update unlocked achievements
+      const updatedUnlockedAchievements = [
+        ...unlockedAchievements, 
+        ...newAchievements.map(a => a.id)
+      ];
       
-      // Check for new achievements
-      const newAchievements = checkAchievements(updatedSolvedEvents, unlockedAchievements);
+      setUnlockedAchievements(updatedUnlockedAchievements);
+      saveProgress(updatedSolvedEvents, updatedUnlockedAchievements);
       
-      if (newAchievements.length > 0) {
-        // Update unlocked achievements
-        const updatedUnlockedAchievements = [
-          ...unlockedAchievements, 
-          ...newAchievements.map(a => a.id)
-        ];
-        
-        setUnlockedAchievements(updatedUnlockedAchievements);
-        saveProgress(updatedSolvedEvents, updatedUnlockedAchievements);
-        
-        // Show achievement popup for the first new achievement
-        setNewAchievement(newAchievements[0]);
-        
-        // Queue additional achievements if there are more than one
-        if (newAchievements.length > 1) {
-          let index = 1;
-          const showNextAchievement = () => {
-            if (index < newAchievements.length) {
-              setNewAchievement(newAchievements[index]);
-              index++;
-              setTimeout(showNextAchievement, 3000); // Show next achievement after 3 seconds
-            }
-          };
-          setTimeout(showNextAchievement, 3000);
-        }
+      // Show achievement popup for the first new achievement
+      setNewAchievement(newAchievements[0]);
+      
+      // Queue additional achievements if there are more than one
+      if (newAchievements.length > 1) {
+        let index = 1;
+        const showNextAchievement = () => {
+          if (index < newAchievements.length) {
+            setNewAchievement(newAchievements[index]);
+            index++;
+            setTimeout(showNextAchievement, 3000); // Show next achievement after 3 seconds
+          }
+        };
+        setTimeout(showNextAchievement, 3000);
       }
     }
   };
@@ -102,7 +104,7 @@ export default function Home() {
   const handleCloseAchievement = () => {
     setNewAchievement(null);
   };
-  
+
   return (
     <div className="flex flex-col md:flex-row">
     <aside className="flex-1 hidden md:block bg-gradient-to-br from-cyan-700 to-cyan-900 text-white p-4 lg:p-6 lg:w-64 lg:flex-shrink-0">

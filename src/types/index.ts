@@ -26,16 +26,21 @@ export interface EventLocation {
 
 export interface Achievement {
   id: string;
-  title: string;
+  name: string;
   description: string;
-  isUnlocked: boolean;
   icon: string;
+  requirements: Array<{
+    type: 'events';
+    ids: string[];
+  }>;
 }
 
 export interface Timeframe {
   id: string;
-  label: string;
-  period: string;
+  name: string;
+  description: string;
+  color: string;
+  icon: string;
 }
 
 export type PuzzleType = 'trivia' | 'sudoku' | 'crossword' | 'memory' | 'puzzle' | 'tictactoe'; 

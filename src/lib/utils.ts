@@ -21,57 +21,27 @@ export function getEventById(id: string): EventLocation | undefined {
   return getEvents().find(event => event.id === id);
 }
 
-// Check if an achievement is unlocked
-export function checkAchievements(
-  solvedEvents: string[],
-  unlockedAchievements: string[]
-): Achievement[] {
-  const achievements = eventsData.achievements as Achievement[];
-  const newlyUnlocked: Achievement[] = [];
-  
-  // Check each achievement
-  for (const achievement of achievements) {
-    // Skip if already unlocked
-    if (unlockedAchievements.includes(achievement.id)) continue;
-    
-    // Check achievement conditions
-    let isUnlocked = false;
-    
-    switch (achievement.id) {
-      case 'premier_puzzle':
-        isUnlocked = solvedEvents.length >= 1;
-        break;
-      case 'tous_enfance':
-        isUnlocked = getEvents()
-          .filter(e => e.timeframe === 'enfance')
-          .every(e => solvedEvents.includes(e.id));
-        break;
-      case 'tous_adolescence':
-        isUnlocked = getEvents()
-          .filter(e => e.timeframe === 'adolescence')
-          .every(e => solvedEvents.includes(e.id));
-        break;
-      case 'tous_etudes':
-        isUnlocked = getEvents()
-          .filter(e => e.timeframe === 'etudes')
-          .every(e => solvedEvents.includes(e.id));
-        break;
-      case 'tous_futur':
-        isUnlocked = getEvents()
-          .filter(e => e.timeframe === 'futur')
-          .every(e => solvedEvents.includes(e.id));
-        break;
-      case 'complet':
-        isUnlocked = getEvents().every(e => solvedEvents.includes(e.id));
-        break;
-    }
-    
-    if (isUnlocked) {
-      newlyUnlocked.push(achievement);
+// Check for new achievements
+export function checkAchievements(solvedEvents: string[], unlockedAchievements: string[]): Achievement[] {
+  const allAchievements = getAchievements();
+  const newAchievements: Achievement[] = [];
+
+  for (const achievement of allAchievements) {
+    if (!unlockedAchievements.includes(achievement.id)) {
+      const isUnlocked = achievement.requirements.every(req => {
+        if (req.type === 'events') {
+          return req.ids.every(id => solvedEvents.includes(id));
+        }
+        return false;
+      });
+
+      if (isUnlocked) {
+        newAchievements.push(achievement);
+      }
     }
   }
-  
-  return newlyUnlocked;
+
+  return newAchievements;
 }
 
 // Format date for display
@@ -93,24 +63,22 @@ export function generateId(): string {
 
 // Save progress to localStorage
 export function saveProgress(solvedEvents: string[], unlockedAchievements: string[]) {
-  if (typeof window !== 'undefined') {
+  try {
     localStorage.setItem('solvedEvents', JSON.stringify(solvedEvents));
     localStorage.setItem('unlockedAchievements', JSON.stringify(unlockedAchievements));
+  } catch (error) {
+    console.error('Error saving progress to localStorage:', error);
   }
 }
 
 // Load progress from localStorage
-export function loadProgress() {
-  if (typeof window !== 'undefined') {
-    const savedEvents = localStorage.getItem('solvedEvents');
-    const savedAchievements = localStorage.getItem('unlockedAchievements');
-    
-    if (savedEvents && savedAchievements) {
-      return {
-        solvedEvents: JSON.parse(savedEvents),
-        unlockedAchievements: JSON.parse(savedAchievements)
-      };
-    }
+export function loadProgress(): { solvedEvents: string[]; unlockedAchievements: string[] } {
+  try {
+    const solvedEvents = JSON.parse(localStorage.getItem('solvedEvents') || '[]');
+    const unlockedAchievements = JSON.parse(localStorage.getItem('unlockedAchievements') || '[]');
+    return { solvedEvents, unlockedAchievements };
+  } catch (error) {
+    console.error('Error loading progress from localStorage:', error);
+    return { solvedEvents: [], unlockedAchievements: [] };
   }
-  return { solvedEvents: [], unlockedAchievements: [] };
 } 
