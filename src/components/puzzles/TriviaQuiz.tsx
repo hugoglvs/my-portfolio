@@ -1,12 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-
-interface TriviaQuestion {
-  question: string;
-  options: string[];
-  correctAnswer: number;
-}
+import { useState } from 'react';
 
 interface TriviaQuizProps {
   puzzleData: {

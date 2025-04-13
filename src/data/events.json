@@ -403,23 +403,35 @@
   "timeframes": [
     {
       "id": "childhood",
-      "label": "Enfance",
+      "name": "Enfance",
+      "description": "Période de découverte et d'apprentissage",
+      "color": "#FFB6C1",
+      "icon": "👶",
       "period": "2000-2012"
     },
     {
       "id": "adolescence",
-      "label": "Adolescence",
+      "name": "Adolescence",
+      "description": "Période de croissance et de développement",
+      "color": "#87CEEB",
+      "icon": "👦",
       "period": "2012-2020"
     },
     {
       "id": "studies",
-      "label": "Études supérieures",
+      "name": "Études supérieures",
+      "description": "Période de formation académique",
+      "color": "#98FB98",
+      "icon": "🎓",
       "period": "2020-2024"
     },
     {
       "id": "future",
-      "label": "Futur",
-      "period": "Perspectives"
+      "name": "Futur",
+      "description": "Projets et aspirations à venir",
+      "color": "#DDA0DD",
+      "icon": "🚀",
+      "period": "2024-..."
     }
   ],
   "achievements": [

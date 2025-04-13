@@ -50,14 +50,13 @@ export default function TimelineSlider({
                     ? 'transform scale-125 shadow-lg' 
                     : ''
                 }`}
-                aria-label={`View ${timeframe.label}`}
+                aria-label={`View ${timeframe.name}`}
               />
               
               <div className={`absolute top-5 whitespace-nowrap text-sm font-medium transform -translate-x-1/2 left-1/2 transition-opacity ${
                 index === activeIndex ? 'opacity-100' : 'opacity-60'
               }`}>
-                <p className="font-bold text-center">{timeframe.label}</p>
-                <p className="text-xs text-center text-gray-600">{timeframe.period}</p>
+                <p className="font-bold text-center">{timeframe.name}</p>
               </div>
             </div>
           ))}

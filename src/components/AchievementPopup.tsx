@@ -78,7 +78,7 @@ export default function AchievementPopup({ achievement, onClose }: AchievementPo
         
         <div className="flex-1 text-white">
           <h3 className="font-bold text-lg">Achievement Unlocked!</h3>
-          <p className="font-semibold">{achievement.title}</p>
+          <p className="font-semibold">{achievement.name}</p>
           <p className="text-sm text-white text-opacity-80">{achievement.description}</p>
         </div>
         

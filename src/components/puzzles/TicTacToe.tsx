@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 
 interface TicTacToeProps {
   puzzleData: {
@@ -15,21 +15,21 @@ const TicTacToe = ({ puzzleData, onSolved }: TicTacToeProps) => {
   const [isUserTurn, setIsUserTurn] = useState(true);
   const [winner, setWinner] = useState<string | null>(null);
 
-  const lines = [
+  const lines = useMemo(() => [
     [0, 1, 2], [3, 4, 5], [6, 7, 8],
     [0, 3, 6], [1, 4, 7], [2, 5, 8],
     [0, 4, 8], [2, 4, 6],
-  ];
+  ], []);
 
-  const checkWinner = (b: string[]) => {
+  const checkWinner = useCallback((b: string[]) => {
     for (const [a, bIdx, c] of lines) {
       if (b[a] && b[a] === b[bIdx] && b[a] === b[c]) return b[a];
     }
     if (!b.includes('')) return 'Draw';
     return null;
-  };
+  }, [lines]);
 
-  const minimax = (newBoard: string[], isMaximizing: boolean): number => {
+  const minimax = useCallback((newBoard: string[], isMaximizing: boolean): number => {
     const result = checkWinner(newBoard);
     if (result === 'O') return 1;
     if (result === 'X') return -1;
@@ -47,9 +47,9 @@ const TicTacToe = ({ puzzleData, onSolved }: TicTacToeProps) => {
     });
 
     return isMaximizing ? Math.max(...scores) : Math.min(...scores);
-  };
+  }, [checkWinner]);
 
-  const bestMove = (currentBoard: string[]) => {
+  const bestMove = useCallback((currentBoard: string[]) => {
     let bestScore = -Infinity;
     let move = -1;
 
@@ -66,7 +66,7 @@ const TicTacToe = ({ puzzleData, onSolved }: TicTacToeProps) => {
     });
 
     return move;
-  };
+  }, [minimax]);
 
   const handleClick = (i: number) => {
     if (!isUserTurn || board[i] || winner) return;
@@ -98,7 +98,7 @@ const TicTacToe = ({ puzzleData, onSolved }: TicTacToeProps) => {
         }, 300); // delay for realism
       }
     }
-  }, [board, isUserTurn, onSolved]);
+  }, [board, isUserTurn, onSolved, bestMove, checkWinner]);
 
   const resetGame = () => {
     setBoard(Array(9).fill(''));

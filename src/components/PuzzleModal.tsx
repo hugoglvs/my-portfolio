@@ -6,6 +6,7 @@ import { EventLocation } from '@/types';
 import TriviaQuiz from './puzzles/TriviaQuiz';
 import TicTacToe from './puzzles/TicTacToe';
 import SudokuBoard from './puzzles/SudokuBoard';
+import Image from 'next/image';
 
 // Make sure Modal is accessible for screen readers
 // In Next.js App Router, we need to set this in a useEffect
@@ -88,11 +89,14 @@ export default function PuzzleModal({
         {location.unlockContent.mediaUrl && (
           <div className="my-4">
             {location.unlockContent.mediaType === 'image' && (
-              <img 
-                src={location.unlockContent.mediaUrl} 
-                alt={location.unlockContent.title}
-                className="mx-auto max-w-full rounded-lg shadow-md"
-              />
+              <div className="relative w-full h-64">
+                <Image 
+                  src={location.unlockContent.mediaUrl} 
+                  alt={location.unlockContent.title}
+                  fill
+                  className="object-cover rounded-lg shadow-md"
+                />
+              </div>
             )}
             {location.unlockContent.mediaType === 'video' && (
               <video 

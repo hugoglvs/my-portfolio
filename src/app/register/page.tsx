@@ -64,7 +64,7 @@ export default function RegisterPage() {
         // Redirect to home after successful registration
         router.push('/');
       }
-    } catch (err) {
+    } catch {
       setError('An error occurred during registration');
       setLoading(false);
     }

@@ -51,7 +51,7 @@ export default function LoginPage() {
         // Redirect to home after successful login
         router.push('/');
       }
-    } catch (err) {
+    } catch {
       setError('An error occurred during login');
       setLoading(false);
     }
