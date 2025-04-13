@@ -109,16 +109,45 @@ export default function Home() {
   };
   
   return (
-    <>
-    <main className="bg-gray-50 flex flex-col lg:flex-row">
-      {/* Header - responsive positioning */}
-      <header className="bg-gradient-to-b from-blue-600 to-indigo-700 text-white p-4 lg:p-6 lg:w-64 lg:flex-shrink-0">
-        <div>
-          <h1 className="text-3xl font-bold">My Interactive Journey</h1>
-          <p className="mt-2 text-blue-100">Explore my life events, hobbies, and dreams through an interactive map</p>
-        </div>
-      </header>
+    <div className="flex flex-col md:flex-row">
+    <aside className="flex-1 hidden md:block bg-gradient-to-b from-primary to-secondary text-white p-4 lg:p-6 lg:w-64 lg:flex-shrink-0">
+        <div className="space-y-6">
+          <div>
+            <h1 className="text-3xl font-bold">Mon Voyage Interactif</h1>
+            <p className="mt-2 text-blue-100">Explorez les événements de ma vie, mes passions et mes rêves à travers une carte interactive</p>
+          </div>
 
+          {/* Progress Section */}
+          <div className="bg-white/10 p-4 rounded-lg backdrop-blur-sm">
+            <h3 className="text-sm font-semibold text-blue-100 mb-2">Progression</h3>
+            <div className="flex items-center gap-2">
+              <div className="flex-1 h-2 bg-white/20 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-white transition-all duration-500"
+                  style={{ width: `${(solvedEvents.length / events.length) * 100}%` }}
+                />
+              </div>
+              <span className="text-sm font-medium">{solvedEvents.length}/{events.length}</span>
+            </div>
+          </div>
+
+          {/* Map Legend */}
+          <div className="bg-white/10 p-4 rounded-lg backdrop-blur-sm">
+            <h3 className="text-sm font-semibold text-blue-100 mb-3">Légende de la Carte</h3>
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-blue-400 rounded-full"></div>
+                <span className="text-sm">Lieux Visités</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-green-400 rounded-full"></div>
+                <span className="text-sm">Énigmes Résolues</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    <main className="flex-4">
       {/* Main content */}
       <div className="flex-1 flex flex-col overflow-x-hidden">
         {/* Timeline slider */}
@@ -144,18 +173,35 @@ export default function Home() {
               currentTimeframe={currentTimeframe}
             />
           </motion.div>
-          
-          {/* Legend */}
-          <div className="mt-6 bg-white p-4 rounded-lg shadow-md">
-            <h3 className="font-bold text-lg mb-2">Map Legend</h3>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex items-center">
-                <div className="w-4 h-4 bg-blue-600 rounded-full mr-2"></div>
-                <span>Places Visited</span>
+
+          {/* Mobile Progress and Legend */}
+          <div className="md:hidden mt-6 space-y-4">
+            {/* Mobile Progress */}
+            <div className="bg-white p-4 rounded-lg shadow-md">
+              <h3 className="font-semibold text-gray-700 mb-2">Progression</h3>
+              <div className="flex items-center gap-2">
+                <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-blue-600 transition-all duration-500"
+                    style={{ width: `${(solvedEvents.length / events.length) * 100}%` }}
+                  />
+                </div>
+                <span className="text-sm font-medium text-gray-600">{solvedEvents.length}/{events.length}</span>
               </div>
-              <div className="flex items-center">
-                <div className="w-4 h-4 bg-green-500 rounded-full mr-2"></div>
-                <span>Puzzles Solved: {solvedEvents.length}/{events.length}</span>
+            </div>
+
+            {/* Mobile Legend */}
+            <div className="bg-white p-4 rounded-lg shadow-md">
+              <h3 className="font-semibold text-gray-700 mb-3">Légende de la Carte</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 bg-blue-600 rounded-full"></div>
+                  <span className="text-sm text-gray-600">Lieux Visités</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 bg-green-500 rounded-full"></div>
+                  <span className="text-sm text-gray-600">Énigmes Résolues</span>
+                </div>
               </div>
             </div>
           </div>
@@ -187,6 +233,6 @@ export default function Home() {
         )}
       </AnimatePresence>
     </main>
-    </>
+    </div>
   );
 }
