@@ -6,7 +6,7 @@
       "description": "Là où tout a commencé",
       "lat": 42.6976,
       "lng": 2.8954,
-      "timeframe": "enfance",
+      "timeframe": "childhood",
       "puzzleType": "trivia",
       "puzzleData": {
         "title": "Quiz sur Perpignan",
@@ -42,7 +42,7 @@
       "description": "L'apprentissage de la lecture et la découverte de l'espace",
       "lat": 42.6976,
       "lng": 2.8954,
-      "timeframe": "enfance",
+      "timeframe": "childhood",
       "puzzleType": "trivia",
       "puzzleData": {
         "title": "Quiz sur l'école primaire",
@@ -114,7 +114,7 @@
       "description": "Where I studied and developed my passion for data",
       "lat": 41.1579,
       "lng": -8.6291,
-      "timeframe": "university",
+      "timeframe": "studies",
       "puzzleType": "trivia",
       "puzzleData": {
         "title": "University Challenge",
@@ -186,7 +186,7 @@
       "description": "A place I dream of living someday",
       "lat": 35.6762,
       "lng": 139.6503,
-      "timeframe": "futur",
+      "timeframe": "future",
       "puzzleType": "trivia",
       "puzzleData": {
         "title": "Dream Destination Quiz",
@@ -222,7 +222,7 @@
       "description": "A test of strategic thinking",
       "lat": 38.7223,
       "lng": -9.1393,
-      "timeframe": "enfance",
+      "timeframe": "childhood",
       "puzzleType": "tictactoe",
       "puzzleData": {
         "title": "Tic-Tac-Toe Challenge",
@@ -241,7 +241,7 @@
       "description": "A test of logical thinking and problem-solving",
       "lat": 38.7223,
       "lng": -9.1393,
-      "timeframe": "enfance",
+      "timeframe": "childhood",
       "puzzleType": "sudoku",
       "puzzleData": {
         "title": "Sudoku Challenge",
@@ -296,7 +296,7 @@
       "description": "Une période difficile mais formatrice",
       "lat": 43.6045,
       "lng": 1.4442,
-      "timeframe": "etudes",
+      "timeframe": "studies",
       "puzzleType": "trivia",
       "puzzleData": {
         "title": "Quiz sur la prépa",
@@ -332,7 +332,7 @@
       "description": "La découverte de la pluridisciplinarité",
       "lat": 43.6168,
       "lng": 3.8767,
-      "timeframe": "etudes",
+      "timeframe": "studies",
       "puzzleType": "trivia",
       "puzzleData": {
         "title": "Quiz sur la licence MIASHS",
@@ -368,7 +368,7 @@
       "description": "L'alternance chez Airbus",
       "lat": 43.6045,
       "lng": 1.4442,
-      "timeframe": "etudes",
+      "timeframe": "studies",
       "puzzleType": "trivia",
       "puzzleData": {
         "title": "Quiz sur le master",
@@ -401,7 +401,7 @@
   ],
   "timeframes": [
     {
-      "id": "enfance",
+      "id": "childhood",
       "label": "Enfance",
       "period": "2000-2012"
     },
@@ -411,12 +411,12 @@
       "period": "2012-2020"
     },
     {
-      "id": "etudes",
+      "id": "studies",
       "label": "Études supérieures",
       "period": "2020-2024"
     },
     {
-      "id": "futur",
+      "id": "future",
       "label": "Futur",
       "period": "Perspectives"
     }
@@ -430,7 +430,7 @@
       "icon": "map-pin"
     },
     {
-      "id": "tous_enfance",
+      "id": "tous_childhood",
       "title": "Explorateur nostalgique",
       "description": "Découvert tous les lieux de l'enfance",
       "isUnlocked": false,
@@ -444,14 +444,14 @@
       "icon": "academic-cap"
     },
     {
-      "id": "tous_etudes",
+      "id": "tous_studies",
       "title": "Étudiant accompli",
       "description": "Exploré tous les moments d'études",
       "isUnlocked": false,
       "icon": "briefcase"
     },
     {
-      "id": "tous_futur",
+      "id": "tous_future",
       "title": "Rêveur",
       "description": "Entrevoit tous les projets futurs",
       "isUnlocked": false,
