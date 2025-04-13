@@ -5,20 +5,43 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { fixLeafletIcon } from '@/lib/leaflet-utils';
 import 'leaflet/dist/leaflet.css';
 import { EventLocation } from '@/types';
+import L from 'leaflet';
 
 interface MapComponentProps {
   locations: EventLocation[];
   onMarkerClick: (id: string) => void;
   currentTimeframe: string;
+  solvedEvents: string[];
 }
 
-export default function MapComponent({ locations, onMarkerClick, currentTimeframe }: MapComponentProps) {
+export default function MapComponent({ locations, onMarkerClick, currentTimeframe, solvedEvents }: MapComponentProps) {
   const [isMounted, setIsMounted] = useState(false);
   
   useEffect(() => {
     setIsMounted(true);
     fixLeafletIcon();
   }, []);
+
+  // Create custom icons
+  const blueIcon = new L.Icon({
+    iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+    iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+  });
+
+  const greenIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+    iconRetinaUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+  });
 
   // Filter locations based on the current timeframe
   const visibleLocations = locations.filter(location => 
@@ -57,10 +80,12 @@ export default function MapComponent({ locations, onMarkerClick, currentTimefram
       
       {Object.entries(locationGroups).map(([key, events]) => {
         const location = events[0];
+        const isSolved = events.every(event => solvedEvents.includes(event.id));
         return (
           <Marker 
             key={key}
             position={[location.lat, location.lng]}
+            icon={isSolved ? greenIcon : blueIcon}
           >
             <Popup>
               <div className="p-2">
@@ -72,18 +97,40 @@ export default function MapComponent({ locations, onMarkerClick, currentTimefram
                         <button
                           key={event.id}
                           onClick={() => onMarkerClick(event.id)}
-                          className="w-full text-left p-2 hover:bg-gray-100 rounded transition-colors"
+                          className="w-full text-left p-2 hover:bg-gray-100 rounded transition-colors relative"
                         >
                           <p className="font-medium">{event.name}</p>
                           <p className="text-sm text-gray-600">{event.description}</p>
+                          <div className="absolute top-2 right-2">
+                            {solvedEvents.includes(event.id) ? (
+                              <div className="text-green-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                  <path d="M20 6L9 17l-5-5" />
+                                </svg>
+                              </div>
+                            ) : (
+                              <div className="text-gray-400">—</div>
+                            )}
+                          </div>
                         </button>
                       ))}
                     </div>
                   </div>
                 ) : (
-                  <div>
+                  <div onClick={() => onMarkerClick(location.id)} className="cursor-pointer relative">
                     <h3 className="font-bold text-lg">{location.name}</h3>
                     <p className="text-sm text-gray-600">{location.description}</p>
+                    <div className="absolute top-2 right-2">
+                      {solvedEvents.includes(location.id) ? (
+                        <div className="text-green-500">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M20 6L9 17l-5-5" />
+                          </svg>
+                        </div>
+                      ) : (
+                        <div className="text-gray-400">—</div>
+                      )}
+                    </div>
                   </div>
                 )}
               </div>

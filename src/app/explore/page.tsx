@@ -67,37 +67,32 @@ export default function Home() {
       saveProgress(updatedSolvedEvents, unlockedAchievements);
       
       // Check for new achievements
-      const newAchievements = checkAchievements(updatedSolvedEvents);
+      const newAchievements = checkAchievements(updatedSolvedEvents, unlockedAchievements);
       
       if (newAchievements.length > 0) {
-        // Get newly unlocked achievements
-        const newlyUnlocked = newAchievements.filter(a => !unlockedAchievements.includes(a.id));
+        // Update unlocked achievements
+        const updatedUnlockedAchievements = [
+          ...unlockedAchievements, 
+          ...newAchievements.map(a => a.id)
+        ];
         
-        if (newlyUnlocked.length > 0) {
-          // Update unlocked achievements
-          const updatedUnlockedAchievements = [
-            ...unlockedAchievements, 
-            ...newlyUnlocked.map(a => a.id)
-          ];
-          
-          setUnlockedAchievements(updatedUnlockedAchievements);
-          saveProgress(updatedSolvedEvents, updatedUnlockedAchievements);
-          
-          // Show achievement popup for the first new achievement
-          setNewAchievement(newlyUnlocked[0]);
-          
-          // Queue additional achievements if there are more than one
-          if (newlyUnlocked.length > 1) {
-            let index = 1;
-            const showNextAchievement = () => {
-              if (index < newlyUnlocked.length) {
-                setNewAchievement(newlyUnlocked[index]);
-                index++;
-                setTimeout(showNextAchievement, 6000); // Show next achievement after 6 seconds
-              }
-            };
-            setTimeout(showNextAchievement, 6000);
-          }
+        setUnlockedAchievements(updatedUnlockedAchievements);
+        saveProgress(updatedSolvedEvents, updatedUnlockedAchievements);
+        
+        // Show achievement popup for the first new achievement
+        setNewAchievement(newAchievements[0]);
+        
+        // Queue additional achievements if there are more than one
+        if (newAchievements.length > 1) {
+          let index = 1;
+          const showNextAchievement = () => {
+            if (index < newAchievements.length) {
+              setNewAchievement(newAchievements[index]);
+              index++;
+              setTimeout(showNextAchievement, 3000); // Show next achievement after 3 seconds
+            }
+          };
+          setTimeout(showNextAchievement, 3000);
         }
       }
     }
@@ -171,6 +166,7 @@ export default function Home() {
               locations={events}
               onMarkerClick={handleMarkerClick}
               currentTimeframe={currentTimeframe}
+              solvedEvents={solvedEvents}
             />
           </motion.div>
 

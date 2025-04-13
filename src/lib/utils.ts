@@ -25,8 +25,9 @@ export function getEventById(id: string): EventLocation | undefined {
 export function checkAchievements(
   solvedEvents: string[],
   unlockedAchievements: string[]
-): Achievement | null {
+): Achievement[] {
   const achievements = eventsData.achievements as Achievement[];
+  const newlyUnlocked: Achievement[] = [];
   
   // Check each achievement
   for (const achievement of achievements) {
@@ -34,29 +35,43 @@ export function checkAchievements(
     if (unlockedAchievements.includes(achievement.id)) continue;
     
     // Check achievement conditions
+    let isUnlocked = false;
+    
     switch (achievement.id) {
       case 'premier_puzzle':
-        if (solvedEvents.length >= 1) return achievement;
+        isUnlocked = solvedEvents.length >= 1;
         break;
       case 'tous_enfance':
-        if (getEvents().filter(e => e.timeframe === 'enfance').every(e => solvedEvents.includes(e.id))) return achievement;
+        isUnlocked = getEvents()
+          .filter(e => e.timeframe === 'enfance')
+          .every(e => solvedEvents.includes(e.id));
         break;
       case 'tous_adolescence':
-        if (getEvents().filter(e => e.timeframe === 'adolescence').every(e => solvedEvents.includes(e.id))) return achievement;
+        isUnlocked = getEvents()
+          .filter(e => e.timeframe === 'adolescence')
+          .every(e => solvedEvents.includes(e.id));
         break;
       case 'tous_etudes':
-        if (getEvents().filter(e => e.timeframe === 'etudes').every(e => solvedEvents.includes(e.id))) return achievement;
+        isUnlocked = getEvents()
+          .filter(e => e.timeframe === 'etudes')
+          .every(e => solvedEvents.includes(e.id));
         break;
       case 'tous_futur':
-        if (getEvents().filter(e => e.timeframe === 'futur').every(e => solvedEvents.includes(e.id))) return achievement;
+        isUnlocked = getEvents()
+          .filter(e => e.timeframe === 'futur')
+          .every(e => solvedEvents.includes(e.id));
         break;
       case 'complet':
-        if (getEvents().every(e => solvedEvents.includes(e.id))) return achievement;
+        isUnlocked = getEvents().every(e => solvedEvents.includes(e.id));
         break;
+    }
+    
+    if (isUnlocked) {
+      newlyUnlocked.push(achievement);
     }
   }
   
-  return null;
+  return newlyUnlocked;
 }
 
 // Format date for display

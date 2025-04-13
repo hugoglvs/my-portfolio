@@ -17,15 +17,17 @@ interface MapProps {
   locations: EventLocation[];
   onMarkerClick: (id: string) => void;
   currentTimeframe: string;
+  solvedEvents: string[];
 }
 
-export default function Map({ locations, onMarkerClick, currentTimeframe }: MapProps) {
+export default function Map({ locations, onMarkerClick, currentTimeframe, solvedEvents }: MapProps) {
   return (
     <div className="h-full w-full rounded-lg overflow-hidden">
       <MapComponent
         locations={locations}
         onMarkerClick={onMarkerClick}
         currentTimeframe={currentTimeframe}
+        solvedEvents={solvedEvents}
       />
     </div>
   );
