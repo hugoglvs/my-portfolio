@@ -3,7 +3,7 @@
 export default function Home() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center bg-[var(--background)] p-8">
-      <h1 className="text-4xl font-bold mb-8 text-[var(--foreground)]">Hugo Filipe</h1>
+      <h1 className="text-4xl font-bold mb-8 text-[var(--foreground)]">Hugo Gonçalves</h1>
       
       <div className="max-w-2xl text-center space-y-6">
         <section className="mb-8">
