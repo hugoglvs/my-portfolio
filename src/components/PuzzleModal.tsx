@@ -84,7 +84,7 @@ export default function PuzzleModal({
     return (
       <div className="p-6 text-center">
         <h3 className="text-2xl font-bold mb-4 text-[var(--foreground)]">{location.unlockContent.title}</h3>
-        <p className="mb-6 text-[var(--neutral-600)]">{location.unlockContent.text}</p>
+        <p className="mb-6 text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">{location.unlockContent.text}</p>
         
         {location.unlockContent.mediaUrl && (
           <div className="my-4">
@@ -130,7 +130,7 @@ export default function PuzzleModal({
           </button>
           <button
             onClick={onClose}
-            className="px-6 py-2 bg-[var(--neutral-200)] text-[var(--neutral-800)] rounded-lg hover:bg-[var(--neutral-300)] transition"
+            className="px-6 py-2 bg-[var(--neutral-200)] text-[var(--neutral-800)] rounded-lg hover:bg-[var(--neutral-300)] transition dark:bg-[var(--neutral-700)] dark:text-[var(--neutral-200)] dark:hover:bg-[var(--neutral-600)]"
           >
             Close
           </button>
@@ -144,7 +144,7 @@ export default function PuzzleModal({
       isOpen={isOpen}
       onRequestClose={onClose}
       contentLabel={`Puzzle for ${location.name}`}
-      className="max-w-2xl mx-auto mt-20 bg-[var(--background)]  rounded-xl shadow-2xl outline-none overflow-hidden"
+      className="max-w-2xl mx-auto mt-20 bg-[var(--background)] rounded-xl shadow-2xl outline-none overflow-hidden"
       overlayClassName="fixed inset-0 bg-[var(--neutral-900)]/50 backdrop-blur-xs z-[1000] flex items-start justify-center"
       style={{
         overlay: {

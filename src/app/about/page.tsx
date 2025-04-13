@@ -138,7 +138,7 @@ export default function AboutPage() {
             <div id="introduction" className="flex flex-col items-center md:flex-row md:items-start gap-8 scroll-mt-30">
               {/* Profile Image and Languages */}
               <div className="flex flex-col items-center gap-4">
-                <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-white/10">
+                <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-[var(--neutral-400)]/10">
                   <Image
                     src={user.image}
                     alt={user.name}
@@ -150,7 +150,7 @@ export default function AboutPage() {
                 {/* Language Spoken */}
                 <div className="flex flex-wrap gap-2 justify-center w-[calc(2*100px+8px)]">
                   {user.languages.map((language, index) => (
-                    <button key={index} className="px-4 py-1 rounded-full border border-black/20 hover:bg-white/10 transition w-[100px]">
+                    <button key={index} className="px-4 py-1 rounded-full border border-[var(--neutral-500)]/20 hover:bg-[var(--neutral-300)]/10 transition w-[100px]">
                       {language}
                     </button>
                   ))}
@@ -161,12 +161,12 @@ export default function AboutPage() {
               <div className="flex-1 text-center md:text-left">
                 <h1 className="text-5xl font-bold mb-1.5">{user.name}</h1>
                 <div className="flex items-center gap-4 mb-4 justify-center md:justify-start">
-                  <h2 className="text-3xl text-gray-600">{user.title}</h2>
+                  <h2 className="text-3xl text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">{user.title}</h2>
                   <DownloadButton href={user.resume} icon={<ArrowDown />} variant="rounded" label="Télécharger mon CV" />
                 </div>
 
                 {/* Location */}
-                <div className="flex items-center justify-center md:justify-start gap-2 mb-6 text-gray-600">
+                <div className="flex items-center justify-center md:justify-start gap-2 mb-6 text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">
                   <MapPin /> <span>{user.location}</span>
                 </div>
                 {/* Social Links */}
@@ -187,13 +187,13 @@ export default function AboutPage() {
 
             <div className="space-y-8">
               {/* Expérience professionnelle */}
-              <section id="experience" className="bg-white rounded-lg shadow-md p-6 scroll-mt-20">
+              <section id="experience" className="bg-[var(--card)] rounded-lg shadow-md p-6 scroll-mt-20">
                 <h2 className="text-2xl font-semibold mb-4">Expérience Professionnelle</h2>
                 <div className="space-y-4">
                   {user.experience.map((exp, index) => (
                     <div key={index}>
                       <h3 className="text-xl font-medium">{exp.title} - {exp.company}</h3>
-                      <p className="text-gray-600">{exp.period}</p>
+                      <p className="text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">{exp.period}</p>
                       <ul className="list-disc ml-4 mt-2">
                         {exp.tasks.map((task, taskIndex) => (
                           <li key={taskIndex}>{task}</li>
@@ -205,13 +205,13 @@ export default function AboutPage() {
               </section>
 
               {/* Études */}
-              <section id="education" className="bg-white rounded-lg shadow-md p-6 scroll-mt-20">
+              <section id="education" className="bg-[var(--card)] rounded-lg shadow-md p-6 scroll-mt-20">
                 <h2 className="text-2xl font-semibold mb-4">Formation</h2>
                 <div className="space-y-4">
                   {user.education.map((edu, index) => (
                     <div key={index}>
                       <h3 className="text-xl font-medium">{edu.degree}</h3>
-                      <p className="text-gray-600">{edu.school} {edu.school && '('}{edu.period}{edu.school && ')'}</p>
+                      <p className="text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">{edu.school} {edu.school && '('}{edu.period}{edu.school && ')'}</p>
                       <p>{edu.description}</p>
                     </div>
                   ))}
@@ -219,11 +219,11 @@ export default function AboutPage() {
               </section>
 
               {/* Compétences techniques */}
-              <section id="skills" className="bg-white rounded-lg shadow-md p-6 scroll-mt-20">
+              <section id="skills" className="bg-[var(--card)] rounded-lg shadow-md p-6 scroll-mt-20">
                 <h2 className="text-2xl font-semibold mb-4">Compétences Techniques</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {Object.entries(user.skills).map(([category, skills], index) => (
-                    <div key={index} className="bg-gray-100 p-4 rounded-lg">
+                    <div key={index} className="bg-[var(--neutral-200)] dark:bg-[var(--neutral-800)] p-4 rounded-lg">
                       <div className="flex items-center gap-2 mb-3">
                         {category === "Data Science" && <Database className="w-5 h-5" />}
                         {category === "Développement Web" && <Code2 className="w-5 h-5" />}

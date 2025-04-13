@@ -28,9 +28,9 @@ export const Button = ({
   
   const variantStyles = {
     default: "p-1 border-1 rounded-md",
-    social: "p-2 rounded-lg border-1 border-black/20 bg-gray-300/10 hover:bg-black/20",
-    glass: "p-1 text-gray-500",
-    rounded: "py-1 px-2 rounded-full border-1 border-black/40 bg-gray-300/10 hover:bg-gray-500/10 text-gray-500 text-sm",
+    social: "p-2 rounded-lg border-1 border-[var(--neutral-500)]/20 bg-[var(--neutral-300)]/10 hover:bg-[var(--neutral-400)]/20 text-[var(--foreground)]",
+    glass: "p-1 text-[var(--neutral-600)] dark:text-[var(--neutral-400)] hover:text-[var(--foreground)]",
+    rounded: "py-1 px-2 rounded-full border-1 border-[var(--neutral-500)]/40 bg-[var(--neutral-300)]/10 hover:bg-[var(--neutral-400)]/20 text-[var(--neutral-600)] dark:text-[var(--neutral-400)] text-sm",
   };
 
   const defaultIcon = (
@@ -63,7 +63,7 @@ export const Button = ({
       >
         {icon || (variant === 'default' ? defaultIcon : null)}
         {label}
-        {description && <span className="text-sm text-gray-500">{description}</span>}
+        {description && <span className="text-sm text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">{description}</span>}
       </a>
     );
   }
@@ -77,7 +77,7 @@ export const Button = ({
     >
       {icon || (variant === 'default' ? defaultIcon : null)}
       {label}
-      {description && <span className="text-sm text-gray-500">{description}</span>}
+      {description && <span className="text-sm text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">{description}</span>}
     </Link>
   );
 };

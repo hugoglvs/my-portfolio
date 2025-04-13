@@ -1,6 +1,6 @@
 "use client";
 
-import { Home, User, BookOpen, Map } from "lucide-react";
+import { Home, User, BookOpen, Map, } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
@@ -28,8 +28,8 @@ export default function Navbar() {
                 className={clsx(
                   "flex items-center gap-1.5 rounded-xl px-3 sm:px-4 py-2 text-sm font-medium transition-all duration-200",
                   isActive
-                    ? "bg-[var(--primary)] text-[var(--secondary)] shadow-inner ring-1 ring-[var(--primary-light)] hover:bg-[var(--primary)]/90"
-                    : "text-[var(--neutral-600)] hover:text-[var(--foreground)] hover:bg-[var(--accent)]/50"
+                    ? "bg-[var(--neutral-200)] dark:bg-[var(--neutral-700)] text-[var(--neutral-800)] dark:text-[var(--neutral-200)] shadow-inner ring-1 ring-[var(--neutral-600)] hover:bg-[var(--neutral-300)]/70"
+                    : "text-[var(--neutral-600)] dark:text-[var(--neutral-400)] hover:text-[var(--foreground)] hover:bg-[var(--neutral-200)]/50 dark:hover:bg-[var(--neutral-700)]/50"
                 )}
               >
                 <Icon size={20} className="transition-transform duration-200 group-hover:scale-110" />
@@ -37,15 +37,6 @@ export default function Navbar() {
               </Link>
             );
           })}
-          <div className="flex items-center gap-2 ml-4 border-l border-[var(--neutral-300)] pl-4">
-            <Link
-              href="/profile"
-              className="flex items-center gap-2 rounded-full px-3 sm:px-4 py-2 text-sm font-medium text-[var(--neutral-600)] hover:text-[var(--foreground)] hover:bg-[var(--accent)]/50 transition-all duration-200"
-            >
-              <User size={20} className="transition-transform duration-200 group-hover:scale-110" />
-              <span className="hidden sm:inline">Profil</span>
-            </Link>
-          </div>
         </div>
       </div>
     </nav>

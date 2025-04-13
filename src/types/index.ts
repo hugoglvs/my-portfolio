@@ -33,6 +33,8 @@ export interface Achievement {
     type: 'events';
     ids: string[];
   }>;
+  isUnlocked?: boolean;
+  requirementsMet?: boolean;
 }
 
 export interface Timeframe {

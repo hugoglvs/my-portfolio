@@ -12,6 +12,7 @@
   --primary-dark: #2d6cb0;
   --secondary: #ffffff;  /* White */
   --accent: #e6f0fa;
+  --card: #ffffff;
   
   /* Neutral colors */
   --neutral-100: #f8f9fa;
@@ -36,6 +37,7 @@
     --primary-dark: #3c7bc4;
     --secondary: #ffffff;
     --accent: #1e2a3a;
+    --card: #1e1e1e;
   }
 }
 

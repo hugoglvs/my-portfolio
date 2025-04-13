@@ -24,24 +24,22 @@ export function getEventById(id: string): EventLocation | undefined {
 // Check for new achievements
 export function checkAchievements(solvedEvents: string[], unlockedAchievements: string[]): Achievement[] {
   const allAchievements = getAchievements();
-  const newAchievements: Achievement[] = [];
-
-  for (const achievement of allAchievements) {
-    if (!unlockedAchievements.includes(achievement.id)) {
-      const isUnlocked = achievement.requirements.every(req => {
-        if (req.type === 'events') {
-          return req.ids.every(id => solvedEvents.includes(id));
-        }
-        return false;
-      });
-
-      if (isUnlocked) {
-        newAchievements.push(achievement);
+  
+  return allAchievements.map(achievement => {
+    const isUnlocked = unlockedAchievements.includes(achievement.id);
+    const requirementsMet = achievement.requirements.every(req => {
+      if (req.type === 'events') {
+        return req.ids.every(id => solvedEvents.includes(id));
       }
-    }
-  }
-
-  return newAchievements;
+      return false;
+    });
+    
+    return {
+      ...achievement,
+      isUnlocked,
+      requirementsMet
+    };
+  });
 }
 
 // Format date for display
@@ -80,5 +78,15 @@ export function loadProgress(): { solvedEvents: string[]; unlockedAchievements: 
   } catch (error) {
     console.error('Error loading progress from localStorage:', error);
     return { solvedEvents: [], unlockedAchievements: [] };
+  }
+}
+
+// Reset progress in localStorage
+export function resetProgress() {
+  try {
+    localStorage.setItem('solvedEvents', JSON.stringify([]));
+    localStorage.setItem('unlockedAchievements', JSON.stringify([]));
+  } catch (error) {
+    console.error('Error resetting progress in localStorage:', error);
   }
 } 
