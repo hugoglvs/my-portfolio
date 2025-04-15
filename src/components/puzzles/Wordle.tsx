@@ -28,6 +28,12 @@ export default function Wordle({ puzzleData, onSolved }: WordleProps) {
   const [keyboardState, setKeyboardState] = useState<Record<string, 'correct' | 'present' | 'absent'>>({});
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const focusInput = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
+
   const handleKeyPress = useCallback((key: string) => {
     if (gameState !== 'playing') return;
 
@@ -181,12 +187,14 @@ export default function Wordle({ puzzleData, onSolved }: WordleProps) {
                 return (
                   <div
                     key={j}
+                    onClick={focusInput}
                     className={`
                       w-12 h-12 flex items-center justify-center text-2xl font-bold rounded
                       ${state === 'correct' ? 'bg-green-500' : state === 'present' ? 'bg-yellow-500' : 'bg-gray-200 dark:bg-gray-700'}
                       ${state ? 'text-white' : 'text-gray-800 dark:text-gray-200'}
                       ${isCurrentCell ? 'border-2 border-blue-500' : ''}
                       transition-colors duration-300
+                      cursor-pointer
                     `}
                   >
                     {letter}
