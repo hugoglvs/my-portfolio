@@ -197,36 +197,35 @@ export default function SudokuBoard({ puzzleData, onSolved }: SudokuBoardProps) 
   };
 
   return (
-    <div className="flex flex-col items-center gap-4 p-4">
+    <div className="flex flex-col items-center gap-6 p-6 bg-[var(--card)] rounded-lg shadow-lg">
       {puzzleData?.title && (
-        <h3 className="text-xl font-bold mb-2 text-[var(--foreground)]">{puzzleData.title}</h3>
+        <h3 className="text-2xl font-bold text-[var(--foreground)]">{puzzleData.title}</h3>
       )}
       
       {puzzleData?.description && (
-        <p className="mb-4 text-[var(--neutral-600)]">{puzzleData.description}</p>
+        <p className="text-[var(--neutral-600)] text-center max-w-md">{puzzleData.description}</p>
       )}
 
-      <div className="flex gap-4">
+      <div className="flex gap-4 mb-4">
         <button
           onClick={handleClear}
-          className="px-4 py-2 bg-[var(--primary-light)] text-[var(--secondary)] rounded hover:bg-[var(--primary)]"
+          className="px-4 py-2 bg-[var(--primary-light)] text-[var(--secondary)] rounded-lg hover:bg-[var(--primary)] transition-colors duration-200"
         >
           Clear
         </button>
         <button
           onClick={handleHint}
-          className="px-4 py-2 bg-[var(--primary-dark)] text-[var(--secondary)] rounded hover:bg-[var(--primary)]"
+          className="px-4 py-2 bg-[var(--primary-dark)] text-[var(--secondary)] rounded-lg hover:bg-[var(--primary)] transition-colors duration-200"
         >
           Hint
         </button>
       </div>
 
       <div
-        className="grid grid-cols-9 gap-0 border-2 border-[var(--neutral-800)] outline-none"
+        className="grid grid-cols-9 gap-0 border-2 border-[var(--neutral-800)] rounded-lg overflow-hidden outline-none focus:ring-2 focus:ring-[var(--primary)] transition-all duration-200"
         onKeyDown={handleKeyDown}
         tabIndex={0}
         onFocus={(e) => {
-          // Ensure the board is focused when clicked
           e.currentTarget.focus();
         }}
       >
@@ -239,21 +238,21 @@ export default function SudokuBoard({ puzzleData, onSolved }: SudokuBoardProps) 
                 ${i % 3 === 0 ? 'border-t-2' : 'border-t'}
                 ${j % 3 === 0 ? 'border-l-2' : 'border-l'}
                 ${isSelected(i, j) ? 'bg-[var(--accent)]' : ''}
-                ${isInSelectedRegion(i, j) && !isSelected(i, j) ? 'bg-[var(--neutral-100)]' : ''}
+                ${isInSelectedRegion(i, j) && !isSelected(i, j) ? 'bg-[var(--neutral-200)] dark:bg-[var(--neutral-800)]' : ''}
                 ${isConflict(i, j) ? 'text-red-500' : ''}
                 ${initialCells.has(`${i},${j}`) ? 'font-bold text-[var(--foreground)]' : 'text-[var(--neutral-600)]'}
-                cursor-pointer
+                cursor-pointer transition-colors duration-200
+                hover:bg-[var(--neutral-200)] dark:hover:bg-[var(--neutral-800)]
               `}
               onClick={() => {
                 handleCellClick(i, j);
-                // Ensure the board maintains focus after clicking a cell
                 const boardElement = document.querySelector('.grid');
-                if (boardElement) {
-                  (boardElement as HTMLElement).focus();
+                if (boardElement instanceof HTMLElement) {
+                  boardElement.focus();
                 }
               }}
             >
-              {cell !== 0 ? cell : ''}
+              {cell !== 0 && cell}
             </div>
           ))
         )}
