@@ -7,6 +7,8 @@ import { EventLocation } from '@/types';
 import TriviaQuiz from './puzzles/TriviaQuiz';
 import TicTacToe from './puzzles/TicTacToe';
 import SudokuBoard from './puzzles/SudokuBoard';
+import ForgetTheLyrics from './puzzles/ForgetTheLyrics';
+import Wordle from './puzzles/Wordle';
 import Image from 'next/image';
 
 interface PuzzleModalProps {
@@ -18,19 +20,23 @@ interface PuzzleModalProps {
 }
 
 export default function PuzzleModal({ isOpen, onClose, location, onPuzzleSolved, isAlreadySolved = false }: PuzzleModalProps) {
-  const [solved, setSolved] = useState(false);
+  const [showPuzzle, setShowPuzzle] = useState(true);
 
   useEffect(() => {
     if (location) {
-      setSolved(isAlreadySolved);
+      setShowPuzzle(!isAlreadySolved);
     }
   }, [location, isAlreadySolved]);
 
   if (!location) return null;
 
   const handlePuzzleSolved = () => {
-    setSolved(true);
+    setShowPuzzle(false);
     onPuzzleSolved(location.id);
+  };
+
+  const handleReplay = () => {
+    setShowPuzzle(true);
   };
 
   const handleClose = () => {
@@ -42,9 +48,13 @@ export default function PuzzleModal({ isOpen, onClose, location, onPuzzleSolved,
       case 'trivia':
         return <TriviaQuiz puzzleData={location.puzzleData as { questions: { question: string; options: string[]; correctAnswer: number; }[]; title?: string; description?: string; }} onSolved={handlePuzzleSolved} />;
       case 'tictactoe':
-        return <TicTacToe puzzleData={location.puzzleData} onSolved={handlePuzzleSolved} />;
+        return <TicTacToe puzzleData={location.puzzleData as { title: string; description: string; difficulty: string; }} onSolved={handlePuzzleSolved} />;
       case 'sudoku':
         return <SudokuBoard onSolved={handlePuzzleSolved} />;
+      case 'lyrics':
+        return <ForgetTheLyrics puzzleData={location.puzzleData as { title: string; description: string; songs: { title: string; artist: string; lyrics: string[]; missingWord: number; }[]; }} onSolved={handlePuzzleSolved} />;
+      case 'wordle':
+        return <Wordle puzzleData={location.puzzleData as { title: string; description: string; word: string; }} onSolved={handlePuzzleSolved} />;
       default:
         return (
           <div className="p-4 text-center">
@@ -96,6 +106,13 @@ export default function PuzzleModal({ isOpen, onClose, location, onPuzzleSolved,
             )}
           </div>
         )}
+        
+        <button
+          onClick={handleReplay}
+          className="mt-4 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
+        >
+          Rejouer le puzzle
+        </button>
       </div>
     );
   };
@@ -135,7 +152,7 @@ export default function PuzzleModal({ isOpen, onClose, location, onPuzzleSolved,
 
             {/* Content */}
             <div className="flex-1 overflow-y-auto p-4 sm:p-6">
-              {!solved ? renderPuzzleComponent() : renderUnlockedContent()}
+              {showPuzzle ? renderPuzzleComponent() : renderUnlockedContent()}
             </div>
 
             {/* Footer */}

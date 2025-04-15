@@ -5,7 +5,7 @@ export interface EventLocation {
   lat: number;
   lng: number;
   timeframe: string;
-  puzzleType: 'trivia' | 'sudoku' | 'crossword' | 'memory' | 'puzzle' | 'tictactoe';
+  puzzleType: 'trivia' | 'sudoku' | 'crossword' | 'memory' | 'puzzle' | 'tictactoe' | 'lyrics' | 'wordle';
   puzzleData: {
     title?: string;
     description?: string;
@@ -46,4 +46,4 @@ export interface Timeframe {
   period: string;
 }
 
-export type PuzzleType = 'trivia' | 'sudoku' | 'crossword' | 'memory' | 'puzzle' | 'tictactoe'; 
+export type PuzzleType = 'trivia' | 'sudoku' | 'crossword' | 'memory' | 'puzzle' | 'tictactoe' | 'lyrics' | 'wordle'; 

@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import PuzzleModal from '@/components/PuzzleModal';
 import AchievementPopup from '@/components/AchievementPopup';
 import AchievementModal from '@/components/AchievementModal';
-import { getEvents, loadProgress, getTimeframes, getAchievements } from '@/lib/utils';
+import { getEvents, loadProgress, getTimeframes, getAchievements, saveProgress } from '@/lib/utils';
 import { EventLocation, Achievement, Timeframe } from '@/types';
 import { 
   MapPin,
@@ -79,7 +79,37 @@ export default function Explore() {
   
   // Handle puzzle solved
   const handlePuzzleSolved = (locationId: string) => {
-    setSolvedLocations(prev => [...prev, locationId]);
+    const newSolvedLocations = [...solvedLocations, locationId];
+    setSolvedLocations(newSolvedLocations);
+    
+    // Check for new achievements
+    const newAchievements = achievements.filter(achievement => {
+      if (unlockedAchievements.includes(achievement.id)) return false;
+      
+      switch (achievement.id) {
+        case 'first_puzzle':
+          return newSolvedLocations.length >= 1;
+        case 'puzzle_master':
+          return newSolvedLocations.length >= 5;
+        case 'time_traveler':
+          return newSolvedLocations.length >= 10;
+        case 'explorer':
+          return newSolvedLocations.length >= 15;
+        case 'legend':
+          return newSolvedLocations.length >= 20;
+        default:
+          return false;
+      }
+    });
+    
+    if (newAchievements.length > 0) {
+      const newUnlockedAchievements = [...unlockedAchievements, ...newAchievements.map(a => a.id)];
+      setUnlockedAchievements(newUnlockedAchievements);
+      setNewAchievement(newAchievements[0]);
+      saveProgress(newSolvedLocations, newUnlockedAchievements);
+    } else {
+      saveProgress(newSolvedLocations, unlockedAchievements);
+    }
   };
   
   // Handle closing the achievement popup
@@ -388,7 +418,7 @@ export default function Explore() {
       </div>
 
       {/* Timeline Slider */}
-      <div className="max-w-7xl mx-auto px-6">
+      <div id="map-section" className="scroll-mt-16 max-w-7xl mx-auto px-6">
         <TimelineSlider
           timeframes={timeframes}
           currentTimeframe={currentTimeframe}
@@ -397,7 +427,7 @@ export default function Explore() {
       </div>
 
       {/* Map Section */}
-      <div id="map-section" className="relative z-10 max-w-7xl mx-auto px-6 pb-16">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 pb-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

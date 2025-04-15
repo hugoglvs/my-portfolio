@@ -379,6 +379,101 @@
         "mediaUrl": "https://images.unsplash.com/photo-1518998053901-5348d3961a04?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
         "mediaType": "image"
       }
+    },
+    {
+      "id": "confinement_lyrics",
+      "name": "N'oubliez pas les paroles",
+      "description": "Un jeu musical pour passer le temps pendant le confinement",
+      "lat": 42.6976,
+      "lng": 2.8954,
+      "timeframe": "covid",
+      "puzzleType": "lyrics",
+      "puzzleData": {
+        "title": "N'oubliez pas les paroles",
+        "description": "Complétez les paroles manquantes des chansons",
+        "songs": [
+          {
+            "title": "Bohemian Rhapsody",
+            "artist": "Queen",
+            "lyrics": [
+              "Is this the real life?",
+              "Is this just fantasy?",
+              "Caught in a landslide",
+              "No escape from reality",
+              "Open your eyes",
+              "Look up to the skies and see",
+              "I'm just a poor boy, I need no sympathy",
+              "Because I'm easy come, easy go",
+              "Little high, little low",
+              "Any way the wind blows doesn't really matter to me, to me"
+            ],
+            "missingWord": 2
+          },
+          {
+            "title": "Imagine",
+            "artist": "John Lennon",
+            "lyrics": [
+              "Imagine there's no heaven",
+              "It's easy if you try",
+              "No hell below us",
+              "Above us only sky",
+              "Imagine all the people",
+              "Living for today",
+              "Imagine there's no countries",
+              "It isn't hard to do",
+              "Nothing to kill or die for",
+              "And no religion too"
+            ],
+            "missingWord": 5
+          }
+        ]
+      },
+      "unlockContent": {
+        "title": "Les jeux pendant le confinement",
+        "text": "Pendant le confinement de 2020, j'ai développé plusieurs petits jeux pour passer le temps et m'amuser. 'N'oubliez pas les paroles' était l'un de mes préférés, mêlant ma passion pour la musique et le développement web.",
+        "mediaUrl": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "confinement_tic_tac_toe",
+      "name": "Tic-tac-toe",
+      "description": "Un classique revisité pendant le confinement",
+      "lat": 42.6976,
+      "lng": 2.8954,
+      "timeframe": "covid",
+      "puzzleType": "tictactoe",
+      "puzzleData": {
+        "title": "Tic-tac-toe Challenge",
+        "description": "Battez l'ordinateur au tic-tac-toe",
+        "difficulty": "medium"
+      },
+      "unlockContent": {
+        "title": "Développement de jeux pendant le confinement",
+        "text": "Le tic-tac-toe a été l'un de mes premiers projets de développement de jeux. J'ai appris à implémenter une IA simple pour jouer contre l'ordinateur, ce qui m'a permis de comprendre les bases de l'algorithmie et de la programmation orientée objet.",
+        "mediaUrl": "https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "wordle_challenge",
+      "name": "Wordle Challenge",
+      "description": "Devinez le mot en 6 tentatives maximum",
+      "lat": 42.6976,
+      "lng": 2.8954,
+      "timeframe": "intemporal",
+      "puzzleType": "wordle",
+      "puzzleData": {
+        "title": "Wordle Challenge",
+        "description": "Devinez le mot en 6 tentatives maximum",
+        "word": "REACT"
+      },
+      "unlockContent": {
+        "title": "Passion pour le développement",
+        "text": "J'ai découvert le développement web avec React, un framework JavaScript qui m'a permis de créer des interfaces utilisateur interactives et modernes.",
+        "mediaUrl": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "mediaType": "image"
+      }
     }
   ],
   "timeframes": [
@@ -421,6 +516,14 @@
       "color": "#FFD700",
       "icon": "⭐",
       "period": "Toujours"
+    },
+    {
+      "id": "covid",
+      "name": "Confinement COVID",
+      "description": "Période de confinement due à la pandémie de COVID-19",
+      "color": "#FFB6C1",
+      "icon": "🏠",
+      "period": "2020"
     }
   ],
   "achievements": [

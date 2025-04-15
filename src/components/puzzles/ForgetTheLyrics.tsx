@@ -9,69 +9,24 @@ interface Song {
   missingWord: number;
 }
 
-const ForgetTheLyrics = () => {
+interface ForgetTheLyricsProps {
+  puzzleData: {
+    title: string;
+    description: string;
+    songs: Song[];
+  };
+  onSolved: () => void;
+}
+
+const ForgetTheLyrics = ({ puzzleData, onSolved }: ForgetTheLyricsProps) => {
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
   const [userAnswer, setUserAnswer] = useState('');
   const [score, setScore] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
 
-  const songs: Song[] = [
-    {
-      title: "Bohemian Rhapsody",
-      artist: "Queen",
-      lyrics: [
-        "Is this the real life?",
-        "Is this just fantasy?",
-        "Caught in a landslide",
-        "No escape from reality",
-        "Open your eyes",
-        "Look up to the skies and see",
-        "I&apos;m just a poor boy, I need no sympathy",
-        "Because I&apos;m easy come, easy go",
-        "Little high, little low",
-        "Any way the wind blows doesn&apos;t really matter to me, to me"
-      ],
-      missingWord: 2
-    },
-    {
-      title: "Imagine",
-      artist: "John Lennon",
-      lyrics: [
-        "Imagine there&apos;s no heaven",
-        "It&apos;s easy if you try",
-        "No hell below us",
-        "Above us only sky",
-        "Imagine all the people",
-        "Living for today",
-        "Imagine there&apos;s no countries",
-        "It isn&apos;t hard to do",
-        "Nothing to kill or die for",
-        "And no religion too"
-      ],
-      missingWord: 5
-    },
-    {
-      title: "Sweet Child O&apos; Mine",
-      artist: "Guns N&apos; Roses",
-      lyrics: [
-        "She&apos;s got a smile that it seems to me",
-        "Reminds me of childhood memories",
-        "Where everything was as fresh as the bright blue sky",
-        "Now and then when I see her face",
-        "She takes me away to that special place",
-        "And if I stared too long, I&apos;d probably break down and cry",
-        "Whoa, oh, oh",
-        "Sweet child o&apos; mine",
-        "Whoa, oh, oh, oh",
-        "Sweet love of mine"
-      ],
-      missingWord: 7
-    }
-  ];
-
   const startNewGame = () => {
-    const randomSong = songs[Math.floor(Math.random() * songs.length)];
+    const randomSong = puzzleData.songs[Math.floor(Math.random() * puzzleData.songs.length)];
     setCurrentSong(randomSong);
     setUserAnswer('');
     setShowAnswer(false);
@@ -87,6 +42,9 @@ const ForgetTheLyrics = () => {
     
     if (isAnswerCorrect) {
       setScore(score + 1);
+      if (score + 1 >= 2) { // Gagner après 2 bonnes réponses
+        onSolved();
+      }
     }
     setShowAnswer(true);
   };
@@ -100,7 +58,8 @@ const ForgetTheLyrics = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-900 to-black text-white p-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold text-center mb-8">N&apos;oubliez pas les paroles</h1>
+        <h1 className="text-4xl font-bold text-center mb-8">{puzzleData.title}</h1>
+        <p className="text-xl text-center mb-8 text-gray-300">{puzzleData.description}</p>
         
         <div className="bg-white/10 rounded-lg p-6 mb-8">
           <h2 className="text-2xl font-semibold mb-2">{currentSong.title}</h2>
