@@ -22,46 +22,33 @@ export default function MapComponent({ locations, onMarkerClick, currentTimefram
     fixLeafletIcon();
   }, []);
 
-  // Create custom icons
-  const blueIcon = new L.Icon({
-    iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-    iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-    shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41]
-  });
+  // Create custom icons with modern design
+  const createCustomIcon = (color: string, isSolved: boolean = false) => {
+    const size = isSolved ? 32 : 28;
+    const svg = `
+      <svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="10" fill="${color}" fill-opacity="0.2"/>
+        <circle cx="12" cy="12" r="6" fill="${color}"/>
+        ${isSolved ? `
+          <path d="M8 12L11 15L16 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        ` : ''}
+      </svg>
+    `;
+    
+    return new L.DivIcon({
+      html: svg,
+      className: 'custom-marker',
+      iconSize: [size, size],
+      iconAnchor: [size/2, size/2],
+      popupAnchor: [0, -size/2]
+    });
+  };
 
-  const greenIcon = new L.Icon({
-    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
-    iconRetinaUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-    shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41]
-  });
-
-  const goldIcon = new L.Icon({
-    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png',
-    iconRetinaUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png',
-    shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41]
-  });
-
-  const goldGreenIcon = new L.Icon({
-    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png',
-    iconRetinaUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png',
-    shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41]
-  });
+  // Define icon colors based on status
+  const unsolvedIcon = createCustomIcon('#3B82F6'); // blue-500
+  const solvedIcon = createCustomIcon('#10B981', true); // green-500
+  const intemporalIcon = createCustomIcon('#F59E0B'); // amber-500
+  const intemporalSolvedIcon = createCustomIcon('#10B981', true); // green-500
 
   // Filter locations based on the current timeframe
   const visibleLocations = locations.filter(location => 
@@ -107,9 +94,9 @@ export default function MapComponent({ locations, onMarkerClick, currentTimefram
         // Choose the appropriate icon based on the event type and solved status
         let icon;
         if (isIntemporal) {
-          icon = isSolved ? goldGreenIcon : goldIcon;
+          icon = isSolved ? intemporalSolvedIcon : intemporalIcon;
         } else {
-          icon = isSolved ? greenIcon : blueIcon;
+          icon = isSolved ? solvedIcon : unsolvedIcon;
         }
 
         return (

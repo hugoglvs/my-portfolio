@@ -31,7 +31,8 @@ import {
   Users,
   Clock,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Map as MapIcon
 } from 'lucide-react';
 import Map from '@/components/Map';
 import TimelineSlider from '@/components/TimelineSlider';
@@ -116,20 +117,36 @@ export default function Explore() {
       {/* Hero Section */}
       <div className="relative">
         <div className="absolute inset-0 -mt-24 bg-gradient-to-b from-blue-600/20 via-blue-600/10 to-transparent h-[120vh]" />
-        <div className="max-w-7xl mx-auto px-6 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            <h1 className="text-6xl font-bold mb-6 font-display bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent leading-tight py-2">
-              Explorez mon Univers
-            </h1>
-            <p className="text-2xl text-[var(--neutral-600)] dark:text-[var(--neutral-400)] max-w-3xl mb-8">
-              Découvrez mon parcours à travers une expérience interactive et ludique. 
-              Résolvez les énigmes pour débloquer des contenus exclusifs.
-            </p>
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-6xl font-bold mb-6 font-display bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent leading-tight py-2">
+                  Explorez mon Univers
+                </h1>
+                <p className="text-2xl text-[var(--neutral-600)] dark:text-[var(--neutral-400)] max-w-3xl mb-8">
+                  Découvrez mon parcours à travers une expérience interactive et ludique. 
+                  Résolvez les énigmes pour débloquer des contenus exclusifs.
+                </p>
+              </div>
+              <button
+                onClick={() => {
+                  const mapSection = document.getElementById('map-section');
+                  if (mapSection) {
+                    mapSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all transform hover:scale-105"
+              >
+                <MapIcon className="h-5 w-5 mr-2" />
+                Voir la carte
+              </button>
+            </div>
             
             {/* Progress Section */}
             <motion.div
@@ -380,7 +397,7 @@ export default function Explore() {
       </div>
 
       {/* Map Section */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 pb-16">
+      <div id="map-section" className="relative z-10 max-w-7xl mx-auto px-6 pb-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
