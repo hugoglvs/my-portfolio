@@ -1,3 +1,6 @@
+'use client';
+
+import { motion } from 'framer-motion';
 import { SocialLinksGroup } from '@/components/SocialLinksGroup';
 import { DownloadButton } from '@/components/DownloadButton';
 import { TableOfContents } from '@/components/TableOfContents';
@@ -19,7 +22,6 @@ import {
   Layout,
   Paintbrush,
   FileSpreadsheet,
-  Briefcase,
   Terminal
 } from 'lucide-react';
 import Image from 'next/image';
@@ -126,146 +128,225 @@ export default function AboutPage() {
   return (
     <div className="flex">
       {/* Table of Contents */}
-    <aside className="hidden md:block w-64 shrink-0 sticky top-6 h-[calc(100vh-12rem)]">
-      <TableOfContents links={tableOfContentsLinks} />
-    </aside>
-    <main className="min-h-screen">
-      <div className="max-w-7xl mx-auto p-6">
-        <div className="flex gap-8">          
-          {/* Main Content */}
-          <div className="flex-1">
-            {/* Hero Section */}
-            <div id="introduction" className="flex flex-col items-center md:flex-row md:items-start gap-8 scroll-mt-30">
-              {/* Profile Image and Languages */}
-              <div className="flex flex-col items-center gap-4">
-                <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-[var(--neutral-400)]/10">
-                  <Image
-                    src={user.image}
-                    alt={user.name}
-                    width={192}
-                    height={192}
-                    className="object-cover"
+      <aside className="hidden md:block w-64 shrink-0 sticky top-24 h-[calc(100vh-12rem)] ml-6">
+        <TableOfContents links={tableOfContentsLinks} />
+      </aside>
+      <main className="min-h-screen">
+        <div className="max-w-7xl mx-auto p-6">
+          <div className="flex gap-8">          
+            {/* Main Content */}
+            <div className="flex-1">
+              {/* Hero Section */}
+              <motion.div 
+                id="introduction"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="flex flex-col items-center md:flex-row md:items-start gap-8 scroll-mt-30"
+              >
+                {/* Profile Image and Languages */}
+                <motion.div 
+                  initial={{ scale: 0.95 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  className="flex flex-col items-center gap-4"
+                >
+                  <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-[var(--neutral-400)]/10">
+                    <Image
+                      src={user.image}
+                      alt={user.name}
+                      width={192}
+                      height={192}
+                      className="object-cover h-52"
+                    />
+                  </div>
+                  {/* Language Spoken */}
+                  <div className="flex flex-wrap gap-2 justify-center w-[calc(2*100px+8px)]">
+                    {user.languages.map((language, index) => (
+                      <motion.button
+                        key={index}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: 0.1 * index }}
+                        className="px-4 py-1 rounded-full border border-[var(--neutral-500)]/20 hover:bg-[var(--neutral-300)]/10 transition w-[100px]"
+                      >
+                        {language}
+                      </motion.button>
+                    ))}
+                  </div>
+                </motion.div>
+
+                {/* Profile Info */}
+                <motion.div 
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                  className="flex-1 text-center md:text-left"
+                >
+                  <h1 className="text-6xl font-bold mb-1.5 font-display bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent leading-tight py-2">
+                    {user.name}
+                  </h1>
+                  <div className="flex items-center gap-4 mb-4 justify-center md:justify-start">
+                    <h2 className="text-4xl font-medium text-[var(--neutral-600)] dark:text-[var(--neutral-400)] font-display">
+                      {user.title}
+                    </h2>
+                    <DownloadButton href={user.resume} icon={<ArrowDown />} variant="rounded" label="Télécharger mon CV" />
+                  </div>
+
+                  {/* Location */}
+                  <div className="flex items-center justify-center md:justify-start gap-2 mb-6 text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">
+                    <MapPin /> <span>{user.location}</span>
+                  </div>
+                  {/* Social Links */}
+                  <SocialLinksGroup
+                    github={user.social.github}
+                    linkedin={user.social.linkedin}
+                    email={user.email}
                   />
-                </div>
-                {/* Language Spoken */}
-                <div className="flex flex-wrap gap-2 justify-center w-[calc(2*100px+8px)]">
-                  {user.languages.map((language, index) => (
-                    <button key={index} className="px-4 py-1 rounded-full border border-[var(--neutral-500)]/20 hover:bg-[var(--neutral-300)]/10 transition w-[100px]">
-                      {language}
-                    </button>
-                  ))}
-                </div>
+                  <motion.section 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.8, delay: 0.6 }}
+                    className="rounded-lg py-6"
+                  >
+                    {user.introduction.map((paragraph, index) => (
+                      <p key={index} className="mb-4 text-lg">
+                        {paragraph}
+                      </p>
+                    ))}
+                  </motion.section>
+                </motion.div>
+              </motion.div>
+
+              <div className="space-y-8">
+                {/* Expérience professionnelle */}
+                <motion.section 
+                  id="experience"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.8 }}
+                  className="bg-[var(--card)] rounded-lg shadow-md p-6 scroll-mt-20"
+                >
+                  <h2 className="text-3xl font-bold mb-6 font-display bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    Expérience Professionnelle
+                  </h2>
+                  <div className="space-y-6">
+                    {user.experience.map((exp, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, delay: 0.1 * index }}
+                      >
+                        <h3 className="text-2xl font-semibold mb-2">{exp.title} - {exp.company}</h3>
+                        <p className="text-[var(--neutral-600)] dark:text-[var(--neutral-400)] mb-3">{exp.period}</p>
+                        <ul className="list-disc ml-4 space-y-2">
+                          {exp.tasks.map((task, taskIndex) => (
+                            <li key={taskIndex} className="text-lg">{task}</li>
+                          ))}
+                        </ul>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.section>
+
+                {/* Études */}
+                <motion.section 
+                  id="education"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 1 }}
+                  className="bg-[var(--card)] rounded-lg shadow-md p-6 scroll-mt-20"
+                >
+                  <h2 className="text-3xl font-bold mb-6 font-display bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    Formation
+                  </h2>
+                  <div className="space-y-6">
+                    {user.education.map((edu, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, delay: 0.1 * index }}
+                      >
+                        <h3 className="text-2xl font-semibold mb-2">{edu.degree}</h3>
+                        <p className="text-[var(--neutral-600)] dark:text-[var(--neutral-400)] mb-2">
+                          {edu.school} {edu.school && '('}{edu.period}{edu.school && ')'}
+                        </p>
+                        <p className="text-lg">{edu.description}</p>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.section>
+
+                {/* Compétences techniques */}
+                <motion.section 
+                  id="skills"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 1.2 }}
+                  className="bg-[var(--card)] rounded-lg shadow-md p-6 scroll-mt-20"
+                >
+                  <h2 className="text-3xl font-bold mb-6 font-display bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    Compétences Techniques
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {Object.entries(user.skills).map(([category, skills], index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5, delay: 0.1 * index }}
+                        className="bg-[var(--neutral-200)] dark:bg-[var(--neutral-800)] p-6 rounded-lg"
+                      >
+                        <div className="flex items-center gap-3 mb-4">
+                          {category === "Data Science" && <Database className="w-6 h-6" />}
+                          {category === "Développement Web" && <Code2 className="w-6 h-6" />}
+                          {category === "Outils & DevOps" && <Wrench className="w-6 h-6" />}
+                          {category === "Visualisation & Design" && <Palette className="w-6 h-6" />}
+                          <h3 className="text-xl font-semibold">{category}</h3>
+                        </div>
+                        <ul className="grid grid-cols-2 gap-3">
+                          {skills.map((skill, skillIndex) => (
+                            <motion.li
+                              key={skillIndex}
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.3, delay: 0.05 * skillIndex }}
+                              className="flex items-center gap-2 text-lg"
+                            >
+                              {skill === "PySpark" && <Box className="w-5 h-5" />}
+                              {skill === "pandas" && <FileSpreadsheet className="w-5 h-5" />}
+                              {skill === "numpy" && <Box className="w-5 h-5" />}
+                              {skill === "Scikit-learn" && <Beaker className="w-5 h-5" />}
+                              {skill === "PyTorch" && <Box className="w-5 h-5" />}
+                              {skill === "TypeScript" && <Type className="w-5 h-5" />}
+                              {skill === "Next.js" && <Globe className="w-5 h-5" />}
+                              {skill === "Tailwind CSS" && <Paintbrush className="w-5 h-5" />}
+                              {skill === "Django" && <Code2 className="w-5 h-5" />}
+                              {skill === "Flask" && <Beaker className="w-5 h-5" />}
+                              {skill === "Docker" && <Container className="w-5 h-5" />}
+                              {skill === "Git" && <GitBranch className="w-5 h-5" />}
+                              {skill === "GitHub Actions" && <Github className="w-5 h-5" />}
+                              {skill === "Jenkins" && <Server className="w-5 h-5" />}
+                              {skill === "Power BI" && <Layout className="w-5 h-5" />}
+                              {skill === "Figma" && <Paintbrush className="w-5 h-5" />}
+                              {skill === "Suite Microsoft Office" && <FileSpreadsheet className="w-5 h-5" />}
+                              {skill === "Google Workspace" && <Globe className="w-5 h-5" />}
+                              {skill === "Google Apps Script" && <Terminal className="w-5 h-5" />}
+                              <span>{skill}</span>
+                            </motion.li>
+                          ))}
+                        </ul>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.section>
               </div>
-
-              {/* Profile Info */}
-              <div className="flex-1 text-center md:text-left">
-                <h1 className="text-5xl font-bold mb-1.5">{user.name}</h1>
-                <div className="flex items-center gap-4 mb-4 justify-center md:justify-start">
-                  <h2 className="text-3xl text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">{user.title}</h2>
-                  <DownloadButton href={user.resume} icon={<ArrowDown />} variant="rounded" label="Télécharger mon CV" />
-                </div>
-
-                {/* Location */}
-                <div className="flex items-center justify-center md:justify-start gap-2 mb-6 text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">
-                  <MapPin /> <span>{user.location}</span>
-                </div>
-                {/* Social Links */}
-                <SocialLinksGroup
-                  github={user.social.github}
-                  linkedin={user.social.linkedin}
-                  email={user.email}
-                />
-                <section className="rounded-lg py-6">
-                  {user.introduction.map((paragraph, index) => (
-                    <p key={index} className="mb-4">
-                      {paragraph}
-                    </p>
-                  ))}
-                </section>
-              </div>
-            </div>
-
-            <div className="space-y-8">
-              {/* Expérience professionnelle */}
-              <section id="experience" className="bg-[var(--card)] rounded-lg shadow-md p-6 scroll-mt-20">
-                <h2 className="text-2xl font-semibold mb-4">Expérience Professionnelle</h2>
-                <div className="space-y-4">
-                  {user.experience.map((exp, index) => (
-                    <div key={index}>
-                      <h3 className="text-xl font-medium">{exp.title} - {exp.company}</h3>
-                      <p className="text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">{exp.period}</p>
-                      <ul className="list-disc ml-4 mt-2">
-                        {exp.tasks.map((task, taskIndex) => (
-                          <li key={taskIndex}>{task}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              {/* Études */}
-              <section id="education" className="bg-[var(--card)] rounded-lg shadow-md p-6 scroll-mt-20">
-                <h2 className="text-2xl font-semibold mb-4">Formation</h2>
-                <div className="space-y-4">
-                  {user.education.map((edu, index) => (
-                    <div key={index}>
-                      <h3 className="text-xl font-medium">{edu.degree}</h3>
-                      <p className="text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">{edu.school} {edu.school && '('}{edu.period}{edu.school && ')'}</p>
-                      <p>{edu.description}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              {/* Compétences techniques */}
-              <section id="skills" className="bg-[var(--card)] rounded-lg shadow-md p-6 scroll-mt-20">
-                <h2 className="text-2xl font-semibold mb-4">Compétences Techniques</h2>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  {Object.entries(user.skills).map(([category, skills], index) => (
-                    <div key={index} className="bg-[var(--neutral-200)] dark:bg-[var(--neutral-800)] p-4 rounded-lg">
-                      <div className="flex items-center gap-2 mb-3">
-                        {category === "Data Science" && <Database className="w-5 h-5" />}
-                        {category === "Développement Web" && <Code2 className="w-5 h-5" />}
-                        {category === "Outils & DevOps" && <Wrench className="w-5 h-5" />}
-                        {category === "Visualisation & Design" && <Palette className="w-5 h-5" />}
-                        <h3 className="font-bold">{category}</h3>
-                      </div>
-                      <ul className="list-none ml-0 space-y-2.5">
-                        {skills.map((skill, skillIndex) => (
-                          <li key={skillIndex} className="flex items-center gap-2.5 pl-1">
-                            {skill === "PySpark" && <Box className="w-4 h-4" />}
-                            {skill === "pandas" && <FileSpreadsheet className="w-4 h-4" />}
-                            {skill === "numpy" && <Box className="w-4 h-4" />}
-                            {skill === "Scikit-learn" && <Beaker className="w-4 h-4" />}
-                            {skill === "PyTorch" && <Box className="w-4 h-4" />}
-                            {skill === "TypeScript" && <Type className="w-4 h-4" />}
-                            {skill === "Next.js" && <Globe className="w-4 h-4" />}
-                            {skill === "Tailwind CSS" && <Paintbrush className="w-4 h-4" />}
-                            {skill === "Django" && <Code2 className="w-4 h-4" />}
-                            {skill === "Flask" && <Beaker className="w-4 h-4" />}
-                            {skill === "Docker" && <Container className="w-4 h-4" />}
-                            {skill === "Git" && <GitBranch className="w-4 h-4" />}
-                            {skill === "GitHub Actions" && <Github className="w-4 h-4" />}
-                            {skill === "Jenkins" && <Server className="w-4 h-4" />}
-                            {skill === "Power BI" && <Layout className="w-4 h-4" />}
-                            {skill === "Figma" && <Paintbrush className="w-4 h-4" />}
-                            {skill === "Suite Microsoft Office" && <Briefcase className="w-4 h-4" />}
-                            {skill === "Google Workspace" && <Briefcase className="w-4 h-4" />}
-                            {skill === "Google Apps Script" && <Terminal className="w-4 h-4" />}
-                            <span className="text-gray-700">{skill}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              </section>
             </div>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
     </div>
   );
 } 

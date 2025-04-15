@@ -1,25 +1,13 @@
 'use client';
 
+import { motion, AnimatePresence } from 'framer-motion';
+import { X } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import Modal from 'react-modal';
 import { EventLocation } from '@/types';
 import TriviaQuiz from './puzzles/TriviaQuiz';
 import TicTacToe from './puzzles/TicTacToe';
 import SudokuBoard from './puzzles/SudokuBoard';
 import Image from 'next/image';
-
-// Make sure Modal is accessible for screen readers
-// In Next.js App Router, we need to set this in a useEffect
-const setAppElement = () => {
-  if (typeof window !== 'undefined') {
-    try {
-      // Try to set app element to html or body since there might not be a #root element
-      Modal.setAppElement('body');
-    } catch (error) {
-      console.error('Error setting app element for Modal:', error);
-    }
-  }
-};
 
 interface PuzzleModalProps {
   isOpen: boolean;
@@ -29,21 +17,10 @@ interface PuzzleModalProps {
   isAlreadySolved?: boolean;
 }
 
-export default function PuzzleModal({ 
-  isOpen, 
-  onClose, 
-  location, 
-  onPuzzleSolved,
-  isAlreadySolved = false
-}: PuzzleModalProps) {
+export default function PuzzleModal({ isOpen, onClose, location, onPuzzleSolved, isAlreadySolved = false }: PuzzleModalProps) {
   const [solved, setSolved] = useState(false);
 
   useEffect(() => {
-    setAppElement();
-  }, []);
-
-  useEffect(() => {
-    // Reset solved state when a new location is selected
     if (location) {
       setSolved(isAlreadySolved);
     }
@@ -51,24 +28,23 @@ export default function PuzzleModal({
 
   if (!location) return null;
 
-  const handleSolved = () => {
+  const handlePuzzleSolved = () => {
     setSolved(true);
     onPuzzleSolved(location.id);
   };
 
-  const handlePlayAgain = () => {
-    setSolved(false);
+  const handleClose = () => {
+    onClose();
   };
 
   const renderPuzzleComponent = () => {
     switch (location.puzzleType) {
       case 'trivia':
-        return <TriviaQuiz puzzleData={location.puzzleData as { questions: { question: string; options: string[]; correctAnswer: number; }[]; title?: string; description?: string; }} onSolved={handleSolved} />;
+        return <TriviaQuiz puzzleData={location.puzzleData as { questions: { question: string; options: string[]; correctAnswer: number; }[]; title?: string; description?: string; }} onSolved={handlePuzzleSolved} />;
       case 'tictactoe':
-        return <TicTacToe puzzleData={location.puzzleData} onSolved={handleSolved} />;
+        return <TicTacToe puzzleData={location.puzzleData} onSolved={handlePuzzleSolved} />;
       case 'sudoku':
-        return <SudokuBoard onSolved={handleSolved} />;
-      // More puzzle types will be added here as they are implemented
+        return <SudokuBoard onSolved={handlePuzzleSolved} />;
       default:
         return (
           <div className="p-4 text-center">
@@ -120,61 +96,60 @@ export default function PuzzleModal({
             )}
           </div>
         )}
-        
-        <div className="flex gap-4 justify-center mt-6">
-          <button
-            onClick={handlePlayAgain}
-            className="px-6 py-2 bg-[var(--primary)] text-[var(--secondary)] rounded-lg hover:bg-[var(--primary-dark)] transition"
-          >
-            Play Again
-          </button>
-          <button
-            onClick={onClose}
-            className="px-6 py-2 bg-[var(--neutral-200)] text-[var(--neutral-800)] rounded-lg hover:bg-[var(--neutral-300)] transition dark:bg-[var(--neutral-700)] dark:text-[var(--neutral-200)] dark:hover:bg-[var(--neutral-600)]"
-          >
-            Close
-          </button>
-        </div>
       </div>
     );
   };
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onRequestClose={onClose}
-      contentLabel={`Puzzle for ${location.name}`}
-      className="max-w-2xl mx-auto mt-20 bg-[var(--background)] rounded-xl shadow-2xl outline-none overflow-hidden"
-      overlayClassName="fixed inset-0 bg-[var(--neutral-900)]/50 backdrop-blur-xs z-[1000] flex items-start justify-center"
-      style={{
-        overlay: {
-          zIndex: 1000 // Ensure modal overlay is above the map
-        },
-        content: {
-          zIndex: 1001 // Ensure modal content is above the overlay
-        }
-      }}
-    >
-      <div className="relative">
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-[var(--neutral-400)] hover:text-[var(--neutral-600)]"
-          aria-label="Close modal"
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+          onClick={handleClose}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
-        
-        <div className="p-4 bg-[var(--primary)] text-[var(--secondary)]">
-          <h2 className="text-xl font-bold">{location.name}</h2>
-        </div>
-        
-        <div className="p-4">
-          {!solved ? renderPuzzleComponent() : renderUnlockedContent()}
-        </div>
-      </div>
-    </Modal>
+          <motion.div
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.95, opacity: 0 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            className="relative w-full max-w-2xl bg-[var(--card)] rounded-xl shadow-2xl border border-[var(--neutral-200)] dark:border-[var(--neutral-800)] overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="p-6 border-b border-[var(--neutral-200)] dark:border-[var(--neutral-800)]">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  {location.name}
+                </h2>
+                <button
+                  onClick={handleClose}
+                  className="p-2 rounded-lg hover:bg-[var(--neutral-100)] dark:hover:bg-[var(--neutral-800)] transition-colors"
+                >
+                  <X className="w-5 h-5 text-[var(--neutral-600)] dark:text-[var(--neutral-400)]" />
+                </button>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="p-6">
+              {!solved ? renderPuzzleComponent() : renderUnlockedContent()}
+            </div>
+
+            {/* Footer */}
+            <div className="p-6 border-t border-[var(--neutral-200)] dark:border-[var(--neutral-800)]">
+              <button
+                onClick={handleClose}
+                className="w-full py-3 px-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
+              >
+                Fermer
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 } 

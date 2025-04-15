@@ -22,7 +22,7 @@ interface MapProps {
 
 export default function Map({ locations, onMarkerClick, currentTimeframe, solvedEvents }: MapProps) {
   return (
-    <div className="h-full w-full rounded-lg overflow-hidden">
+    <div className="h-[70vh] w-full rounded-lg overflow-hidden">
       <MapComponent
         locations={locations}
         onMarkerClick={onMarkerClick}

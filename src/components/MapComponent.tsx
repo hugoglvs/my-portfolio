@@ -79,7 +79,7 @@ export default function MapComponent({ locations, onMarkerClick, currentTimefram
     return groups;
   }, {} as Record<string, EventLocation[]>);
 
-  if (!isMounted) return <div className="h-full w-full bg-gray-200 animate-pulse"></div>;
+  if (!isMounted) return <div className="h-[70vh] w-full bg-gray-200 animate-pulse"></div>;
 
   return (
     <MapContainer
@@ -88,7 +88,7 @@ export default function MapComponent({ locations, onMarkerClick, currentTimefram
       minZoom={2.3}
       maxZoom={18}
       scrollWheelZoom={true}
-      className="h-full w-full"
+      className="h-[70vh] w-full"
       worldCopyJump={false}
       maxBounds={[[-85, -180], [85, 180]]}
       maxBoundsViscosity={0.5}

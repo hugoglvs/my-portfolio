@@ -12,6 +12,7 @@
     "@amcharts/amcharts5": "^5.11.2",
     "@amcharts/amcharts5-geodata": "^5.1.4",
     "@heroicons/react": "^2.2.0",
+    "@next/font": "^14.2.15",
     "@supabase/supabase-js": "^2.49.4",
     "@types/react-modal": "^3.16.3",
     "clsx": "^2.1.1",

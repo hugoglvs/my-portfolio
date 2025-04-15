@@ -1,61 +1,66 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
 import { motion, AnimatePresence } from 'framer-motion';
-import TimelineSlider from '@/components/TimelineSlider';
 import PuzzleModal from '@/components/PuzzleModal';
 import AchievementPopup from '@/components/AchievementPopup';
 import AchievementModal from '@/components/AchievementModal';
-import { getEvents, getTimeframes, getEventById, checkAchievements, saveProgress, loadProgress, resetProgress } from '@/lib/utils';
-import { EventLocation, Achievement } from '@/types';
+import { getEvents, loadProgress, getTimeframes, getAchievements } from '@/lib/utils';
+import { EventLocation, Achievement, Timeframe } from '@/types';
+import { 
+  MapPin,
+  Trophy,
+  Sparkles,
+  Star,
+  Medal,
+  Crown,
+  Brain,
+  Heart,
+  Briefcase,
+  GraduationCap,
+  Globe,
+  Lightbulb,
+  Rocket,
+  BookOpen,
+  Code2,
+  Music,
+  Camera,
+  Palette,
+  Gamepad2,
+  Languages,
+  Users,
+  Clock
+} from 'lucide-react';
+import Map from '@/components/Map';
+import TimelineSlider from '@/components/TimelineSlider';
+import React from 'react';
 
-// Dynamically import the Map component to avoid SSR issues with Leaflet
-const Map = dynamic(() => import('@/components/Map'), {
-  ssr: false,
-  loading: () => (
-    <div className="h-[70vh] w-full bg-[var(--neutral-200)] dark:bg-[var(--neutral-800)] animate-pulse rounded-lg flex items-center justify-center">
-      <p className="text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">Loading map...</p>
-    </div>
-  ),
-});
-
-export default function Home() {
+export default function Explore() {
   // State management
-  const [currentTimeframe, setCurrentTimeframe] = useState<string>('intemporal');
   const [selectedLocation, setSelectedLocation] = useState<EventLocation | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [solvedEvents, setSolvedEvents] = useState<string[]>([]);
-  const [unlockedAchievements, setUnlockedAchievements] = useState<string[]>([]);
+  const [solvedLocations, setSolvedLocations] = useState<string[]>([]);
   const [newAchievement, setNewAchievement] = useState<Achievement | null>(null);
-  const [achievements, setAchievements] = useState<Achievement[]>([]);
   const [selectedAchievement, setSelectedAchievement] = useState<Achievement | null>(null);
+  const [currentTimeframe, setCurrentTimeframe] = useState<string>('all');
+  const [timeframes, setTimeframes] = useState<Timeframe[]>([]);
+  const [achievements, setAchievements] = useState<Achievement[]>([]);
+  const [unlockedAchievements, setUnlockedAchievements] = useState<string[]>([]);
   
-  // Load events and timeframes
-  const events = getEvents();
-  const timeframes = getTimeframes();
-  
-  // Load saved progress on component mount
+  // Load saved progress and timeframes on component mount
   useEffect(() => {
     const progress = loadProgress();
-    setSolvedEvents(progress.solvedEvents);
-    setUnlockedAchievements(progress.unlockedAchievements);
+    if (progress) {
+      setSolvedLocations(progress.solvedEvents);
+      setUnlockedAchievements(progress.unlockedAchievements);
+    }
+    setTimeframes(getTimeframes());
+    setAchievements(getAchievements());
   }, []);
   
-  // Load achievements on component mount and when progress changes
-  useEffect(() => {
-    const allAchievements = checkAchievements(solvedEvents, unlockedAchievements);
-    setAchievements(allAchievements);
-  }, [solvedEvents, unlockedAchievements]);
-  
-  // Handle timeframe changes
-  const handleTimeframeChange = (timeframeId: string) => {
-    setCurrentTimeframe(timeframeId);
-  };
-  
-  // Handle marker clicks
-  const handleMarkerClick = (locationId: string) => {
-    const location = getEventById(locationId);
+  // Handle location clicks
+  const handleLocationClick = (id: string) => {
+    const location = getEvents().find(event => event.id === id);
     if (location) {
       setSelectedLocation(location);
       setIsModalOpen(true);
@@ -65,51 +70,12 @@ export default function Home() {
   // Handle closing the modal
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setTimeout(() => setSelectedLocation(null), 300); // Delay to allow animation
+    setSelectedLocation(null);
   };
   
   // Handle puzzle solved
   const handlePuzzleSolved = (locationId: string) => {
-    // Update local state first
-    const updatedSolvedEvents = [...solvedEvents];
-    if (!updatedSolvedEvents.includes(locationId)) {
-      updatedSolvedEvents.push(locationId);
-      setSolvedEvents(updatedSolvedEvents);
-      saveProgress(updatedSolvedEvents, unlockedAchievements);
-    }
-
-    // Check for new achievements
-    const allAchievements = checkAchievements(updatedSolvedEvents, unlockedAchievements);
-    const newAchievements = allAchievements.filter(
-      achievement => achievement.requirementsMet && !achievement.isUnlocked
-    );
-    
-    if (newAchievements.length > 0) {
-      // Update unlocked achievements
-      const updatedUnlockedAchievements = [
-        ...unlockedAchievements, 
-        ...newAchievements.map(a => a.id)
-      ];
-      
-      setUnlockedAchievements(updatedUnlockedAchievements);
-      saveProgress(updatedSolvedEvents, updatedUnlockedAchievements);
-      
-      // Show achievement popup for the first new achievement
-      setNewAchievement(newAchievements[0]);
-      
-      // Queue additional achievements if there are more than one
-      if (newAchievements.length > 1) {
-        let index = 1;
-        const showNextAchievement = () => {
-          if (index < newAchievements.length) {
-            setNewAchievement(newAchievements[index]);
-            index++;
-            setTimeout(showNextAchievement, 3000); // Show next achievement after 3 seconds
-          }
-        };
-        setTimeout(showNextAchievement, 3000);
-      }
-    }
+    setSolvedLocations(prev => [...prev, locationId]);
   };
   
   // Handle closing the achievement popup
@@ -117,11 +83,14 @@ export default function Home() {
     setNewAchievement(null);
   };
 
-  // Handle reset progress
-  const handleResetProgress = () => {
-    resetProgress();
-    setSolvedEvents([]);
-    setUnlockedAchievements([]);
+  // Handle closing achievement modal
+  const handleCloseAchievementModal = () => {
+    setSelectedAchievement(null);
+  };
+
+  // Handle timeframe change
+  const handleTimeframeChange = (timeframeId: string) => {
+    setCurrentTimeframe(timeframeId);
   };
 
   // Handle achievement click
@@ -129,180 +98,284 @@ export default function Home() {
     setSelectedAchievement(achievement);
   };
 
-  // Handle closing achievement modal
-  const handleCloseAchievementModal = () => {
-    setSelectedAchievement(null);
-  };
-
-  const getIcon = (iconName: string) => {
-    switch (iconName) {
-      case 'map-pin':
-        return (
-          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-        );
-      case 'cake':
-        return (
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-        );
-      case 'academic-cap':
-        return (
-          <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-        );
-      case 'briefcase':
-        return (
-          <path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
-        );
-      case 'sparkles':
-        return (
-          <path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z" />
-        );
-      case 'trophy':
-        return (
-          <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
-        );
-      default:
-        return (
-          <path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z" />
-        );
-    }
-  };
+  const solvedCount = solvedLocations.length;
+  const totalLocations = getEvents().length;
+  const unlockedCount = unlockedAchievements.length;
+  const totalAchievements = achievements.length;
 
   return (
-    <main className="h-[calc(100vh-4rem)] bg-[var(--background)] overflow-hidden">
-      <div className="h-full max-w-7xl mx-auto p-4">
-        <div className="h-full flex flex-col md:flex-row gap-4">
-          {/* Sidebar */}
-          <aside className="w-full md:w-80 flex-shrink-0">
-            <div className="h-full bg-[var(--card)] rounded-lg shadow-md p-4 space-y-4">
-              <div>
-                <h1 className="text-xl md:text-2xl font-bold text-[var(--foreground)]">Mon Voyage Interactif</h1>
-                <p className="mt-1 text-sm text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">Explorez les événements de ma vie, mes passions et mes rêves à travers une carte interactive</p>
-                <p className="mt-1 text-sm text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">Il vous suffit de participer à un mini-jeu jusqu&apos;à la fin pour le valider</p>
-              </div>
-
-              {/* How to Play Section */}
-              <div className="bg-[var(--neutral-200)] dark:bg-[var(--neutral-800)] p-3 rounded-lg">
-                <h3 className="text-xs font-semibold text-[var(--foreground)] mb-2">Comment Jouer</h3>
-                <div className="space-y-2">
-                  <div className="flex items-start gap-2">
-                    <div className="w-4 h-4 mt-0.5 flex-shrink-0 bg-blue-600 rounded-full"></div>
-                    <p className="text-xs text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">Cliquez sur les marqueurs pour découvrir des événements</p>
+    <div className="min-h-screen bg-[var(--background)]">
+      {/* Hero Section */}
+      <div className="relative">
+        <div className="absolute inset-0 -mt-24 bg-gradient-to-b from-blue-600/20 via-blue-600/10 to-transparent h-[120vh]" />
+        <div className="max-w-7xl mx-auto px-6 py-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="relative"
+          >
+            <h1 className="text-6xl font-bold mb-6 font-display bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent leading-tight py-2">
+              Explorez mon Univers
+            </h1>
+            <p className="text-2xl text-[var(--neutral-600)] dark:text-[var(--neutral-400)] max-w-3xl mb-8">
+              Découvrez mon parcours à travers une expérience interactive et ludique. 
+              Résolvez les énigmes pour débloquer des contenus exclusifs.
+            </p>
+            
+            {/* Progress Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="grid md:grid-cols-2 gap-6 mb-8"
+            >
+              <div className="bg-[var(--card)] rounded-xl p-6 shadow-lg border border-[var(--neutral-200)] dark:border-[var(--neutral-800)]">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <Trophy className="w-6 h-6 text-yellow-500" />
+                    <h2 className="text-xl font-semibold text-[var(--foreground)]">Progression</h2>
                   </div>
-                  <div className="flex items-start gap-2">
-                    <div className="w-4 h-4 mt-0.5 flex-shrink-0 bg-green-500 rounded-full"></div>
-                    <p className="text-xs text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">Résolvez les énigmes pour débloquer de nouveaux lieux</p>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <div className="w-4 h-4 mt-0.5 flex-shrink-0 bg-purple-500 rounded-full"></div>
-                    <p className="text-xs text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">Utilisez la timeline pour explorer différentes périodes</p>
-                  </div>
+                  <span className="text-lg font-medium text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">
+                    {solvedCount}/{totalLocations}
+                  </span>
+                </div>
+                <div className="w-full bg-[var(--neutral-100)] dark:bg-[var(--neutral-800)] rounded-full h-3">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: `${(solvedCount / totalLocations) * 100}%` }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                    className="h-full bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"
+                  />
                 </div>
               </div>
 
-              {/* Progress Section */}
-              <div className="bg-[var(--neutral-200)] dark:bg-[var(--neutral-800)] p-3 rounded-lg">
-                <h3 className="text-xs font-semibold text-[var(--foreground)] mb-1">Progression</h3>
-                <div className="flex items-center gap-2">
-                  <div className="flex-1 h-1.5 bg-[var(--neutral-300)] dark:bg-[var(--neutral-700)] rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-blue-600 transition-all duration-500"
-                      style={{ width: `${(solvedEvents.length / events.length) * 100}%` }}
-                    />
+              <div className="bg-[var(--card)] rounded-xl p-6 shadow-lg border border-[var(--neutral-200)] dark:border-[var(--neutral-800)]">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <Star className="w-6 h-6 text-yellow-500" />
+                    <h2 className="text-xl font-semibold text-[var(--foreground)]">Succès</h2>
                   </div>
-                  <span className="text-xs font-medium text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">{solvedEvents.length}/{events.length}</span>
+                  <span className="text-lg font-medium text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">
+                    {unlockedCount}/{totalAchievements}
+                  </span>
                 </div>
-                <p className="mt-2 text-xs text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">
-                  {solvedEvents.length === 0 
-                    ? "Commencez votre voyage en cliquant sur un marqueur"
-                    : solvedEvents.length === events.length
-                    ? "Félicitations ! Vous avez découvert tous les lieux"
-                    : "Continuez à explorer pour découvrir tous les lieux"}
-                </p>
+                <div className="w-full bg-[var(--neutral-100)] dark:bg-[var(--neutral-800)] rounded-full h-3">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: `${(unlockedCount / totalAchievements) * 100}%` }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                    className="h-full bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full"
+                  />
+                </div>
               </div>
+            </motion.div>
 
-              {/* Achievements List */}
-              <div className="bg-[var(--neutral-200)] dark:bg-[var(--neutral-800)] p-3 rounded-lg">
-                <h3 className="text-xs font-semibold text-[var(--foreground)] mb-2">Succès</h3>
-                <div className="grid grid-cols-4 gap-2">
-                  {achievements.map((achievement) => (
-                    <button
+            {/* Achievements Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="bg-[var(--card)] rounded-xl p-6 shadow-lg border border-[var(--neutral-200)] dark:border-[var(--neutral-800)] mb-8"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <Crown className="w-6 h-6 text-yellow-500" />
+                <h2 className="text-xl font-semibold text-[var(--foreground)]">Succès débloqués</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {achievements.map((achievement) => {
+                  const isUnlocked = unlockedAchievements.includes(achievement.id);
+                  const getIcon = (type: string) => {
+                    switch (type) {
+                      case 'first_puzzle':
+                        return Medal;
+                      case 'all_puzzles':
+                        return Trophy;
+                      case 'timeframe':
+                        return Clock;
+                      case 'skill':
+                        return Brain;
+                      case 'passion':
+                        return Heart;
+                      case 'experience':
+                        return Briefcase;
+                      case 'education':
+                        return GraduationCap;
+                      case 'travel':
+                        return Globe;
+                      case 'idea':
+                        return Lightbulb;
+                      case 'project':
+                        return Rocket;
+                      case 'reading':
+                        return BookOpen;
+                      case 'coding':
+                        return Code2;
+                      case 'music':
+                        return Music;
+                      case 'photography':
+                        return Camera;
+                      case 'art':
+                        return Palette;
+                      case 'gaming':
+                        return Gamepad2;
+                      case 'language':
+                        return Languages;
+                      case 'community':
+                        return Users;
+                      default:
+                        return Star;
+                    }
+                  };
+
+                  const Icon = getIcon(achievement.id);
+                  
+                  return (
+                    <motion.button
                       key={achievement.id}
                       onClick={() => handleAchievementClick(achievement)}
-                      className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                        achievement.isUnlocked
-                          ? 'bg-green-500'
-                          : 'bg-[var(--neutral-400)] dark:bg-[var(--neutral-600)]'
+                      className={`p-4 rounded-lg border transition-all ${
+                        isUnlocked
+                          ? 'bg-[var(--neutral-100)] dark:bg-[var(--neutral-800)] border-[var(--neutral-200)] dark:border-[var(--neutral-700)] hover:border-[var(--neutral-300)] dark:hover:border-[var(--neutral-600)]'
+                          : 'bg-[var(--neutral-50)] dark:bg-[var(--neutral-900)] border-[var(--neutral-100)] dark:border-[var(--neutral-800)] opacity-50'
                       }`}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                     >
-                      <svg 
-                        xmlns="http://www.w3.org/2000/svg" 
-                        width="20" 
-                        height="20" 
-                        viewBox="0 0 24 24" 
-                        fill="none" 
-                        stroke="currentColor" 
-                        strokeWidth="2" 
-                        strokeLinecap="round" 
-                        strokeLinejoin="round" 
-                        className="text-white"
-                      >
-                        {getIcon(achievement.icon)}
-                      </svg>
-                    </button>
-                  ))}
+                      <div className="flex items-start gap-3">
+                        <div className={`p-2 rounded-lg ${
+                          isUnlocked
+                            ? 'bg-purple-100 dark:bg-purple-900/30'
+                            : 'bg-[var(--neutral-100)] dark:bg-[var(--neutral-800)]'
+                        }`}>
+                          {React.createElement(Icon, {
+                            className: `w-5 h-5 ${
+                              isUnlocked
+                                ? 'text-purple-500'
+                                : 'text-[var(--neutral-400)]'
+                            }`
+                          })}
+                        </div>
+                        <div className="flex-1">
+                          <h3 className={`font-medium ${
+                            isUnlocked
+                              ? 'text-[var(--foreground)]'
+                              : 'text-[var(--neutral-400)]'
+                          }`}>
+                            {achievement.name}
+                          </h3>
+                          <p className={`text-sm ${
+                            isUnlocked
+                              ? 'text-[var(--neutral-600)] dark:text-[var(--neutral-400)]'
+                              : 'text-[var(--neutral-400)]'
+                          }`}>
+                            {achievement.description}
+                          </p>
+                        </div>
+                        {isUnlocked && (
+                          <div className="text-green-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M20 6L9 17l-5-5" />
+                            </svg>
+                          </div>
+                        )}
+                      </div>
+                    </motion.button>
+                  );
+                })}
+              </div>
+            </motion.div>
+
+            {/* Instructions Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="grid md:grid-cols-2 gap-6"
+            >
+              <div className="bg-[var(--card)] rounded-xl p-6 shadow-lg border border-[var(--neutral-200)] dark:border-[var(--neutral-800)]">
+                <div className="flex items-center gap-3 mb-4">
+                  <MapPin className="w-6 h-6 text-blue-500" />
+                  <h3 className="text-lg font-semibold text-[var(--foreground)]">Comment jouer</h3>
                 </div>
+                <ul className="space-y-3 text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">
+                  <li className="flex items-start gap-2">
+                    <span className="text-blue-500">•</span>
+                    Cliquez sur les points d&apos;intérêt sur la carte
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-blue-500">•</span>
+                    Résolvez les énigmes pour débloquer des contenus
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-blue-500">•</span>
+                    Collectez tous les badges pour compléter l&apos;exploration
+                  </li>
+                </ul>
               </div>
 
-              {/* Reset Button */}
-              <button
-                onClick={handleResetProgress}
-                className="w-full bg-[var(--neutral-200)] dark:bg-[var(--neutral-800)] hover:bg-[var(--neutral-300)] dark:hover:bg-[var(--neutral-700)] text-[var(--neutral-600)] dark:text-[var(--neutral-400)] text-xs font-medium py-2 px-3 rounded-lg transition-colors duration-200"
-              >
-                Réinitialiser la progression
-              </button>
-            </div>
-          </aside>
-
-          {/* Main content */}
-          <div className="flex-1 flex flex-col h-full">
-            {/* Timeline slider */}
-            <div className="bg-[var(--card)] rounded-lg shadow-md p-2 mb-2">
-              <TimelineSlider 
-                timeframes={timeframes}
-                currentTimeframe={currentTimeframe}
-                onTimeframeChange={handleTimeframeChange}
-              />
-            </div>
-            
-            {/* Map container */}
-            <div className="flex-1 bg-[var(--card)] rounded-lg shadow-md p-2">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="rounded-lg overflow-hidden h-full"
-              >
-                <Map 
-                  locations={events}
-                  onMarkerClick={handleMarkerClick}
-                  currentTimeframe={currentTimeframe}
-                  solvedEvents={solvedEvents}
-                />
-              </motion.div>
-            </div>
-          </div>
+              <div className="bg-[var(--card)] rounded-xl p-6 shadow-lg border border-[var(--neutral-200)] dark:border-[var(--neutral-800)]">
+                <div className="flex items-center gap-3 mb-4">
+                  <Sparkles className="w-6 h-6 text-purple-500" />
+                  <h3 className="text-lg font-semibold text-[var(--foreground)]">Récompenses</h3>
+                </div>
+                <ul className="space-y-3 text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">
+                  <li className="flex items-start gap-2">
+                    <span className="text-purple-500">•</span>
+                    Découvrez des contenus exclusifs sur mon parcours
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-purple-500">•</span>
+                    Apprenez-en plus sur mes compétences et expériences
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-purple-500">•</span>
+                    Débloquez des informations sur mes centres d&apos;intérêt
+                  </li>
+                </ul>
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
-      
-      {/* Modal for puzzles */}
-      <PuzzleModal 
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        location={selectedLocation}
-        onPuzzleSolved={handlePuzzleSolved}
-        isAlreadySolved={selectedLocation ? solvedEvents.includes(selectedLocation.id) : false}
-      />
-      
+
+      {/* Timeline Slider */}
+      <div className="max-w-7xl mx-auto px-6">
+        <TimelineSlider
+          timeframes={timeframes}
+          currentTimeframe={currentTimeframe}
+          onTimeframeChange={handleTimeframeChange}
+        />
+      </div>
+
+      {/* Map Section */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 pb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="bg-[var(--card)] rounded-xl shadow-2xl border border-[var(--neutral-200)] dark:border-[var(--neutral-800)] overflow-hidden"
+        >
+          <Map 
+            locations={getEvents()} 
+            onMarkerClick={handleLocationClick}
+            currentTimeframe={currentTimeframe}
+            solvedEvents={solvedLocations}
+          />
+        </motion.div>
+      </div>
+
+      {/* Modal */}
+      {selectedLocation && (
+        <PuzzleModal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          location={selectedLocation}
+          onPuzzleSolved={handlePuzzleSolved}
+          isAlreadySolved={solvedLocations.includes(selectedLocation.id)}
+        />
+      )}
+
       {/* Achievement popup */}
       <AnimatePresence>
         {newAchievement && (
@@ -328,6 +401,6 @@ export default function Home() {
           achievement={selectedAchievement}
         />
       )}
-    </main>
+    </div>
   );
 }
