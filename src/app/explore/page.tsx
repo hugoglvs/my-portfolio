@@ -29,7 +29,9 @@ import {
   Gamepad2,
   Languages,
   Users,
-  Clock
+  Clock,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
 import Map from '@/components/Map';
 import TimelineSlider from '@/components/TimelineSlider';
@@ -46,6 +48,7 @@ export default function Explore() {
   const [timeframes, setTimeframes] = useState<Timeframe[]>([]);
   const [achievements, setAchievements] = useState<Achievement[]>([]);
   const [unlockedAchievements, setUnlockedAchievements] = useState<string[]>([]);
+  const [showAchievements, setShowAchievements] = useState(false);
   
   // Load saved progress and timeframes on component mount
   useEffect(() => {
@@ -96,6 +99,11 @@ export default function Explore() {
   // Handle achievement click
   const handleAchievementClick = (achievement: Achievement) => {
     setSelectedAchievement(achievement);
+  };
+
+  // Handle toggle achievements visibility
+  const toggleAchievements = () => {
+    setShowAchievements(!showAchievements);
   };
 
   const solvedCount = solvedLocations.length;
@@ -178,112 +186,135 @@ export default function Explore() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="bg-[var(--card)] rounded-xl p-6 shadow-lg border border-[var(--neutral-200)] dark:border-[var(--neutral-800)] mb-8"
             >
-              <div className="flex items-center gap-3 mb-4">
-                <Crown className="w-6 h-6 text-yellow-500" />
-                <h2 className="text-xl font-semibold text-[var(--foreground)]">Succès débloqués</h2>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {achievements.map((achievement) => {
-                  const isUnlocked = unlockedAchievements.includes(achievement.id);
-                  const getIcon = (type: string) => {
-                    switch (type) {
-                      case 'first_puzzle':
-                        return Medal;
-                      case 'all_puzzles':
-                        return Trophy;
-                      case 'timeframe':
-                        return Clock;
-                      case 'skill':
-                        return Brain;
-                      case 'passion':
-                        return Heart;
-                      case 'experience':
-                        return Briefcase;
-                      case 'education':
-                        return GraduationCap;
-                      case 'travel':
-                        return Globe;
-                      case 'idea':
-                        return Lightbulb;
-                      case 'project':
-                        return Rocket;
-                      case 'reading':
-                        return BookOpen;
-                      case 'coding':
-                        return Code2;
-                      case 'music':
-                        return Music;
-                      case 'photography':
-                        return Camera;
-                      case 'art':
-                        return Palette;
-                      case 'gaming':
-                        return Gamepad2;
-                      case 'language':
-                        return Languages;
-                      case 'community':
-                        return Users;
-                      default:
-                        return Star;
-                    }
-                  };
+              <button
+                onClick={toggleAchievements}
+                className="w-full flex items-center justify-between gap-3 mb-4"
+              >
+                <div className="flex items-center gap-3">
+                  <Crown className="w-6 h-6 text-yellow-500" />
+                  <h2 className="text-xl font-semibold text-[var(--foreground)]">Succès débloqués</h2>
+                </div>
+                {showAchievements ? (
+                  <ChevronUp className="w-5 h-5 text-[var(--neutral-600)] dark:text-[var(--neutral-400)]" />
+                ) : (
+                  <ChevronDown className="w-5 h-5 text-[var(--neutral-600)] dark:text-[var(--neutral-400)]" />
+                )}
+              </button>
+              
+              <AnimatePresence>
+                {showAchievements && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {achievements.map((achievement) => {
+                        const isUnlocked = unlockedAchievements.includes(achievement.id);
+                        const getIcon = (type: string) => {
+                          switch (type) {
+                            case 'first_puzzle':
+                              return Medal;
+                            case 'all_puzzles':
+                              return Trophy;
+                            case 'timeframe':
+                              return Clock;
+                            case 'skill':
+                              return Brain;
+                            case 'passion':
+                              return Heart;
+                            case 'experience':
+                              return Briefcase;
+                            case 'education':
+                              return GraduationCap;
+                            case 'travel':
+                              return Globe;
+                            case 'idea':
+                              return Lightbulb;
+                            case 'project':
+                              return Rocket;
+                            case 'reading':
+                              return BookOpen;
+                            case 'coding':
+                              return Code2;
+                            case 'music':
+                              return Music;
+                            case 'photography':
+                              return Camera;
+                            case 'art':
+                              return Palette;
+                            case 'gaming':
+                              return Gamepad2;
+                            case 'language':
+                              return Languages;
+                            case 'community':
+                              return Users;
+                            default:
+                              return Star;
+                          }
+                        };
 
-                  const Icon = getIcon(achievement.id);
-                  
-                  return (
-                    <motion.button
-                      key={achievement.id}
-                      onClick={() => handleAchievementClick(achievement)}
-                      className={`p-4 rounded-lg border transition-all ${
-                        isUnlocked
-                          ? 'bg-[var(--neutral-100)] dark:bg-[var(--neutral-800)] border-[var(--neutral-200)] dark:border-[var(--neutral-700)] hover:border-[var(--neutral-300)] dark:hover:border-[var(--neutral-600)]'
-                          : 'bg-[var(--neutral-50)] dark:bg-[var(--neutral-900)] border-[var(--neutral-100)] dark:border-[var(--neutral-800)] opacity-50'
-                      }`}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <div className="flex items-start gap-3">
-                        <div className={`p-2 rounded-lg ${
-                          isUnlocked
-                            ? 'bg-purple-100 dark:bg-purple-900/30'
-                            : 'bg-[var(--neutral-100)] dark:bg-[var(--neutral-800)]'
-                        }`}>
-                          {React.createElement(Icon, {
-                            className: `w-5 h-5 ${
+                        const Icon = getIcon(achievement.id);
+                        
+                        return (
+                          <motion.button
+                            key={achievement.id}
+                            onClick={() => handleAchievementClick(achievement)}
+                            className={`p-4 rounded-lg border transition-all ${
                               isUnlocked
-                                ? 'text-purple-500'
-                                : 'text-[var(--neutral-400)]'
-                            }`
-                          })}
-                        </div>
-                        <div className="flex-1">
-                          <h3 className={`font-medium ${
-                            isUnlocked
-                              ? 'text-[var(--foreground)]'
-                              : 'text-[var(--neutral-400)]'
-                          }`}>
-                            {achievement.name}
-                          </h3>
-                          <p className={`text-sm ${
-                            isUnlocked
-                              ? 'text-[var(--neutral-600)] dark:text-[var(--neutral-400)]'
-                              : 'text-[var(--neutral-400)]'
-                          }`}>
-                            {achievement.description}
-                          </p>
-                        </div>
-                        {isUnlocked && (
-                          <div className="text-green-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                              <path d="M20 6L9 17l-5-5" />
-                            </svg>
-                          </div>
-                        )}
-                      </div>
-                    </motion.button>
-                  );
-                })}
-              </div>
+                                ? 'bg-[var(--neutral-100)] dark:bg-[var(--neutral-800)] border-[var(--neutral-200)] dark:border-[var(--neutral-700)] hover:border-[var(--neutral-300)] dark:hover:border-[var(--neutral-600)]'
+                                : 'bg-[var(--neutral-50)] dark:bg-[var(--neutral-900)] border-[var(--neutral-100)] dark:border-[var(--neutral-800)] opacity-50'
+                            }`}
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                          >
+                            <div className="flex items-start gap-3">
+                              <div className={`p-2 rounded-lg ${
+                                isUnlocked
+                                  ? 'bg-purple-100 dark:bg-purple-900/30'
+                                  : 'bg-[var(--neutral-100)] dark:bg-[var(--neutral-800)]'
+                              }`}>
+                                {React.createElement(Icon, {
+                                  className: `w-5 h-5 ${
+                                    isUnlocked
+                                      ? 'text-purple-500'
+                                      : 'text-[var(--neutral-400)]'
+                                  }`
+                                })}
+                              </div>
+                              <div className="flex-1">
+                                <h3 className={`font-medium ${
+                                  isUnlocked
+                                    ? 'text-[var(--foreground)]'
+                                    : 'text-[var(--neutral-400)]'
+                                }`}>
+                                  {achievement.name}
+                                </h3>
+                                <p className={`text-sm ${
+                                  isUnlocked
+                                    ? 'text-[var(--neutral-600)] dark:text-[var(--neutral-400)]'
+                                    : 'text-[var(--neutral-400)]'
+                                }`}>
+                                  {achievement.description}
+                                </p>
+                              </div>
+                              {isUnlocked && (
+                                <div className="text-green-500">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M20 6L9 17l-5-5" />
+                                  </svg>
+                                </div>
+                              )}
+                            </div>
+                          </motion.button>
+                        );
+                      })}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
 
             {/* Instructions Section */}

@@ -65,7 +65,7 @@ export default function PuzzleModal({ isOpen, onClose, location, onPuzzleSolved,
         {location.unlockContent.mediaUrl && (
           <div className="my-4">
             {location.unlockContent.mediaType === 'image' && (
-              <div className="relative w-full h-64">
+              <div className="relative w-full h-48 sm:h-64">
                 <Image 
                   src={location.unlockContent.mediaUrl} 
                   alt={location.unlockContent.title}
@@ -115,13 +115,13 @@ export default function PuzzleModal({ isOpen, onClose, location, onPuzzleSolved,
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="relative w-full max-w-2xl bg-[var(--card)] rounded-xl shadow-2xl border border-[var(--neutral-200)] dark:border-[var(--neutral-800)] overflow-hidden"
+            className="relative w-full max-w-2xl max-h-[90vh] bg-[var(--card)] rounded-xl shadow-2xl border border-[var(--neutral-200)] dark:border-[var(--neutral-800)] overflow-hidden flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
-            <div className="p-6 border-b border-[var(--neutral-200)] dark:border-[var(--neutral-800)]">
+            <div className="p-4 sm:p-6 border-b border-[var(--neutral-200)] dark:border-[var(--neutral-800)]">
               <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   {location.name}
                 </h2>
                 <button
@@ -134,12 +134,12 @@ export default function PuzzleModal({ isOpen, onClose, location, onPuzzleSolved,
             </div>
 
             {/* Content */}
-            <div className="p-6">
+            <div className="flex-1 overflow-y-auto p-4 sm:p-6">
               {!solved ? renderPuzzleComponent() : renderUnlockedContent()}
             </div>
 
             {/* Footer */}
-            <div className="p-6 border-t border-[var(--neutral-200)] dark:border-[var(--neutral-800)]">
+            <div className="p-4 sm:p-6 border-t border-[var(--neutral-200)] dark:border-[var(--neutral-800)]">
               <button
                 onClick={handleClose}
                 className="w-full py-3 px-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
