@@ -154,9 +154,9 @@ export default function Explore() {
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
               <div>
-                <h1 className="text-6xl font-bold mb-6 font-display bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent leading-tight py-2">
+                <h1 className="text-6xl text-left font-bold mb-6 font-display bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent leading-tight py-2">
                   Explorez mon Univers
                 </h1>
                 <p className="text-2xl text-[var(--neutral-600)] dark:text-[var(--neutral-400)] max-w-3xl mb-8">
@@ -171,7 +171,7 @@ export default function Explore() {
                     mapSection.scrollIntoView({ behavior: 'smooth' });
                   }
                 }}
-                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all transform hover:scale-105"
+                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all transform hover:scale-105 w-fit mb-6 md:mb-0"
               >
                 <MapIcon className="h-5 w-5 mr-2" />
                 Voir la carte
