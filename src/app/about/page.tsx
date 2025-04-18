@@ -114,12 +114,31 @@ const user = {
       "Google Workspace",
       "Google Apps Script"
     ]
-  }
+  },
+  personality: [
+    {
+      trait: "Ambitieux",
+      description: "Je me fixe des objectifs ambitieux et je m'efforce de les atteindre avec détermination."
+    },
+    {
+      trait: "Impliqué",
+      description: "Je m'investis pleinement dans mes projets et responsabilités, en accordant une attention particulière aux détails."
+    },
+    {
+      trait: "Autonome",
+      description: "Je sais trouver des solutions par moi-même et m'adapter aux situations nouvelles."
+    },
+    {
+      trait: "Amusant",
+      description: "J'aime apporter une touche d'humour et de légèreté dans mon environnement de travail."
+    }
+  ]
 };
 
 export default function AboutPage() {
   const tableOfContentsLinks = [
     { href: '#introduction', label: 'Introduction' },
+    { href: '#personality', label: 'Traits de Personnalité' },
     { href: '#experience', label: 'Expérience Professionnelle' },
     { href: '#education', label: 'Formation' },
     { href: '#skills', label: 'Compétences Techniques' },
@@ -219,6 +238,35 @@ export default function AboutPage() {
               </motion.div>
 
               <div className="space-y-8">
+                {/* Traits de personnalité */}
+                <motion.section 
+                  id="personality"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.8 }}
+                  className="bg-[var(--card)] rounded-lg shadow-md p-6 scroll-mt-20"
+                >
+                  <h2 className="text-3xl font-bold mb-6 font-display bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    Traits de Personnalité
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {user.personality.map((trait, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.1 * index }}
+                        className="bg-[var(--neutral-100)] dark:bg-[var(--neutral-800)] p-4 rounded-lg"
+                      >
+                        <h3 className="text-xl font-semibold mb-2">{trait.trait}</h3>
+                        <p className="text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">
+                          {trait.description}
+                        </p>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.section>
+
                 {/* Expérience professionnelle */}
                 <motion.section 
                   id="experience"
