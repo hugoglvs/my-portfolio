@@ -45,7 +45,7 @@ export default function Explore() {
   const [solvedLocations, setSolvedLocations] = useState<string[]>([]);
   const [newAchievement, setNewAchievement] = useState<Achievement | null>(null);
   const [selectedAchievement, setSelectedAchievement] = useState<Achievement | null>(null);
-  const [currentTimeframe, setCurrentTimeframe] = useState<string>('all');
+  const [currentTimeframe, setCurrentTimeframe] = useState<string>('childhood');
   const [timeframes, setTimeframes] = useState<Timeframe[]>([]);
   const [achievements, setAchievements] = useState<Achievement[]>([]);
   const [unlockedAchievements, setUnlockedAchievements] = useState<string[]>([]);
