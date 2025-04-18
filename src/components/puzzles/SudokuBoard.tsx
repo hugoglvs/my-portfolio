@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { generateSudoku, checkBoard, getConflicts } from '@/lib/sudoku';
+import { motion, AnimatePresence } from 'framer-motion';
 
 type Difficulty = 'easy' | 'medium' | 'hard' | 'expert';
 
@@ -13,6 +14,20 @@ interface SudokuBoardProps {
   onSolved?: () => void;
 }
 
+const difficultyColors = {
+  easy: 'bg-green-500',
+  medium: 'bg-yellow-500',
+  hard: 'bg-orange-500',
+  expert: 'bg-red-500'
+};
+
+const difficultyLabels = {
+  easy: 'Facile',
+  medium: 'Moyen',
+  hard: 'Difficile',
+  expert: 'Expert'
+};
+
 export default function SudokuBoard({ puzzleData, onSolved }: SudokuBoardProps) {
   const [board, setBoard] = useState<number[][]>([]);
   const [solution, setSolution] = useState<number[][]>([]);
@@ -20,14 +35,22 @@ export default function SudokuBoard({ puzzleData, onSolved }: SudokuBoardProps) 
   const [conflicts, setConflicts] = useState<number[][]>([]);
   const [initialCells, setInitialCells] = useState<Set<string>>(new Set());
   const [initialBoard, setInitialBoard] = useState<number[][]>([]);
+  const [showMessage, setShowMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
+
+  const showAlert = (type: 'success' | 'error', text: string) => {
+    setShowMessage({ type, text });
+    setTimeout(() => setShowMessage(null), 3000);
+  };
 
   const checkAndHandleSolved = useCallback((currentBoard: number[][]) => {
     if (checkBoard(currentBoard)) {
       if (onSolved) {
         onSolved();
       }
+      showAlert('success', 'Félicitations ! Vous avez résolu la grille !');
       return true;
     }
+    showAlert('error', 'Solution incorrecte ! Continuez à essayer !');
     return false;
   }, [onSolved]);
 
@@ -125,9 +148,9 @@ export default function SudokuBoard({ puzzleData, onSolved }: SudokuBoardProps) 
       // Check if the board is full and if it's solved
       if (isBoardFull(newBoard)) {
         if (checkAndHandleSolved(newBoard)) {
-          alert('Congratulations! You solved the puzzle!');
+          alert('Félicitations ! Vous avez résolu la grille !');
         } else {
-          alert('Incorrect solution! Keep trying!');
+          alert('Solution incorrecte ! Continuez à essayer !');
         }
       }
     } else if (e.key === 'Backspace' || e.key === 'Delete') {
@@ -198,27 +221,20 @@ export default function SudokuBoard({ puzzleData, onSolved }: SudokuBoardProps) 
 
   return (
     <div className="flex flex-col items-center gap-6 p-6 bg-[var(--card)] rounded-lg shadow-lg">
-      {puzzleData?.title && (
-        <h3 className="text-2xl font-bold text-[var(--foreground)]">{puzzleData.title}</h3>
-      )}
-      
-      {puzzleData?.description && (
-        <p className="text-[var(--neutral-600)] text-center max-w-md">{puzzleData.description}</p>
-      )}
-
-      <div className="flex gap-4 mb-4">
-        <button
-          onClick={handleClear}
-          className="px-4 py-2 bg-[var(--primary-light)] text-[var(--secondary)] rounded-lg hover:bg-[var(--primary)] transition-colors duration-200"
-        >
-          Clear
-        </button>
-        <button
-          onClick={handleHint}
-          className="px-4 py-2 bg-[var(--primary-dark)] text-[var(--secondary)] rounded-lg hover:bg-[var(--primary)] transition-colors duration-200"
-        >
-          Hint
-        </button>
+      <div className="flex flex-col items-center gap-2">
+        {puzzleData?.title && (
+          <h3 className="text-2xl font-bold text-[var(--foreground)]">{puzzleData.title}</h3>
+        )}
+        
+        {puzzleData?.difficulty && (
+          <div className={`px-3 py-1 rounded-full text-white text-sm font-medium ${difficultyColors[puzzleData.difficulty]}`}>
+            {difficultyLabels[puzzleData.difficulty]}
+          </div>
+        )}
+        
+        {puzzleData?.description && (
+          <p className="text-[var(--neutral-600)] text-center max-w-md">{puzzleData.description}</p>
+        )}
       </div>
 
       <div
@@ -231,8 +247,11 @@ export default function SudokuBoard({ puzzleData, onSolved }: SudokuBoardProps) 
       >
         {board.map((row, i) =>
           row.map((cell, j) => (
-            <div
+            <motion.div
               key={`${i}-${j}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.2 }}
               className={`
                 w-12 h-12 flex items-center justify-center border
                 ${i % 3 === 0 ? 'border-t-2' : 'border-t'}
@@ -253,10 +272,50 @@ export default function SudokuBoard({ puzzleData, onSolved }: SudokuBoardProps) 
               }}
             >
               {cell !== 0 && cell}
-            </div>
+            </motion.div>
           ))
         )}
       </div>
+
+      <div className="flex gap-4">
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={handleClear}
+          className="px-4 py-2 bg-gradient-to-r from-[var(--primary-light)] to-[var(--primary)] text-[var(--secondary)] rounded-lg hover:from-[var(--primary)] hover:to-[var(--primary-dark)] transition-all duration-300 flex items-center gap-2 shadow-md"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+          </svg>
+          Effacer
+        </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={handleHint}
+          className="px-4 py-2 bg-gradient-to-r from-[var(--primary-dark)] to-[var(--primary)] text-[var(--secondary)] rounded-lg hover:from-[var(--primary)] hover:to-[var(--primary-light)] transition-all duration-300 flex items-center gap-2 shadow-md"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+          </svg>
+          Indice
+        </motion.button>
+      </div>
+
+      <AnimatePresence>
+        {showMessage && (
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 20, opacity: 0 }}
+            className={`fixed bottom-4 left-1/2 transform -translate-x-1/2 px-4 py-2 rounded-lg text-white ${
+              showMessage.type === 'success' ? 'bg-green-500' : 'bg-red-500'
+            }`}
+          >
+            {showMessage.text}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 } 

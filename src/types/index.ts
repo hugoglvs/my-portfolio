@@ -5,7 +5,7 @@ export interface EventLocation {
   lat: number;
   lng: number;
   timeframe: string;
-  puzzleType: 'trivia' | 'sudoku' | 'crossword' | 'memory' | 'puzzle' | 'tictactoe' | 'lyrics' | 'wordle';
+  puzzleType: 'trivia' | 'sudoku' | 'crossword' | 'memory' | 'puzzle' | 'tictactoe' | 'lyrics' | 'wordle' | 'question';
   puzzleData: {
     title?: string;
     description?: string;
@@ -14,6 +14,10 @@ export interface EventLocation {
       options: string[];
       correctAnswer: number;
     }>;
+    question?: string;
+    answers?: string[];
+    mediaUrl?: string;
+    mediaType?: 'image' | 'video' | 'audio';
     [key: string]: unknown;
   };
   unlockContent: {
@@ -46,4 +50,4 @@ export interface Timeframe {
   period: string;
 }
 
-export type PuzzleType = 'trivia' | 'sudoku' | 'crossword' | 'memory' | 'puzzle' | 'tictactoe' | 'lyrics' | 'wordle'; 
+export type PuzzleType = 'trivia' | 'sudoku' | 'crossword' | 'memory' | 'puzzle' | 'tictactoe' | 'lyrics' | 'wordle' | 'question'; 

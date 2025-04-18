@@ -2,73 +2,249 @@
   "events": [
     {
       "id": "naissance",
-      "name": "Le début de l'histoire",
-      "description": "Là où tout a commencé",
+      "name": "La Genèse",
+      "description": "Le début d'une grande aventure",
       "lat": 42.6976,
       "lng": 2.8954,
       "timeframe": "childhood",
-      "puzzleType": "trivia",
+      "puzzleType": "question",
       "puzzleData": {
-        "title": "Quiz sur Perpignan",
-        "description": "Testez vos connaissances sur la ville de naissance",
-        "questions": [
-          {
-            "question": "Quelle est la spécialité culinaire de Perpignan ?",
-            "options": ["La paella", "La bouillabaisse", "La brandade", "Le cassoulet"],
-            "correctAnswer": 2
-          },
-          {
-            "question": "Quelle est la couleur traditionnelle de Perpignan ?",
-            "options": ["Le rouge", "Le jaune", "Le bleu", "Le vert"],
-            "correctAnswer": 0
-          },
-          {
-            "question": "Quelle est la langue régionale parlée à Perpignan ?",
-            "options": ["Le breton", "Le catalan", "Le basque", "L'occitan"],
-            "correctAnswer": 1
-          }
+        "title": "Question sur Dalida",
+        "description": "Répondez à la question pour débloquer ce souvenir",
+        "question": "Quand est morte Dalida ?",
+        "answers": [
+          "trois mai mille neuf cent quatre-vingt-sept",
+          "3 mai 1987",
+          "3 mai 87",
+          "3 mai",
+          "1987-05-03",
+          "03/05/1987",
+          "05/03/1987",
+          "3/5/1987",
+          "5/3/1987",
+          "05/03",
+          "03/05"
         ]
       },
       "unlockContent": {
-        "title": "Naissance à Perpignan",
-        "text": "Je suis né à Perpignan, en France, dans une famille portugaise originaire de Tavira. Dès mon plus jeune âge, j'ai été élevé dans un environnement bilingue français-portugais, ce qui m'a permis de développer une sensibilité particulière pour les langues.",
+        "title": "Le monde s'en souviendra",
+        "text": "Le 3 Mai 2002 à 8h55. C'est en effet à ce moment là, à Perpignan, que je naquis.",
         "mediaUrl": "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-        "mediaType": "image"
+        "mediaType": "none"
       }
     },
     {
       "id": "ecole",
-      "name": "Les débuts scolaires",
-      "description": "L'apprentissage de la lecture et la découverte de l'espace",
-      "lat": 42.6976,
-      "lng": 2.8954,
+      "name": "Une première phase d'apprentissage",
+      "description": "Les débuts scolaires et l'influence d'une sœur attentionnée",
+      "lat": 42.7333,
+      "lng": 2.9333,
       "timeframe": "childhood",
       "puzzleType": "trivia",
       "puzzleData": {
-        "title": "Quiz sur l'école primaire",
-        "description": "Testez vos connaissances sur les débuts scolaires",
+        "title": "Quiz sur les figures historiques",
+        "description": "Testez vos connaissances sur les personnages qui ont donné leur nom à mes écoles",
         "questions": [
           {
-            "question": "À quel âge j'ai appris à lire ?",
-            "options": ["3 ans", "4 ans", "5 ans", "6 ans"],
+            "question": "Qui était Jean Moulin ?",
+            "options": [
+              "Un scientifique français",
+              "Un résistant pendant la Seconde Guerre mondiale",
+              "Un écrivain du XIXe siècle",
+              "Un peintre impressionniste"
+            ],
             "correctAnswer": 1
           },
           {
-            "question": "Quelle était ma passion principale ?",
-            "options": ["Les dinosaures", "L'espace", "Les voitures", "Les animaux"],
+            "question": "Quelle est la principale découverte de Louis Pasteur ?",
+            "options": [
+              "La théorie de la relativité",
+              "La vaccination contre la rage",
+              "L'électricité",
+              "La pénicilline"
+            ],
             "correctAnswer": 1
           },
           {
-            "question": "Quel sport j'ai pratiqué en CM2 ?",
-            "options": ["Football", "Judo", "Basketball", "Natation"],
-            "correctAnswer": 1
+            "question": "Qui était François Arago ?",
+            "options": [
+              "Un astronome et physicien français",
+              "Un compositeur de musique classique",
+              "Un explorateur du XIXe siècle",
+              "Un écrivain romantique"
+            ],
+            "correctAnswer": 0
           }
         ]
       },
       "unlockContent": {
         "title": "Les débuts scolaires",
-        "text": "J'ai commencé l'école en moyenne section, avec une particularité : je portais encore la couche jusqu'à 4 ans à cause de ma peur de l'école ! C'est grâce à ma sœur cadette, qui jouait à la professeure avec moi, que j'ai appris à lire à l'âge de 4 ans. J'étais un bon élève et un petit comique, apprécié par mes camarades et mes professeurs. Ma passion pour l'espace est née pendant cette période et ne m'a jamais quitté.",
+        "text": "Mon parcours scolaire a commencé à l'école maternelle Jean Moulin en moyenne section, puis à l'école maternelle Pasteur pour la grande section. En moyenne section, mon niveau était faible, mais ma sœur du milieu a joué un rôle crucial dans mon développement. En jouant à la maîtresse avec moi, elle m'a appris à lire à l'âge de 4 ans et bien plus encore. J'étais un bon élève et un petit comique, apprécié par mes camarades et mes professeurs. Ma passion pour l'espace est née pendant cette période et ne m'a jamais quitté. J'ai ensuite poursuivi toute ma scolarité primaire à l'école François Arago.",
         "mediaUrl": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "carcassonne",
+      "name": "L'épopée médiévale",
+      "description": "Un voyage scolaire de trois jours à la découverte de l'histoire médiévale",
+      "lat": 43.2122,
+      "lng": 2.3537,
+      "timeframe": "childhood",
+      "puzzleType": "wordle",
+      "puzzleData": {
+        "title": "Wordle Challenge",
+        "description": "Devinez le mot en 6 tentatives maximum",
+        "word": "PAPIER"
+      },
+      "unlockContent": {
+        "title": "Louis XIV ?",
+        "text": "En CM1, j'ai eu la chance de participer à un voyage scolaire de trois jours à Carcassonne. Ce séjour m'a permis de découvrir la magnifique cité médiévale, ses remparts impressionnants et son histoire fascinante. Nous avons également visité le Musée des Arts et Métiers du Livre, une expérience enrichissante qui m'a fait découvrir l'évolution de l'écriture et de l'imprimerie. Ce voyage a été l'une de mes premières expériences de découverte du patrimoine historique français.",
+        "mediaUrl": "/images/carcassone.jpg",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "espace_airbus",
+      "name": "Voyage dans les étoiles",
+      "description": "Une journée à la découverte de l'espace et de l'aéronautique",
+      "lat": 43.5833,
+      "lng": 1.4333,
+      "timeframe": "childhood",
+      "puzzleType": "trivia",
+      "puzzleData": {
+        "title": "Quiz sur l'espace et l'aéronautique",
+        "description": "Testez vos connaissances sur l'espace et les avions",
+        "questions": [
+          {
+            "question": "Quel est le plus grand avion de passagers au monde ?",
+            "options": [
+              "Boeing 747",
+              "Airbus A380",
+              "Boeing 777",
+              "Airbus A350"
+            ],
+            "correctAnswer": 1
+          },
+          {
+            "question": "Quelle est la première planète du système solaire ?",
+            "options": [
+              "Vénus",
+              "Mars",
+              "Mercure",
+              "Jupiter"
+            ],
+            "correctAnswer": 2
+          },
+          {
+            "question": "Quelle est la particularité de la Cité de l'Espace ?",
+            "options": [
+              "C'est le plus grand musée de l'espace d'Europe",
+              "Elle possède une réplique de la fusée Ariane 5",
+              "Elle a été construite par la NASA",
+              "Elle est située sur la Lune"
+            ],
+            "correctAnswer": 1
+          }
+        ]
+      },
+      "unlockContent": {
+        "title": "Houston ?",
+        "text": "En CM2, j'ai eu la chance de visiter la Cité de l'Espace et le musée Airbus. Cette journée a été particulièrement marquante pour moi, car elle combinait mes deux passions : l'espace et les avions. J'ai été fasciné par la maquette grandeur nature de l'A380 dans laquelle nous pouvions entrer pour découvrir l'intérieur de cet impressionnant avion. Cette visite a renforcé ma passion pour l'aéronautique et l'espace, qui ne m'a jamais quittée depuis.",
+        "mediaUrl": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=3272&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "college_jean_rous",
+      "name": "Les années collège",
+      "description": "Des années marquées par de belles amitiés, de bons résultats et l'apprentissage de l'anglais",
+      "lat": 42.7444,
+      "lng": 2.9192,
+      "timeframe": "adolescence",
+      "puzzleType": "question",
+      "puzzleData": {
+        "title": "Question sur un jeu vidéo",
+        "description": "Répondez à la question pour débloquer ce souvenir",
+        "question": "Ce jeu vidéo de type bac à sable, créé par Markus Persson en 2009, permet aux joueurs de construire et d'explorer un monde en 3D composé de blocs. Les joueurs peuvent y miner des ressources, fabriquer des objets et affronter des créatures comme les creepers ou les zombies. Quel est ce jeu ?",
+        "answers": [
+          "minecraft"
+        ]
+      },
+      "unlockContent": {
+        "title": "Les années collège",
+        "text": "J'ai passé mes années collège au collège Jean Rous à Pia. Ces années ont été marquées par la création de belles amitiés qui perdurent encore aujourd'hui. C'est aussi à cette période que j'ai commencé à jouer à Minecraft avec mon cousin. Nous jouions sur des serveurs de faction anglophones, ce qui m'a motivé et aidé à apprendre l'anglais. Pour intégrer une faction, il fallait communiquer en anglais et même passer des entretiens ! Cette expérience ludique a été déterminante dans mon apprentissage de la langue. J'ai pu m'épanouir tant sur le plan scolaire que social, et j'en garde de merveilleux souvenirs. En 2017, j'ai obtenu mon diplôme du brevet avec la mention Très Bien, récompensant ainsi mes efforts et mon investissement.",
+        "mediaUrl": "https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "voyage_madrid",
+      "name": "Voyage à Madrid",
+      "description": "Une semaine de découverte culturelle et sportive dans la capitale espagnole",
+      "lat": 40.4168,
+      "lng": -3.7038,
+      "timeframe": "adolescence",
+      "puzzleType": "question",
+      "puzzleData": {
+        "title": "Question sur l'art espagnol",
+        "description": "Répondez à la question pour débloquer ce souvenir",
+        "question": "Ce tableau monumental de Pablo Picasso, peint en 1937, représente les horreurs du bombardement de la ville basque de Guernica pendant la guerre civile espagnole. Mesurant 3,49 mètres de haut sur 7,77 mètres de large, il est exposé au musée Reina Sofia de Madrid. Quel est le nom de cette œuvre ?",
+        "answers": [
+          "guernica"
+        ]
+      },
+      "unlockContent": {
+        "title": "Voyage scolaire à Madrid",
+        "text": "En 4ème, j'ai eu la chance de participer à un voyage scolaire d'une semaine à Madrid. Ce séjour a été particulièrement enrichissant, notamment grâce à la découverte du célèbre tableau Guernica de Picasso, dont nous avions beaucoup entendu parler en cours d'espagnol et d'arts plastiques. Nous avons également visité le stade Santiago Bernabeu, un moment fort pour les amateurs de football. Un autre moment marquant a été la visite du Valle de Los Caidos, où reposait encore Franco à l'époque. Ce jour-là, il neigeait, créant un paysage magnifique. Nous en avons profité pour faire une bataille de boules de neige entre élèves, et certains professeurs se sont même joints à nous, créant des souvenirs inoubliables.",
+        "mediaUrl": "https://images.unsplash.com/photo-1543783207-ec64e4d95325?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "stage_avocat",
+      "name": "Stage d'observation en cabinet d'avocat",
+      "description": "Une semaine de découverte du monde juridique",
+      "lat": 42.6976,
+      "lng": 2.8954,
+      "timeframe": "adolescence",
+      "puzzleType": "question",
+      "puzzleData": {
+        "title": "Question sur le monde juridique",
+        "description": "Répondez à la question pour débloquer ce souvenir",
+        "question": "Ce domaine de connaissance, qui régit les relations entre les individus et les institutions, est enseigné dans les facultés de droit. Il comprend différentes branches comme le droit civil, le droit pénal ou le droit administratif. Les professionnels qui l'exercent sont notamment les avocats, les juges et les notaires. Quel est ce domaine ?",
+        "answers": [
+          "droit"
+        ]
+      },
+      "unlockContent": {
+        "title": "Stage en cabinet d'avocat",
+        "text": "Mon stage d'observation de 3ème s'est déroulé dans un cabinet d'avocat à Perpignan. Cette expérience a été très importante pour moi car elle m'a permis de réaliser que le métier d'avocat ne me correspondait pas du tout. J'ai pu observer le quotidien des avocats, assister à des réunions et comprendre le fonctionnement d'un cabinet. Bien que j'aie trouvé cette semaine très intéressante sur le plan de la découverte, elle m'a confirmé que je ne voulais pas faire carrière dans le droit. Cette prise de conscience précoce a été précieuse pour mon orientation future.",
+        "mediaUrl": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "mediaType": "image"
+      }
+    },
+    {
+      "id": "lycee_aristide_maillol",
+      "name": "Les années lycée",
+      "description": "Le rugby, les amis et les bêtises de jeunesse",
+      "lat": 42.6976,
+      "lng": 2.8954,
+      "timeframe": "adolescence",
+      "puzzleType": "question",
+      "puzzleData": {
+        "title": "Question sur le rugby catalan",
+        "description": "Répondez à la question pour débloquer ce souvenir",
+        "question": "Ce club de rugby à XV, fondé en 1902, est basé à Perpignan. Il évolue actuellement en Pro D2 et joue ses matchs à domicile au stade Aimé-Giral. Ses couleurs sont le sang et or, et son surnom est l'équipe des treize villages. Quel est le nom de ce club ?",
+        "answers": [
+          "usap",
+          "Union Sportive des Arlequins Perpignanais"
+        ]
+      },
+      "unlockContent": {
+        "title": "Les années lycée",
+        "text": "J'ai poursuivi ma scolarité au lycée polyvalent Aristide Maillol à Perpignan, où j'ai obtenu un Bac général S SVT avec spécialité Mathématiques. Ces années ont été marquées par la création de nouvelles amitiés, notamment autour du rugby. J'ai commencé l'option rugby en première, ce qui m'a permis de progresser considérablement, je partais de très loin. L'année de terminale a été particulière avec l'arrivée du COVID-19 en 2020, qui a conduit à l'annulation des épreuves finales du bac. Malgré cela, j'ai obtenu mon diplôme avec la mention Très Bien. Le lycée a aussi été le théâtre de mes premières soirées entre amis et des bêtises de jeunesse, des moments qui ont contribué à forger de beaux souvenirs.",
+        "mediaUrl": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80",
         "mediaType": "image"
       }
     },
@@ -105,26 +281,6 @@
         "title": "Les années collège",
         "text": "Le collège a marqué le début de deux grandes passions : les langues et le rugby. C'est en jouant à Minecraft sur des serveurs anglais que j'ai vraiment commencé à apprendre l'anglais et à développer mon amour pour les langues. En 4ème, j'ai eu la chance de partir une semaine à Madrid avec les classes bilingues espagnol. En 3ème, un ami m'a fait découvrir le rugby, ce qui est devenu une véritable passion. J'ai commencé à jouer à 15 ans et j'ai continué jusqu'en 2025.",
         "mediaUrl": "https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-        "mediaType": "image"
-      }
-    },
-    {
-      "id": "sudoku_challenge",
-      "name": "Logic Challenge",
-      "description": "A test of logical thinking and problem-solving",
-      "lat": 38.7223,
-      "lng": -9.1393,
-      "timeframe": "childhood",
-      "puzzleType": "sudoku",
-      "puzzleData": {
-        "title": "Sudoku Challenge",
-        "description": "Complete the Sudoku puzzle to unlock this memory",
-        "difficulty": "medium"
-      },
-      "unlockContent": {
-        "title": "Early Problem Solving",
-        "text": "I developed a love for puzzles and logical challenges at a young age. Solving Sudoku puzzles helped me develop my analytical thinking and attention to detail.",
-        "mediaUrl": "https://images.unsplash.com/photo-1581094794329-c8112c4e0e0d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
         "mediaType": "image"
       }
     },
@@ -171,25 +327,25 @@
       "lat": 43.6045,
       "lng": 1.4442,
       "timeframe": "studies",
-      "puzzleType": "trivia",
+      "puzzleType": "lyrics",
       "puzzleData": {
-        "title": "Quiz sur la prépa",
-        "description": "Testez vos connaissances sur cette période",
-        "questions": [
+        "title": "N'oubliez pas les paroles",
+        "description": "Complétez les paroles manquantes de la chanson",
+        "songs": [
           {
-            "question": "Quelle prépa ai-je intégrée ?",
-            "options": ["MPSI", "PCSI", "PTSI", "BCPST"],
-            "correctAnswer": 0
-          },
-          {
-            "question": "Qu'est-ce qui m'aidait à tenir le coup ?",
-            "options": ["Le sport", "Les amis", "One Piece", "La musique"],
-            "correctAnswer": 2
-          },
-          {
-            "question": "Où se trouvait ma prépa ?",
-            "options": ["Toulouse", "Montpellier", "Paris", "Lyon"],
-            "correctAnswer": 0
+            "title": "Elle a les yeux revolver",
+            "artist": "Marc Lavoine",
+            "lyrics": [
+            "Son corps s'achève sous des draps inconnus",
+            "Et moi, je rêve de gestes défendus",
+            "C'est comme ça",
+            "Un peu spéciale, elle est célibataire",
+            "Le visage pâle, les cheveux en arrière",
+            "Et j'aime ça",
+            "Tellement si femme quand elle dort",
+            "Tellement si belle, je l'aime tellement si fort"
+            ],
+            "missingWord": 2
           }
         ]
       },
@@ -207,32 +363,16 @@
       "lat": 43.6168,
       "lng": 3.8767,
       "timeframe": "studies",
-      "puzzleType": "trivia",
+      "puzzleType": "tictactoe",
       "puzzleData": {
-        "title": "Quiz sur la licence MIASHS",
-        "description": "Testez vos connaissances sur cette formation",
-        "questions": [
-          {
-            "question": "Quel parcours SHS ai-je choisi ?",
-            "options": ["Sociologie", "Économie des Administrations", "Psychologie", "Géographie"],
-            "correctAnswer": 1
-          },
-          {
-            "question": "Quelle mention ai-je obtenue ?",
-            "options": ["Assez Bien", "Bien", "Très Bien", "Félicitations"],
-            "correctAnswer": 2
-          },
-          {
-            "question": "Quelle était ma moyenne générale ?",
-            "options": ["15", "16", "17", "18"],
-            "correctAnswer": 2
-          }
-        ]
+        "title": "Tic-tac-toe Challenge",
+        "description": "Battez l'ordinateur au tic-tac-toe",
+        "difficulty": "medium"
       },
       "unlockContent": {
         "title": "La licence MIASHS",
-        "text": "La licence MIASHS à l'université Paul Valéry de Montpellier a été une révélation. J'ai apprécié sa pluridisciplinarité, combinant mathématiques, statistiques, informatique et sciences humaines. J'ai choisi le parcours Économie des Administrations, nourrissant mon intérêt pour l'économie. J'ai obtenu ma licence avec mention Très Bien et une moyenne de 17/20, ce qui m'a ouvert les portes du master ICE-LD.",
-        "mediaUrl": "https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "text": "La licence MIASHS à l'université Paul Valéry de Montpellier a été une révélation. J'ai apprécié sa pluridisciplinarité, combinant mathématiques, statistiques, informatique et sciences humaines. J'ai choisi le parcours Économie des Administrations, nourrissant mon intérêt pour l'économie. Un des projets les plus marquants a été l'implémentation de l'algorithme Minimax pour le jeu de tic-tac-toe. Cet algorithme d'IA permet à l'ordinateur de jouer de manière optimale en anticipant les coups possibles. Nous avons dû développer une interface permettant de jouer contre cet ordinateur intelligent, ce qui m'a permis de comprendre les bases de l'intelligence artificielle et de la programmation orientée objet. J'ai obtenu ma licence avec mention Très Bien et une moyenne de 17/20, ce qui m'a ouvert les portes du master ICE-LD.",
+        "mediaUrl": "/images/upv.jpg",
         "mediaType": "image"
       }
     },
@@ -243,27 +383,11 @@
       "lat": 43.6045,
       "lng": 1.4442,
       "timeframe": "studies",
-      "puzzleType": "trivia",
+      "puzzleType": "sudoku",
       "puzzleData": {
-        "title": "Quiz sur le master",
-        "description": "Testez vos connaissances sur cette formation",
-        "questions": [
-          {
-            "question": "Où suis-je en alternance ?",
-            "options": ["Airbus", "Thales", "Safran", "Dassault"],
-            "correctAnswer": 0
-          },
-          {
-            "question": "Dans quel pôle travaille-je ?",
-            "options": ["Production", "Qualité", "R&D", "Marketing"],
-            "correctAnswer": 1
-          },
-          {
-            "question": "Quelle université accueille le master ?",
-            "options": ["Paul Valéry", "Jean Jaurès", "Capitole", "Sciences Po"],
-            "correctAnswer": 1
-          }
-        ]
+        "title": "Sudoku Challenge",
+        "description": "Complétez la grille de sudoku pour débloquer ce souvenir",
+        "difficulty": "medium"
       },
       "unlockContent": {
         "title": "Le master ICE-LD",
@@ -303,7 +427,7 @@
       },
       "unlockContent": {
         "title": "L'amour de l'italien",
-        "text": "Je suis passionné par la langue et la culture italiennes. J'apprends l'italien sur Duolingo depuis plusieurs années, et j'ai atteint une série de 549 jours consécutifs d'apprentissage le 13 avril 2025. Cette passion m'a permis de découvrir la richesse de la culture italienne, de sa cuisine à son histoire.",
+        "text": "Je suis passionné par la langue et la culture italiennes. J'apprends l'italien sur Duolingo depuis plusieurs années, et j'ai atteint une série de 549 jours consécutifs d'apprentissage le 1er avril 2025. Cette passion m'a permis de découvrir la richesse de la culture italienne, de sa cuisine à son histoire.",
         "mediaUrl": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
         "mediaType": "image"
       }
@@ -345,11 +469,38 @@
       }
     },
     {
-      "id": "portugal_interest",
+      "id": "wuhan",
+      "name": "Wuhan",
+      "description": "Le confinement et ses conséquences",
+      "lat": 42.6976,
+      "lng": 2.8954,
+      "timeframe": "covid",
+      "puzzleType": "question",
+      "puzzleData": {
+        "title": "Skribbl.io Challenge",
+        "description": "Regardez la vidéo et devinez ce qui est dessiné",
+        "mediaUrl": "/videos/skribbl.mp4",
+        "mediaType": "video",
+        "answers": [
+          "vélo",
+          "velo",
+          "un vélo",
+          "bicycle"
+        ]
+      },
+      "unlockContent": {
+        "title": "Le confinement",
+        "text": "La période de confinement due au COVID-19 a été une expérience particulière. J'ai complètement arrêté le sport, ce qui m'a fait prendre 8 kg. J'ai profité de ce temps pour relire l'intégralité de One Piece, une de mes séries préférées. Les soirées étaient souvent rythmées par des parties de Skribbl.io entre amis, ce qui nous permettait de garder le contact et de nous amuser malgré la distance. J'ai globalement très bien vécu cette période, trouvant de nombreuses façons de me divertir. Le seul regret est d'avoir totalement arrêté le sport, ce qui a eu un impact sur ma forme physique.",
+        "mediaUrl": "",
+        "mediaType": "none"
+      }
+    },
+    {
+      "id": "tavira_interest",
       "name": "Racines portugaises",
-      "description": "Les liens familiaux avec le Portugal",
-      "lat": 38.7223,
-      "lng": -9.1393,
+      "description": "L'amour du Portugal et de ses traditions",
+      "lat": 37.1273,
+      "lng": -7.6475,
       "timeframe": "intemporal",
       "puzzleType": "trivia",
       "puzzleData": {
@@ -375,103 +526,8 @@
       },
       "unlockContent": {
         "title": "Racines portugaises",
-        "text": "Toute ma famille vit au Portugal, ce qui crée un lien fort avec ce pays. Bien que je sois né en France, mes racines portugaises sont une partie importante de mon identité. Cette connexion familiale me permet de maintenir un lien étroit avec la culture et les traditions portugaises.",
-        "mediaUrl": "https://images.unsplash.com/photo-1518998053901-5348d3961a04?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
-        "mediaType": "image"
-      }
-    },
-    {
-      "id": "confinement_lyrics",
-      "name": "N'oubliez pas les paroles",
-      "description": "Un jeu musical pour passer le temps pendant le confinement",
-      "lat": 42.6976,
-      "lng": 2.8954,
-      "timeframe": "covid",
-      "puzzleType": "lyrics",
-      "puzzleData": {
-        "title": "N'oubliez pas les paroles",
-        "description": "Complétez les paroles manquantes des chansons",
-        "songs": [
-          {
-            "title": "Bohemian Rhapsody",
-            "artist": "Queen",
-            "lyrics": [
-              "Is this the real life?",
-              "Is this just fantasy?",
-              "Caught in a landslide",
-              "No escape from reality",
-              "Open your eyes",
-              "Look up to the skies and see",
-              "I'm just a poor boy, I need no sympathy",
-              "Because I'm easy come, easy go",
-              "Little high, little low",
-              "Any way the wind blows doesn't really matter to me, to me"
-            ],
-            "missingWord": 2
-          },
-          {
-            "title": "Imagine",
-            "artist": "John Lennon",
-            "lyrics": [
-              "Imagine there's no heaven",
-              "It's easy if you try",
-              "No hell below us",
-              "Above us only sky",
-              "Imagine all the people",
-              "Living for today",
-              "Imagine there's no countries",
-              "It isn't hard to do",
-              "Nothing to kill or die for",
-              "And no religion too"
-            ],
-            "missingWord": 5
-          }
-        ]
-      },
-      "unlockContent": {
-        "title": "Les jeux pendant le confinement",
-        "text": "Pendant le confinement de 2020, j'ai développé plusieurs petits jeux pour passer le temps et m'amuser. 'N'oubliez pas les paroles' était l'un de mes préférés, mêlant ma passion pour la musique et le développement web.",
-        "mediaUrl": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-        "mediaType": "image"
-      }
-    },
-    {
-      "id": "confinement_tic_tac_toe",
-      "name": "Tic-tac-toe",
-      "description": "Un classique revisité pendant le confinement",
-      "lat": 42.6976,
-      "lng": 2.8954,
-      "timeframe": "covid",
-      "puzzleType": "tictactoe",
-      "puzzleData": {
-        "title": "Tic-tac-toe Challenge",
-        "description": "Battez l'ordinateur au tic-tac-toe",
-        "difficulty": "medium"
-      },
-      "unlockContent": {
-        "title": "Développement de jeux pendant le confinement",
-        "text": "Le tic-tac-toe a été l'un de mes premiers projets de développement de jeux. J'ai appris à implémenter une IA simple pour jouer contre l'ordinateur, ce qui m'a permis de comprendre les bases de l'algorithmie et de la programmation orientée objet.",
-        "mediaUrl": "https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80",
-        "mediaType": "image"
-      }
-    },
-    {
-      "id": "wordle_challenge",
-      "name": "Wordle Challenge",
-      "description": "Devinez le mot en 6 tentatives maximum",
-      "lat": 42.6976,
-      "lng": 2.8954,
-      "timeframe": "intemporal",
-      "puzzleType": "wordle",
-      "puzzleData": {
-        "title": "Wordle Challenge",
-        "description": "Devinez le mot en 6 tentatives maximum",
-        "word": "REACT"
-      },
-      "unlockContent": {
-        "title": "Passion pour le développement",
-        "text": "J'ai découvert le développement web avec React, un framework JavaScript qui m'a permis de créer des interfaces utilisateur interactives et modernes.",
-        "mediaUrl": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "text": "Mes deux parents sont portugais et toute ma famille vit au Portugal, ce qui crée un lien très fort avec ce pays. Bien que je sois né en France, le portugais est ma langue maternelle et mes racines portugaises sont une partie essentielle de mon identité. J'adore mon pays d'origine, sa culture, ses traditions et sa cuisine. Tavira, dans l'Algarve, est un endroit particulièrement cher à mon cœur, où je passe régulièrement du temps avec ma famille. Cette connexion familiale me permet de maintenir un lien étroit avec mes origines et de partager cette riche culture avec les autres.",
+        "mediaUrl": "/images/tavira.jpg",
         "mediaType": "image"
       }
     }
@@ -494,6 +550,14 @@
       "period": "2014-2020"
     },
     {
+      "id": "covid",
+      "name": "Confinement COVID",
+      "description": "Période de confinement due à la pandémie de COVID-19",
+      "color": "#FFB6C1",
+      "icon": "🏠",
+      "period": "2020"
+    },
+    {
       "id": "studies",
       "name": "Études supérieures",
       "description": "Période de formation académique",
@@ -502,28 +566,12 @@
       "period": "2020-2025"
     },
     {
-      "id": "future",
-      "name": "Futur",
-      "description": "Projets et aspirations à venir",
-      "color": "#DDA0DD",
-      "icon": "🚀",
-      "period": "2025-..."
-    },
-    {
       "id": "intemporal",
       "name": "Intemporel",
       "description": "Passions et intérêts qui traversent le temps",
       "color": "#FFD700",
       "icon": "⭐",
       "period": "Toujours"
-    },
-    {
-      "id": "covid",
-      "name": "Confinement COVID",
-      "description": "Période de confinement due à la pandémie de COVID-19",
-      "color": "#FFB6C1",
-      "icon": "🏠",
-      "period": "2020"
     }
   ],
   "achievements": [
@@ -547,7 +595,7 @@
       "requirements": [
         {
           "type": "events",
-          "ids": ["naissance", "ecole", "gaming", "sudoku_challenge"]
+          "ids": ["naissance", "ecole", "carcassonne", "espace_airbus"]
         }
       ]
     },
@@ -559,7 +607,7 @@
       "requirements": [
         {
           "type": "events",
-          "ids": ["college", "lycee"]
+          "ids": ["college_jean_rous", "voyage_madrid", "stage_avocat", "lycee_aristide_maillol"]
         }
       ]
     },
@@ -576,18 +624,6 @@
       ]
     },
     {
-      "id": "tous_future",
-      "name": "Rêveur",
-      "description": "Entrevoit tous les projets futurs",
-      "icon": "sparkles",
-      "requirements": [
-        {
-          "type": "events",
-          "ids": ["dream"]
-        }
-      ]
-    },
-    {
       "id": "complet",
       "name": "Maître de la biographie",
       "description": "Complété l'ensemble du parcours de vie !",
@@ -595,7 +631,7 @@
       "requirements": [
         {
           "type": "events",
-          "ids": ["naissance", "ecole", "college", "lycee", "prepa", "miahs", "master", "dream", "gaming", "sudoku_challenge"]
+          "ids": ["naissance", "ecole", "carcassonne", "espace_airbus", "college_jean_rous", "voyage_madrid", "stage_avocat", "lycee_aristide_maillol", "prepa", "miahs", "master", "wuhan", "italy_interest", "japan_interest", "tavira_interest"]
         }
       ]
     },
@@ -607,7 +643,7 @@
       "requirements": [
         {
           "type": "events",
-          "ids": ["italy_interest", "japan_interest", "portugal_interest"]
+          "ids": ["italy_interest", "japan_interest", "tavira_interest"]
         }
       ]
     }

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 interface Song {
   title: string;
@@ -21,9 +22,9 @@ interface ForgetTheLyricsProps {
 const ForgetTheLyrics = ({ puzzleData, onSolved }: ForgetTheLyricsProps) => {
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
   const [userAnswer, setUserAnswer] = useState('');
-  const [score, setScore] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  const [isChecking, setIsChecking] = useState(false);
 
   const startNewGame = () => {
     const randomSong = puzzleData.songs[Math.floor(Math.random() * puzzleData.songs.length)];
@@ -36,17 +37,27 @@ const ForgetTheLyrics = ({ puzzleData, onSolved }: ForgetTheLyricsProps) => {
   const checkAnswer = () => {
     if (!currentSong) return;
     
+    setIsChecking(true);
     const correctAnswer = currentSong.lyrics[currentSong.missingWord].toLowerCase();
     const isAnswerCorrect = userAnswer.toLowerCase() === correctAnswer;
     setIsCorrect(isAnswerCorrect);
+    setShowAnswer(true);
     
     if (isAnswerCorrect) {
-      setScore(score + 1);
-      if (score + 1 >= 2) { // Gagner après 2 bonnes réponses
+      setTimeout(() => {
         onSolved();
-      }
+      }, 800);
     }
-    setShowAnswer(true);
+    
+    setTimeout(() => {
+      setIsChecking(false);
+    }, 500);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      checkAnswer();
+    }
   };
 
   useEffect(() => {
@@ -56,69 +67,48 @@ const ForgetTheLyrics = ({ puzzleData, onSolved }: ForgetTheLyricsProps) => {
   if (!currentSong) return null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-900 to-black text-white p-8">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold text-center mb-8">{puzzleData.title}</h1>
-        <p className="text-xl text-center mb-8 text-gray-300">{puzzleData.description}</p>
+    <div className="flex flex-col items-center gap-6">
+      <h2 className="text-2xl font-bold text-[var(--foreground)]">{puzzleData.title}</h2>
+      <p className="text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">{puzzleData.description}</p>
+      
+      <div className="w-full max-w-2xl bg-[var(--card)] rounded-xl p-6 border border-[var(--neutral-200)] dark:border-[var(--neutral-800)]">
+        <h3 className="text-xl font-semibold mb-2 text-[var(--foreground)]">{currentSong.title}</h3>
+        <p className="text-[var(--neutral-600)] dark:text-[var(--neutral-400)] mb-6">{currentSong.artist}</p>
         
-        <div className="bg-white/10 rounded-lg p-6 mb-8">
-          <h2 className="text-2xl font-semibold mb-2">{currentSong.title}</h2>
-          <p className="text-xl text-gray-300 mb-6">{currentSong.artist}</p>
-          
-          <div className="space-y-4">
-            {currentSong.lyrics.map((line, index) => (
-              <p key={index} className="text-lg">
-                {index === currentSong.missingWord ? (
-                  showAnswer ? (
-                    <span className={`${isCorrect ? 'text-green-400' : 'text-red-400'}`}>
-                      {line}
-                    </span>
-                  ) : (
-                    <input
-                      type="text"
-                      value={userAnswer}
-                      onChange={(e) => setUserAnswer(e.target.value)}
-                      className="bg-white/20 border border-white/30 rounded px-2 py-1 w-64"
-                      placeholder="Entrez le mot manquant"
-                    />
-                  )
-                ) : (
-                  line
-                )}
-              </p>
-            ))}
-          </div>
-
-          {showAnswer && (
-            <div className={`mt-4 p-4 rounded ${isCorrect ? 'bg-green-500/20' : 'bg-red-500/20'}`}>
-              <p className="text-center">
-                {isCorrect ? 'Bravo ! Bonne réponse !' : 'Dommage, ce n&apos;est pas la bonne réponse.'}
-              </p>
-            </div>
-          )}
+        <div className="space-y-4">
+          {currentSong.lyrics.map((line, index) => (
+            <p key={index} className="text-lg text-[var(--foreground)]">
+              {index === currentSong.missingWord ? (
+                <motion.input
+                  type="text"
+                  value={userAnswer}
+                  onChange={(e) => setUserAnswer(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  animate={isChecking ? { scale: [1, 1.05, 1] } : {}}
+                  transition={{ duration: 0.3 }}
+                  className={`w-full bg-[var(--background)] border border-[var(--neutral-200)] dark:border-[var(--neutral-800)] rounded-lg px-4 py-2 ${
+                    showAnswer && !isCorrect ? 'text-red-500' : showAnswer && isCorrect ? 'text-green-500' : 'text-[var(--foreground)]'
+                  } focus:outline-none focus:ring-2 focus:ring-[var(--primary)]`}
+                  placeholder="Entrez le mot manquant"
+                />
+              ) : (
+                line
+              )}
+            </p>
+          ))}
         </div>
 
-        <div className="flex justify-between items-center">
-          {!showAnswer ? (
-            <button
-              onClick={checkAnswer}
-              className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Vérifier
-            </button>
-          ) : (
-            <button
-              onClick={startNewGame}
-              className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Nouvelle chanson
-            </button>
-          )}
-          
-          <div className="text-xl">
-            Score: <span className="font-bold">{score}</span>
+        {showAnswer && !isCorrect && (
+          <div className="mt-4 p-4 rounded-lg bg-red-500/10 border border-red-500/20">
+            <p className="text-center text-red-500">
+              Dommage, ce n&apos;est pas la bonne réponse.
+            </p>
           </div>
-        </div>
+        )}
+      </div>
+
+      <div className="text-sm text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">
+        Appuyez sur Entrée pour vérifier votre réponse
       </div>
     </div>
   );

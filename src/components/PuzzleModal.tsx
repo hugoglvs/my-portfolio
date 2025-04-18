@@ -9,6 +9,7 @@ import TicTacToe from './puzzles/TicTacToe';
 import SudokuBoard from './puzzles/SudokuBoard';
 import ForgetTheLyrics from './puzzles/ForgetTheLyrics';
 import Wordle from './puzzles/Wordle';
+import QuestionAnswer from './puzzles/QuestionAnswer';
 import Image from 'next/image';
 
 interface PuzzleModalProps {
@@ -55,6 +56,18 @@ export default function PuzzleModal({ isOpen, onClose, location, onPuzzleSolved,
         return <ForgetTheLyrics puzzleData={location.puzzleData as { title: string; description: string; songs: { title: string; artist: string; lyrics: string[]; missingWord: number; }[]; }} onSolved={handlePuzzleSolved} />;
       case 'wordle':
         return <Wordle puzzleData={location.puzzleData as { title: string; description: string; word: string; }} onSolved={handlePuzzleSolved} />;
+      case 'question':
+        return <QuestionAnswer 
+          puzzleData={location.puzzleData as { 
+            title?: string; 
+            description?: string; 
+            question: string; 
+            answers: string[]; 
+            mediaUrl?: string; 
+            mediaType?: 'image' | 'video' | 'audio';
+          }} 
+          onSolved={handlePuzzleSolved} 
+        />;
       default:
         return (
           <div className="p-4 text-center">
@@ -70,7 +83,7 @@ export default function PuzzleModal({ isOpen, onClose, location, onPuzzleSolved,
     return (
       <div className="p-6 text-center">
         <h3 className="text-2xl font-bold mb-4 text-[var(--foreground)]">{location.unlockContent.title}</h3>
-        <p className="mb-6 text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">{location.unlockContent.text}</p>
+        <p className="mb-6 text-justify text-[var(--neutral-600)] dark:text-[var(--neutral-400)]">{location.unlockContent.text}</p>
         
         {location.unlockContent.mediaUrl && (
           <div className="my-4">
@@ -156,14 +169,14 @@ export default function PuzzleModal({ isOpen, onClose, location, onPuzzleSolved,
             </div>
 
             {/* Footer */}
-            <div className="p-4 sm:p-6 border-t border-[var(--neutral-200)] dark:border-[var(--neutral-800)]">
+            {/* <div className="p-4 sm:p-6 border-t border-[var(--neutral-200)] dark:border-[var(--neutral-800)]">
               <button
                 onClick={handleClose}
                 className="w-full py-3 px-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
               >
                 Fermer
               </button>
-            </div>
+            </div> */}
           </motion.div>
         </motion.div>
       )}

@@ -11,16 +11,16 @@ interface WordleProps {
   onSolved: () => void;
 }
 
-const WORD_LENGTH = 5;
 const MAX_ATTEMPTS = 6;
 const KEYBOARD_ROWS = [
-  ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
-  ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
-  ['ENTER', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '⌫']
+  ['A', 'Z', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
+  ['Q', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M'],
+  ['ENTER', 'W', 'X', 'C', 'V', 'B', 'N', '⌫']
 ];
 
 export default function Wordle({ puzzleData, onSolved }: WordleProps) {
   const word = puzzleData.word.toUpperCase();
+  const wordLength = word.length;
   const [attempts, setAttempts] = useState<string[]>([]);
   const [currentAttempt, setCurrentAttempt] = useState('');
   const [gameState, setGameState] = useState<'playing' | 'won' | 'lost'>('playing');
@@ -37,7 +37,7 @@ export default function Wordle({ puzzleData, onSolved }: WordleProps) {
   const handleKeyPress = useCallback((key: string) => {
     if (gameState !== 'playing') return;
 
-    if (key === 'ENTER' && currentAttempt.length === WORD_LENGTH) {
+    if (key === 'ENTER' && currentAttempt.length === wordLength) {
       if (currentAttempt === word) {
         setGameState('won');
         setShowVictory(true);
@@ -51,10 +51,10 @@ export default function Wordle({ puzzleData, onSolved }: WordleProps) {
       setCurrentAttempt('');
     } else if (key === 'BACKSPACE') {
       setCurrentAttempt(currentAttempt.slice(0, -1));
-    } else if (key.length === 1 && /^[A-Z]$/.test(key) && currentAttempt.length < WORD_LENGTH) {
+    } else if (key.length === 1 && /^[A-Z]$/.test(key) && currentAttempt.length < wordLength) {
       setCurrentAttempt(currentAttempt + key);
     }
-  }, [currentAttempt, attempts, word, gameState, onSolved]);
+  }, [currentAttempt, attempts, word, gameState, onSolved, wordLength]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -152,12 +152,12 @@ export default function Wordle({ puzzleData, onSolved }: WordleProps) {
         value={currentAttempt}
         onChange={(e) => {
           const value = e.target.value.toUpperCase();
-          if (value.length <= WORD_LENGTH && /^[A-Z]*$/.test(value)) {
+          if (value.length <= wordLength && /^[A-Z]*$/.test(value)) {
             setCurrentAttempt(value);
           }
         }}
         onKeyDown={(e) => {
-          if (e.key === 'Enter' && currentAttempt.length === WORD_LENGTH) {
+          if (e.key === 'Enter' && currentAttempt.length === wordLength) {
             e.preventDefault();
             handleKeyPress('ENTER');
           } else if (e.key === 'Backspace') {
@@ -167,7 +167,7 @@ export default function Wordle({ puzzleData, onSolved }: WordleProps) {
         }}
         className="absolute opacity-0 w-0 h-0"
         autoFocus
-        maxLength={WORD_LENGTH}
+        maxLength={wordLength}
         pattern="[A-Z]*"
         inputMode="text"
       />
@@ -178,8 +178,8 @@ export default function Wordle({ puzzleData, onSolved }: WordleProps) {
           const isCurrent = i === attempts.length;
 
           return (
-            <div key={i} className="flex gap-2">
-              {[...Array(WORD_LENGTH)].map((_, j) => {
+            <div key={i} className="flex gap-2 justify-center">
+              {[...Array(wordLength)].map((_, j) => {
                 const letter = attempt[j] || '';
                 const state = attempts[i] ? getLetterState(letter, j, i) : '';
                 const isCurrentCell = isCurrent && j === currentAttempt.length;
@@ -189,7 +189,7 @@ export default function Wordle({ puzzleData, onSolved }: WordleProps) {
                     key={j}
                     onClick={focusInput}
                     className={`
-                      w-12 h-12 flex items-center justify-center text-2xl font-bold rounded
+                      w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-xl sm:text-2xl font-bold rounded
                       ${state === 'correct' ? 'bg-green-500' : state === 'present' ? 'bg-yellow-500' : 'bg-gray-200 dark:bg-gray-700'}
                       ${state ? 'text-white' : 'text-gray-800 dark:text-gray-200'}
                       ${isCurrentCell ? 'border-2 border-blue-500' : ''}
@@ -219,8 +219,18 @@ export default function Wordle({ puzzleData, onSolved }: WordleProps) {
       )}
 
       {gameState === 'lost' && (
-        <div className="text-red-500 font-bold text-xl">
-          Dommage ! Le mot était : {word}
+        <div className="flex flex-col items-center gap-4">
+          <div className="text-red-500 font-bold text-xl">
+            Dommage ! Le mot était : {word}
+          </div>
+          <button
+            onClick={() => {
+              onSolved();
+            }}
+            className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
+          >
+            Continuer
+          </button>
         </div>
       )}
     </div>
