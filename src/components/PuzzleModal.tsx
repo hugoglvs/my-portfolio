@@ -33,7 +33,9 @@ export default function PuzzleModal({ isOpen, onClose, location, onPuzzleSolved,
 
   const handlePuzzleSolved = () => {
     setShowPuzzle(false);
-    onPuzzleSolved(location.id);
+    if (!isAlreadySolved) {
+      onPuzzleSolved(location.id);
+    }
   };
 
   const handleReplay = () => {

@@ -79,27 +79,30 @@ export default function Explore() {
   
   // Handle puzzle solved
   const handlePuzzleSolved = (locationId: string) => {
+    // Vérifier si l'événement est déjà résolu
+    if (solvedLocations.includes(locationId)) {
+      return;
+    }
+    
     const newSolvedLocations = [...solvedLocations, locationId];
     setSolvedLocations(newSolvedLocations);
     
     // Check for new achievements
     const newAchievements = achievements.filter(achievement => {
-      if (unlockedAchievements.includes(achievement.id)) return false;
-      
-      switch (achievement.id) {
-        case 'first_puzzle':
-          return newSolvedLocations.length >= 1;
-        case 'puzzle_master':
-          return newSolvedLocations.length >= 5;
-        case 'time_traveler':
-          return newSolvedLocations.length >= 10;
-        case 'explorer':
-          return newSolvedLocations.length >= 15;
-        case 'legend':
-          return newSolvedLocations.length >= 20;
-        default:
-          return false;
+      // Si le succès est déjà débloqué, on le saute
+      if (unlockedAchievements.includes(achievement.id)) {
+        return false;
       }
+      
+      // Pour chaque exigence du succès
+      return achievement.requirements.some(req => {
+        if (req.type === 'events') {
+          // Vérifie si tous les événements requis sont résolus
+          const allRequiredEventsSolved = req.ids.every(id => newSolvedLocations.includes(id));
+          return allRequiredEventsSolved;
+        }
+        return false;
+      });
     });
     
     if (newAchievements.length > 0) {

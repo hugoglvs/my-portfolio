@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Achievement } from '@/types';
 
 interface AchievementPopupProps {
@@ -51,59 +52,105 @@ export default function AchievementPopup({ achievement, onClose }: AchievementPo
   };
 
   return (
-    <div
-      className={`fixed top-4 right-4 w-80 bg-gradient-to-r from-[var(--primary)] to-[var(--primary-dark)] rounded-lg shadow-lg transform transition-all duration-500 ${
-        isVisible ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
-      }`}
-    >
-      <div className="flex items-center p-4">
-        <div className="flex-shrink-0 mr-4">
-          <div className="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              width="24" 
-              height="24" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="2" 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              className="text-white"
-            >
-              {getIcon(achievement.icon)}
-            </svg>
-          </div>
-        </div>
-        
-        <div className="flex-1 text-white">
-          <h3 className="font-bold text-lg">Achievement Unlocked!</h3>
-          <p className="font-semibold">{achievement.name}</p>
-          <p className="text-sm text-white text-opacity-80">{achievement.description}</p>
-        </div>
-        
-        <button 
-          onClick={() => {
-            setIsVisible(false);
-            setTimeout(onClose, 500);
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div
+          initial={{ opacity: 0, y: 50, scale: 0.8 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 50, scale: 0.8 }}
+          transition={{ 
+            type: 'spring',
+            stiffness: 300,
+            damping: 25
           }}
-          className="ml-2 text-white text-opacity-80 hover:text-opacity-100"
-          aria-label="Close notification"
+          className="fixed top-4 right-4 z-50"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
-      </div>
-      
-      {/* Progress bar that counts down */}
-      <div className="h-1 bg-white bg-opacity-20">
-        <div 
-          className="h-full bg-white transition-all duration-300"
-          style={{ width: `${progress}%` }}
-        />
-      </div>
-    </div>
+          <div className="relative w-80 bg-gradient-to-r from-[var(--primary)] to-[var(--primary-dark)] rounded-lg shadow-2xl overflow-hidden">
+            {/* Confetti effect */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              {[...Array(20)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ 
+                    x: Math.random() * 100 - 50,
+                    y: -100,
+                    rotate: Math.random() * 360,
+                    opacity: 1
+                  }}
+                  animate={{ 
+                    y: 200,
+                    opacity: 0,
+                    rotate: Math.random() * 360
+                  }}
+                  transition={{ 
+                    duration: 2,
+                    delay: i * 0.1,
+                    ease: "easeOut"
+                  }}
+                  className="absolute text-yellow-400"
+                >
+                  ✨
+                </motion.div>
+              ))}
+            </div>
+
+            <div className="relative p-4">
+              <div className="flex items-center gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                    <svg 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      width="24" 
+                      height="24" 
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      className="text-white"
+                    >
+                      {getIcon(achievement.icon)}
+                    </svg>
+                  </div>
+                </div>
+                
+                <div className="flex-1">
+                  <h3 className="font-bold text-lg text-white">Succès Débloqué !</h3>
+                  <p className="font-semibold text-white">{achievement.name}</p>
+                  <p className="text-sm text-white text-opacity-80">{achievement.description}</p>
+                </div>
+                
+                <button 
+                  onClick={() => {
+                    setIsVisible(false);
+                    setTimeout(onClose, 500);
+                  }}
+                  className="ml-2 text-white text-opacity-80 hover:text-opacity-100 transition-opacity"
+                  aria-label="Fermer la notification"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            
+            {/* Progress bar with glow effect */}
+            <div className="h-1 bg-white bg-opacity-20 relative overflow-hidden">
+              <motion.div 
+                initial={{ width: 0 }}
+                animate={{ width: `${progress}%` }}
+                transition={{ duration: 2, ease: "easeOut" }}
+                className="h-full bg-white relative"
+              >
+                <div className="absolute inset-0 bg-white blur-sm opacity-50"></div>
+              </motion.div>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 } 

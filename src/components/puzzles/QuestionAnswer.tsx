@@ -36,6 +36,13 @@ export default function QuestionAnswer({ puzzleData, onSolved }: QuestionAnswerP
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSubmit(e);
+    }
+  };
+
   return (
     <div className="p-4">
       {puzzleData.title && (
@@ -86,14 +93,20 @@ export default function QuestionAnswer({ puzzleData, onSolved }: QuestionAnswerP
         
         <p className="text-lg font-medium mb-4 text-[var(--foreground)]">{puzzleData.question}</p>
         
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="space-y-4">
           <input
             type="text"
             value={userAnswer}
-            onChange={(e) => setUserAnswer(e.target.value)}
+            onChange={(e) => {
+              setUserAnswer(e.target.value);
+              if (showFeedback) {
+                setShowFeedback(false);
+              }
+            }}
+            onKeyDown={handleKeyDown}
             placeholder="Type your answer here..."
             className="w-full p-3 rounded-lg border-2 border-[var(--neutral-300)] focus:border-[var(--primary)] focus:outline-none"
-            disabled={showFeedback}
+            disabled={showFeedback && isCorrect}
           />
           
           {showFeedback && (
@@ -105,13 +118,17 @@ export default function QuestionAnswer({ puzzleData, onSolved }: QuestionAnswerP
           )}
           
           <button
-            type="submit"
-            className="w-full p-3 bg-[var(--primary)] text-white rounded-lg hover:bg-[var(--primary-dark)] transition"
-            disabled={showFeedback && !isCorrect}
+            onClick={handleSubmit}
+            className={`w-full p-3 ${
+              showFeedback && isCorrect 
+                ? 'bg-green-500 text-white' 
+                : 'bg-[var(--primary)] text-white hover:bg-[var(--primary-dark)]'
+            } rounded-lg transition`}
+            disabled={showFeedback && isCorrect}
           >
             {showFeedback && isCorrect ? 'Moving on...' : 'Submit Answer'}
           </button>
-        </form>
+        </div>
       </div>
     </div>
   );
