@@ -33,7 +33,13 @@ const user = {
   email: "hugoglvs@icloud.com",
   image: "/images/profile.jpg",
   resume: "/resume.pdf",
-  languages: ["Français", "Portugais", "Anglais", "Espagnol", "Italien"],
+  languages: [
+    { name: "Français", level: "Natif" },
+    { name: "Portugais", level: "Natif" },
+    { name: "Anglais", level: "C2" },
+    { name: "Espagnol", level: "C2" },
+    { name: "Italien", level: "B1" }
+  ],
   social: {
     github: "https://github.com/hugoglvs",
     linkedin: "https://linkedin.com/in/hugo-gonçalves-4250031b0/",
@@ -180,17 +186,22 @@ export default function AboutPage() {
                     />
                   </div>
                   {/* Language Spoken */}
-                  <div className="flex flex-wrap gap-2 justify-center w-[calc(2*100px+8px)]">
+                  <div className="flex flex-wrap gap-2 justify-center w-[calc(2*120px+8px)]">
                     {user.languages.map((language, index) => (
-                      <motion.button
+                      <motion.div
                         key={index}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3, delay: 0.1 * index }}
-                        className="px-4 py-1 rounded-full border border-[var(--neutral-500)]/20 hover:bg-[var(--neutral-300)]/10 transition w-[100px]"
+                        className="group relative"
                       >
-                        {language}
-                      </motion.button>
+                        <button className="px-4 py-1 rounded-full border border-[var(--neutral-500)]/20 hover:bg-[var(--neutral-300)]/10 transition w-[120px] h-[32px] relative">
+                          <div className="relative w-full h-full overflow-hidden">
+                            <span className="absolute inset-0 flex items-center justify-center group-hover:opacity-0 group-hover:translate-y-[-10px] transition-all duration-300">{language.name}</span>
+                            <span className="absolute inset-0 flex items-center justify-center opacity-0 translate-y-[10px] group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">{language.level}</span>
+                          </div>
+                        </button>
+                      </motion.div>
                     ))}
                   </div>
                 </motion.div>
