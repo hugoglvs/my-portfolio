@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import { SocialLinksGroup } from '@/components/SocialLinksGroup';
 import { DownloadButton } from '@/components/DownloadButton';
 import { TableOfContents } from '@/components/TableOfContents';
@@ -142,6 +143,8 @@ const user = {
 };
 
 export default function AboutPage() {
+  const [activeLanguage, setActiveLanguage] = useState<number | null>(null);
+  
   const tableOfContentsLinks = [
     { href: '#introduction', label: 'Introduction' },
     { href: '#personality', label: 'Traits de Personnalité' },
@@ -195,10 +198,37 @@ export default function AboutPage() {
                         transition={{ duration: 0.3, delay: 0.1 * index }}
                         className="group relative"
                       >
-                        <button className="px-4 py-1 rounded-full border border-[var(--neutral-500)]/20 hover:bg-[var(--neutral-300)]/10 transition w-[120px] h-[32px] relative">
+                        <button 
+                          className={`px-4 py-1 rounded-full border border-[var(--neutral-500)]/20 transition w-[120px] h-[32px] relative ${
+                            activeLanguage === index ? 'bg-[var(--neutral-300)]/10' : ''
+                          } hover:bg-[var(--neutral-300)]/10`}
+                          onClick={() => {
+                            // Only handle click on mobile
+                            if (window.matchMedia('(max-width: 768px)').matches) {
+                              setActiveLanguage(activeLanguage === index ? null : index);
+                            }
+                          }}
+                        >
                           <div className="relative w-full h-full overflow-hidden">
-                            <span className="absolute inset-0 flex items-center justify-center group-hover:opacity-0 group-hover:translate-y-[-10px] transition-all duration-300">{language.name}</span>
-                            <span className="absolute inset-0 flex items-center justify-center opacity-0 translate-y-[10px] group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">{language.level}</span>
+                            {/* Mobile version */}
+                            <span className={`md:hidden absolute inset-0 flex items-center justify-center transition-all duration-300 ${
+                              activeLanguage === index ? 'opacity-0 translate-y-[-10px]' : 'opacity-100 translate-y-0'
+                            }`}>
+                              {language.name}
+                            </span>
+                            <span className={`md:hidden absolute inset-0 flex items-center justify-center transition-all duration-300 ${
+                              activeLanguage === index ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[10px]'
+                            }`}>
+                              {language.level}
+                            </span>
+                            
+                            {/* Desktop version */}
+                            <span className="hidden md:flex absolute inset-0 items-center justify-center group-hover:opacity-0 group-hover:translate-y-[-10px] transition-all duration-300">
+                              {language.name}
+                            </span>
+                            <span className="hidden md:flex absolute inset-0 items-center justify-center opacity-0 translate-y-[10px] group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                              {language.level}
+                            </span>
                           </div>
                         </button>
                       </motion.div>
