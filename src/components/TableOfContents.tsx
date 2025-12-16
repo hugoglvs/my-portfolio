@@ -12,13 +12,13 @@ interface TableOfContentsProps {
 
 export function TableOfContents({ links }: TableOfContentsProps) {
   return (
-    <motion.nav 
+    <motion.nav
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5 }}
       className="bg-[var(--card)] rounded-lg p-6 shadow-md flex flex-col justify-center h-full"
     >
-      <h3 className="text-xl font-bold mb-6 font-display bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+      <h3 className="text-xl font-bold mb-6 font-display bg-gradient-to-r from-yellow-600 to-amber-600 dark:from-yellow-200 dark:to-amber-300 bg-clip-text text-transparent">
         Table des matières
       </h3>
       <ul className="space-y-3">
@@ -29,9 +29,9 @@ export function TableOfContents({ links }: TableOfContentsProps) {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.3, delay: 0.1 * index }}
           >
-            <Link 
-              href={link.href} 
-              className="block py-2 px-3 rounded-lg hover:bg-[var(--neutral-200)] dark:hover:bg-[var(--neutral-800)] transition-colors duration-200 text-[var(--neutral-600)] dark:text-[var(--neutral-400)] hover:text-[var(--foreground)]"
+            <Link
+              href={link.href}
+              className="block py-1 px-3 rounded-lg hover:bg-[var(--neutral-200)] dark:hover:bg-[var(--neutral-800)] transition-colors duration-200 text-[var(--neutral-600)] dark:text-[var(--neutral-400)] hover:text-[var(--foreground)]"
             >
               {link.label}
             </Link>
@@ -40,4 +40,4 @@ export function TableOfContents({ links }: TableOfContentsProps) {
       </ul>
     </motion.nav>
   );
-} 
+}

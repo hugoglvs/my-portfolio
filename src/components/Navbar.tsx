@@ -1,6 +1,6 @@
 "use client";
 
-import { Home, User, BookOpen, Map } from "lucide-react";
+import { Home, FolderCode } from "lucide-react";
 import LinkGroups, { LinkItem } from "./LinkGroups";
 import { Fragment } from "react";
 
@@ -9,9 +9,8 @@ const navGroups: LinkItem[][] = [
     { label: "Accueil", href: "/", icon: Home },
   ],
   [
-    { label: "Explorer", href: "/explore", icon: Map },
-    { label: "A propos", href: "/about", icon: User },
-    { label: "Hobbies", href: "/hobbies", icon: BookOpen },
+    // { label: "A propos", href: "/about", icon: User },
+    { label: "Projets", href: "/work", icon: FolderCode },
   ],
 ];
 
@@ -30,4 +29,4 @@ export default function Navbar() {
       </div>
     </nav>
   );
-} 
+}
